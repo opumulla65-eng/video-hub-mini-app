@@ -1,118 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Video Hub</title>
 
+
+<!-- Telegram Mini App -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+
+<!-- Monetag Telegram Mini App SDK -->
+<script
+  src="//libtl.com/sdk.js"
+  data-zone="11926831"
+  data-sdk="show_11926831">
+</script>
+
+
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
+:root{
+  --bg:#08090d;
+  --card:#12141b;
+  --card2:#181b24;
+  --text:#fff;
+  --muted:#9297a5;
+  --border:rgba(255,255,255,.08);
+  --accent:#6c63ff;
+}
+
 body{
-  background:#080b12;
-  color:#fff;
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
-  padding-bottom:75px;
+  min-height:100vh;
 }
 
 button,input{
   font:inherit;
 }
 
-.app{
-  max-width:760px;
-  margin:auto;
+button{
+  cursor:pointer;
 }
+
+.app{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding-bottom:80px;
+}
+
 
 /* HEADER */
 
 .header{
-  height:64px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:14px;
+  background:rgba(8,9,13,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 15px;
-  background:#080b12;
-  border-bottom:1px solid #1d2330;
-  position:sticky;
-  top:0;
-  z-index:100;
+  gap:12px;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  font-size:22px;
+  font-weight:800;
 }
 
-.logoIcon{
+.logo span{
+  color:#8c85ff;
+}
+
+.profile-btn{
   width:40px;
   height:40px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#ff315f,#7048ff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-.logoText{
-  font-size:19px;
-  font-weight:bold;
-}
-
-.logoSub{
-  color:#858ea1;
-  font-size:11px;
-  margin-top:2px;
-}
-
-.searchBtn{
-  width:42px;
-  height:42px;
   border:0;
   border-radius:50%;
-  background:#171c27;
-  color:#fff;
-  font-size:22px;
+  background:var(--card2);
+  color:white;
+  font-size:18px;
 }
+
 
 /* SEARCH */
 
-.searchBox{
-  display:none;
-  padding:10px 14px;
+.search{
+  margin-top:12px;
+  position:relative;
 }
 
-.searchBox input{
+.search input{
   width:100%;
-  border:1px solid #293040;
-  background:#111620;
-  color:#fff;
-  outline:none;
+  padding:13px 16px 13px 43px;
   border-radius:13px;
-  padding:13px 15px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:white;
+  outline:none;
 }
 
-/* SECTIONS */
-
-.section{
-  padding:0 14px;
-  margin-top:20px;
+.search input:focus{
+  border-color:rgba(140,133,255,.7);
 }
 
-.sectionTitle{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:12px;
+.search-icon{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
 }
+
 
 /* CATEGORIES */
 
@@ -120,613 +138,619 @@ button,input{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding-bottom:4px;
+  padding:15px 14px 5px;
+  scrollbar-width:none;
 }
 
 .categories::-webkit-scrollbar{
   display:none;
 }
 
-.cat{
-  flex-shrink:0;
-  border:1px solid #292f3d;
-  background:#111620;
-  color:#aeb6c6;
+.category{
+  flex:none;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#bbb;
+  padding:8px 14px;
   border-radius:20px;
-  padding:9px 15px;
+  font-size:13px;
 }
 
-.cat.active{
-  background:#7048ff;
-  border-color:#7048ff;
-  color:#fff;
+.category.active{
+  background:var(--accent);
+  color:white;
+  border-color:var(--accent);
 }
+
+
+/* SECTION */
+
+.section{
+  padding:18px 14px 5px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+
+.section-title h2{
+  font-size:18px;
+}
+
+.count{
+  color:var(--muted);
+  font-size:12px;
+}
+
 
 /* VIDEO GRID */
 
-.videoGrid{
+.video-grid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:11px;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.card{
-  background:#111620;
-  border:1px solid #202735;
-  border-radius:14px;
+.video-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:13px;
   overflow:hidden;
-  cursor:pointer;
+  transition:.2s;
+}
+
+.video-card:active{
+  transform:scale(.98);
 }
 
 .thumb{
   position:relative;
   width:100%;
   aspect-ratio:16/9;
-  background:#151922;
+  background:#1b1d25;
   overflow:hidden;
 }
 
-.thumb img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-}
-
 .thumb video{
-  display:none;
-}
-
-.fallbackThumb{
   width:100%;
   height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#171d2a,#32245e);
-  font-size:34px;
-}
-
-.play{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.70);
-  border:1px solid rgba(255,255,255,.3);
-  font-size:18px;
+  object-fit:cover;
+  display:block;
   pointer-events:none;
 }
 
-.videoNumber{
+.thumb-fallback{
   position:absolute;
-  top:7px;
-  left:7px;
-  padding:4px 7px;
-  border-radius:6px;
-  background:rgba(0,0,0,.7);
-  font-size:10px;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1b1d28,#292d3b);
+  color:#aaa;
+  font-size:30px;
 }
 
-.cardInfo{
+.play-badge{
+  position:absolute;
+  left:10px;
+  bottom:9px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:rgba(0,0,0,.75);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+}
+
+.video-info{
   padding:10px;
 }
 
-.cardTitle{
-  font-size:13px;
-  font-weight:bold;
-  line-height:1.35;
+.video-title{
+  font-size:14px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.cardMeta{
-  color:#7e8799;
+.video-meta{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+
+/* PLAYER PAGE */
+
+.player-page{
+  display:none;
+}
+
+.player-page.active{
+  display:block;
+}
+
+.home-page.hidden{
+  display:none;
+}
+
+.back-row{
+  padding:14px;
+}
+
+.back-btn{
+  border:0;
+  background:var(--card);
+  color:white;
+  padding:9px 14px;
+  border-radius:10px;
+}
+
+.player-container{
+  padding:0 10px;
+}
+
+.player{
+  position:relative;
+  width:100%;
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
+}
+
+.player video{
+  width:100%;
+  display:block;
+  background:#000;
+  aspect-ratio:16/9;
+  object-fit:contain;
+}
+
+.player-info{
+  padding:14px;
+}
+
+.player-title{
+  font-size:19px;
+  font-weight:800;
+}
+
+.player-category{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+
+/* SUGGESTED */
+
+.suggested{
+  padding:5px 14px 30px;
+}
+
+.suggested-title{
+  font-size:17px;
+  font-weight:800;
+  margin:15px 0 12px;
+}
+
+.suggested-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.suggested-item{
+  display:flex;
+  gap:11px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:7px;
+}
+
+.suggested-thumb{
+  width:125px;
+  aspect-ratio:16/9;
+  flex:none;
+  background:#20232c;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.suggested-thumb video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.suggested-info{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.suggested-info strong{
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.suggested-info span{
+  color:var(--muted);
   font-size:11px;
   margin-top:5px;
 }
 
-/* PLAYER PAGE */
 
-.playerPage{
-  display:none;
-  padding-bottom:20px;
-}
+/* BOTTOM NAV */
 
-.playerTop{
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:900px;
+  height:64px;
+  background:rgba(15,16,22,.96);
+  backdrop-filter:blur(15px);
+  border-top:1px solid var(--border);
   display:flex;
+  justify-content:space-around;
   align-items:center;
-  gap:10px;
-  padding:12px 14px;
+  z-index:30;
 }
 
-.backBtn{
-  width:40px;
-  height:40px;
+.nav-btn{
   border:0;
-  border-radius:50%;
-  background:#202632;
-  color:#fff;
-  font-size:22px;
+  background:none;
+  color:#777d8c;
+  font-size:11px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
 }
 
-.playerTopTitle{
-  font-size:17px;
-  font-weight:bold;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.playerBox{
-  width:100%;
-  background:#000;
-}
-
-.playerBox video{
-  width:100%;
-  display:block;
-  background:#000;
-  max-height:75vh;
-}
-
-.playerDetails{
-  padding:15px;
-}
-
-.playerDetails h2{
+.nav-btn span{
   font-size:20px;
 }
 
-.playerDetails p{
-  margin-top:6px;
-  color:#8992a4;
-  font-size:13px;
+.nav-btn.active{
+  color:#9b94ff;
 }
 
-/* SUGGESTIONS */
-
-.suggestSection{
-  padding:0 14px;
-  margin-top:10px;
-}
-
-.suggestTitle{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-.suggestGrid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-
-.suggestCard{
-  background:#111620;
-  border:1px solid #202735;
-  border-radius:12px;
-  overflow:hidden;
-  cursor:pointer;
-}
-
-.suggestThumb{
-  aspect-ratio:16/9;
-  background:linear-gradient(135deg,#171d2a,#32245e);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-}
-
-.suggestInfo{
-  padding:8px;
-}
-
-.suggestInfo strong{
-  font-size:12px;
-}
-
-.suggestInfo small{
-  display:block;
-  color:#7e8799;
-  margin-top:4px;
-}
-
-/* PROFILE */
-
-.profile{
-  display:none;
-  padding:35px 15px;
-  text-align:center;
-}
-
-.profileAvatar{
-  width:78px;
-  height:78px;
-  margin:auto;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#ff315f,#7048ff);
-  font-size:27px;
-  font-weight:bold;
-}
-
-.profile h2{
-  margin-top:15px;
-}
-
-.profile p{
-  color:#8790a2;
-  margin-top:6px;
-  font-size:13px;
-}
 
 /* EMPTY */
 
 .empty{
+  padding:50px 20px;
+  text-align:center;
+  color:var(--muted);
   display:none;
-  text-align:center;
-  color:#788194;
-  padding:50px 10px;
 }
 
-/* BOTTOM NAV */
-
-.bottomNav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:66px;
-  background:#0c1018;
-  border-top:1px solid #202633;
-  display:flex;
-  align-items:center;
-  justify-content:space-around;
-  z-index:500;
-}
-
-.navItem{
-  min-width:65px;
-  text-align:center;
-  color:#737c90;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.navIcon{
-  font-size:21px;
-  line-height:25px;
-}
-
-.navItem.active{
-  color:#fff;
-}
 
 /* MOBILE */
 
-@media(max-width:380px){
+@media(max-width:600px){
 
-  .videoGrid,
-  .suggestGrid{
-    gap:8px;
+  .video-grid{
+    gap:9px;
   }
 
-  .cardTitle{
-    font-size:12px;
+  .video-title{
+    font-size:13px;
+  }
+
+  .video-info{
+    padding:8px;
+  }
+
+  .suggested-thumb{
+    width:110px;
   }
 
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
-<!-- HEADER -->
 
-<header class="header">
+<!-- HOME -->
 
-  <div class="logo">
+<div id="homePage" class="home-page">
 
-    <div class="logoIcon">
-      VI
-    </div>
 
-    <div>
-      <div class="logoText">
-        Video Hub
+  <header class="header">
+
+
+    <div class="header-top">
+
+
+      <div class="logo">
+        Video<span>Hub</span>
       </div>
 
-      <div class="logoSub">
-        Watch your favorite videos
-      </div>
+
+      <button
+        class="profile-btn"
+        onclick="showProfile()">
+
+        👤
+
+      </button>
+
+
     </div>
+
+
+    <div class="search">
+
+
+      <span class="search-icon">
+        🔎
+      </span>
+
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search videos..."
+        autocomplete="off">
+
+
+    </div>
+
+
+  </header>
+
+
+  <div class="categories">
+
+
+    <button
+      class="category active"
+      onclick="filterCategory('All',this)">
+
+      All
+
+    </button>
+
+
+    <button
+      class="category"
+      onclick="filterCategory('Drama',this)">
+
+      Drama
+
+    </button>
+
+
+    <button
+      class="category"
+      onclick="filterCategory('Movies',this)">
+
+      Movies
+
+    </button>
+
+
+    <button
+      class="category"
+      onclick="filterCategory('Series',this)">
+
+      Series
+
+    </button>
+
 
   </div>
 
-  <button class="searchBtn" onclick="toggleSearch()">
-    ⌕
-  </button>
 
-</header>
+  <section class="section">
 
 
-<!-- SEARCH -->
+    <div class="section-title">
 
-<div class="searchBox" id="searchBox">
 
-  <input
-    id="searchInput"
-    type="text"
-    placeholder="Search videos..."
-    oninput="searchVideos()"
-  >
+      <h2>
+        Latest Videos
+      </h2>
+
+
+      <span
+        class="count"
+        id="videoCount">
+
+        3 videos
+
+      </span>
+
+
+    </div>
+
+
+    <div
+      id="videoGrid"
+      class="video-grid">
+    </div>
+
+
+    <div
+      id="empty"
+      class="empty">
+
+      No videos found
+
+    </div>
+
+
+  </section>
+
 
 </div>
 
 
-<!-- HOME PAGE -->
+<!-- PLAYER -->
 
-<main id="homePage">
-
-  <!-- CATEGORIES -->
-
-  <section class="section">
-
-    <div class="sectionTitle">
-      Categories
-    </div>
-
-    <div class="categories">
-
-      <button
-        class="cat active"
-        onclick="filterCategory('All',this)"
-      >
-        All
-      </button>
-
-      <button
-        class="cat"
-        onclick="filterCategory('Drama',this)"
-      >
-        Drama
-      </button>
-
-      <button
-        class="cat"
-        onclick="filterCategory('Movies',this)"
-      >
-        Movies
-      </button>
-
-      <button
-        class="cat"
-        onclick="filterCategory('Sports',this)"
-      >
-        Sports
-      </button>
-
-      <button
-        class="cat"
-        onclick="filterCategory('Music',this)"
-      >
-        Music
-      </button>
-
-      <button
-        class="cat"
-        onclick="filterCategory('News',this)"
-      >
-        News
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- VIDEOS -->
-
-  <section class="section">
-
-    <div class="sectionTitle">
-      Latest Videos
-    </div>
-
-    <div
-      class="videoGrid"
-      id="videoGrid"
-    ></div>
-
-    <div
-      class="empty"
-      id="empty"
-    >
-      No videos found.
-    </div>
-
-  </section>
-
-</main>
-
-
-<!-- PLAYER PAGE -->
-
-<section
-  class="playerPage"
+<div
   id="playerPage"
->
+  class="player-page">
 
-  <div class="playerTop">
+
+  <div class="back-row">
+
 
     <button
-      class="backBtn"
-      onclick="closePlayer()"
-    >
-      ←
+      class="back-btn"
+      onclick="closePlayer()">
+
+      ← Back
+
     </button>
 
-    <div
-      class="playerTopTitle"
-      id="playerTopTitle"
-    >
-      Video
+
+  </div>
+
+
+  <div class="player-container">
+
+
+    <div class="player">
+
+
+      <video
+        id="mainVideo"
+        controls
+        playsinline
+        preload="metadata">
+      </video>
+
+
     </div>
 
-  </div>
+
+    <div class="player-info">
 
 
-  <!-- VIDEO PLAYER -->
+      <div
+        id="playerTitle"
+        class="player-title">
 
-  <div class="playerBox">
+        Video
 
-    <video
-      id="mainVideo"
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
-
-  </div>
+      </div>
 
 
-  <!-- VIDEO INFO -->
+      <div
+        id="playerCategory"
+        class="player-category">
 
-  <div class="playerDetails">
+        Category
 
-    <h2 id="playerTitle">
-      Video
-    </h2>
+      </div>
 
-    <p>
-      Enjoy watching on Video Hub.
-    </p>
+
+    </div>
+
 
   </div>
 
 
-  <!-- SUGGESTED VIDEOS -->
+  <div class="suggested">
 
-  <section class="suggestSection">
 
-    <div class="suggestTitle">
+    <div class="suggested-title">
+
       Suggested Videos
+
     </div>
 
+
     <div
-      class="suggestGrid"
-      id="suggestGrid"
-    ></div>
-
-  </section>
-
-</section>
+      id="suggestedList"
+      class="suggested-list">
+    </div>
 
 
-<!-- PROFILE -->
-
-<section
-  class="profile"
-  id="profilePage"
->
-
-  <div class="profileAvatar">
-    VI
   </div>
 
-  <h2>
-    Video Hub User
-  </h2>
-
-  <p>
-    Your Telegram Video Hub profile
-  </p>
-
-</section>
 
 </div>
 
 
 <!-- BOTTOM NAV -->
 
-<nav class="bottomNav">
+<nav class="bottom-nav">
 
-  <div
-    class="navItem active"
-    onclick="showHome(this)"
-  >
 
-    <div class="navIcon">
-      ⌂
-    </div>
+  <button
+    class="nav-btn active"
+    onclick="goHome()">
+
+    <span>⌂</span>
 
     Home
 
-  </div>
+  </button>
 
 
-  <div
-    class="navItem"
-    onclick="showTrending(this)"
-  >
+  <button
+    class="nav-btn"
+    onclick="focusSearch()">
 
-    <div class="navIcon">
-      🔥
-    </div>
+    <span>⌕</span>
 
-    Trending
+    Search
 
-  </div>
+  </button>
 
 
-  <div
-    class="navItem"
-    onclick="showFavorites(this)"
-  >
+  <button
+    class="nav-btn"
+    onclick="showProfile()">
 
-    <div class="navIcon">
-      ♡
-    </div>
-
-    Favorites
-
-  </div>
-
-
-  <div
-    class="navItem"
-    onclick="showProfile(this)"
-  >
-
-    <div class="navIcon">
-      ●
-    </div>
+    <span>◉</span>
 
     Profile
 
-  </div>
+  </button>
+
 
 </nav>
 
 
+</div>
+
+
 <script>
 
-/* TELEGRAM */
+
+/* =====================================================
+   TELEGRAM
+===================================================== */
 
 const tg =
-  window.Telegram &&
-  window.Telegram.WebApp;
+  window.Telegram?.WebApp;
+
 
 if(tg){
 
@@ -734,601 +758,793 @@ if(tg){
 
   tg.expand();
 
+
+  if(tg.setHeaderColor){
+
+    tg.setHeaderColor("#08090d");
+
+  }
+
+
+  if(tg.setBackgroundColor){
+
+    tg.setBackgroundColor("#08090d");
+
+  }
+
 }
 
 
+/* =====================================================
+   MONETAG
+===================================================== */
+
+let lastAdTime = 0;
+
+
 /*
-================================================
-VIDEO DATABASE
-================================================
+   Minimum interval between ad attempts.
 
-এখানে পরে শুধু নতুন video URL যোগ করবে।
-
-================================================
+   60 seconds রাখছি যাতে একই user-কে
+   বারবার ad না দেখানোর চেষ্টা হয়।
 */
+
+const AD_INTERVAL = 60000;
+
+
+function showMonetagAd(callback){
+
+  const now =
+    Date.now();
+
+
+  /*
+     Frequency control
+  */
+
+  if(
+    lastAdTime !== 0 &&
+    now - lastAdTime < AD_INTERVAL
+  ){
+
+    callback();
+
+    return;
+
+  }
+
+
+  /*
+     Monetag SDK function
+  */
+
+  if(
+    typeof window.show_11926831 === "function"
+  ){
+
+    lastAdTime = now;
+
+
+    try{
+
+      const result =
+        window.show_11926831();
+
+
+      /*
+         SDK যদি Promise return করে
+         তাহলে ad শেষ/close হওয়ার পর
+         video open হবে।
+      */
+
+      if(
+        result &&
+        typeof result.then === "function"
+      ){
+
+        result
+          .then(()=>{
+            callback();
+          })
+          .catch(()=>{
+            callback();
+          });
+
+      }else{
+
+        /*
+           কিছু SDK implementation
+           callback/promise না দিলে
+           অল্প delay-এর পর video open।
+        */
+
+        setTimeout(()=>{
+          callback();
+        },500);
+
+      }
+
+    }catch(error){
+
+      console.log(
+        "Monetag error:",
+        error
+      );
+
+      callback();
+
+    }
+
+  }else{
+
+    /*
+       Monetag SDK এখনো load না হলে
+       video বন্ধ থাকবে না।
+    */
+
+    callback();
+
+  }
+
+}
+
+
+/* =====================================================
+   VIDEO DATA
+===================================================== */
 
 const videos = [
 
   {
     id:1,
-    title:"Video Episode 1",
+    title:"Video 01",
     category:"Drama",
-    url:"https://files.catbox.moe/54pjw2.mp4"
+    url:"https://yourimageshare.com/ib/5HUn1zAZ4X.mp4"
   },
+
 
   {
     id:2,
-    title:"Video Episode 2",
-    category:"Drama",
-    url:"https://files.catbox.moe/nfjfar.mp4"
+    title:"Video 02",
+    category:"Movies",
+    url:"https://yourimageshare.com/ib/sVCbEnyauG.mp4"
+  },
+
+
+  {
+    id:3,
+    title:"Video 03",
+    category:"Series",
+    url:"https://yourimageshare.com/ib/djgH29P4qm.mp4"
   }
 
 ];
 
 
-/*
-================================================
-HOME CARDS
-================================================
-*/
+/* =====================================================
+   VARIABLES
+===================================================== */
 
-function createCards(){
+let currentCategory =
+  "All";
+
+let currentVideoId =
+  null;
+
+
+/* =====================================================
+   HOME RENDER
+===================================================== */
+
+function renderVideos(){
+
 
   const grid =
-    document.getElementById("videoGrid");
-
-  grid.innerHTML="";
-
-  videos.forEach((video,index)=>{
-
-    const card =
-      document.createElement("div");
-
-    card.className =
-      "card videoCard";
-
-    card.dataset.title =
-      video.title.toLowerCase();
-
-    card.dataset.category =
-      video.category;
-
-    card.innerHTML = `
-
-      <div class="thumb">
-
-        <div class="fallbackThumb">
-          🎬
-        </div>
-
-        <video
-          muted
-          preload="metadata"
-          playsinline
-          src="${video.url}"
-        ></video>
-
-        <div class="play">
-          ▶
-        </div>
-
-        <div class="videoNumber">
-          #${index+1}
-        </div>
-
-      </div>
-
-      <div class="cardInfo">
-
-        <div class="cardTitle">
-          ${escapeHTML(video.title)}
-        </div>
-
-        <div class="cardMeta">
-          ${escapeHTML(video.category)} • HD
-        </div>
-
-      </div>
-
-    `;
-
-
-    /*
-    ভিডিও থেকে thumbnail frame
-    নেওয়ার চেষ্টা।
-    */
-
-    const previewVideo =
-      card.querySelector("video");
-
-    const fallback =
-      card.querySelector(".fallbackThumb");
-
-
-    previewVideo.addEventListener(
-      "loadedmetadata",
-      function(){
-
-        /*
-        ভিডিওর প্রায় 20% জায়গার
-        frame নেওয়ার চেষ্টা।
-
-        এটি নির্দিষ্ট 'best moment'
-        AI দিয়ে নির্বাচন নয়।
-        */
-
-        let time = 3;
-
-        if(
-          previewVideo.duration &&
-          isFinite(previewVideo.duration)
-        ){
-
-          time =
-            Math.max(
-              0.5,
-              Math.min(
-                previewVideo.duration * 0.2,
-                previewVideo.duration - 0.5
-              )
-            );
-
-        }
-
-        previewVideo.currentTime =
-          time;
-
-      }
+    document.getElementById(
+      "videoGrid"
     );
 
 
-    previewVideo.addEventListener(
-      "seeked",
-      function(){
-
-        try{
-
-          const canvas =
-            document.createElement("canvas");
-
-          canvas.width=640;
-          canvas.height=360;
-
-          const ctx =
-            canvas.getContext("2d");
-
-          ctx.drawImage(
-            previewVideo,
-            0,
-            0,
-            640,
-            360
-          );
-
-          const image =
-            canvas.toDataURL(
-              "image/jpeg",
-              0.75
-            );
-
-          fallback.style.backgroundImage =
-            `url(${image})`;
-
-          fallback.style.backgroundSize =
-            "cover";
-
-          fallback.style.backgroundPosition =
-            "center";
-
-          fallback.textContent="";
-
-        }catch(error){
-
-          /*
-          CORS বন্ধ থাকলে
-          fallback 🎬 থাকবে।
-          */
-
-        }
-
-      }
+  const empty =
+    document.getElementById(
+      "empty"
     );
 
 
-    card.onclick=function(){
+  const count =
+    document.getElementById(
+      "videoCount"
+    );
 
-      openPlayer(index);
 
-    };
-
-
-    grid.appendChild(card);
-
-  });
-
-}
-
-
-/*
-================================================
-OPEN PLAYER
-================================================
-*/
-
-function openPlayer(index){
-
-  const video =
-    videos[index];
-
-  document.getElementById("homePage")
-    .style.display="none";
-
-  document.getElementById("profilePage")
-    .style.display="none";
-
-  document.getElementById("playerPage")
-    .style.display="block";
-
-  document.getElementById("playerTopTitle")
-    .textContent =
-    video.title;
-
-  document.getElementById("playerTitle")
-    .textContent =
-    video.title;
-
-  const player =
-    document.getElementById("mainVideo");
-
-  player.pause();
-
-  player.src =
-    video.url;
-
-  player.load();
-
-  /*
-  User নিজে play করবে।
-  */
-
-  createSuggestions(index);
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/*
-================================================
-SUGGESTED VIDEOS
-================================================
-*/
-
-function createSuggestions(currentIndex){
-
-  const grid =
-    document.getElementById("suggestGrid");
-
-  grid.innerHTML="";
-
-  videos.forEach((video,index)=>{
-
-    if(index===currentIndex){
-      return;
-    }
-
-    const card =
-      document.createElement("div");
-
-    card.className =
-      "suggestCard";
-
-    card.innerHTML = `
-
-      <div class="suggestThumb">
-        ▶
-      </div>
-
-      <div class="suggestInfo">
-
-        <strong>
-          ${escapeHTML(video.title)}
-        </strong>
-
-        <small>
-          ${escapeHTML(video.category)} • HD
-        </small>
-
-      </div>
-
-    `;
-
-    card.onclick=function(){
-
-      openPlayer(index);
-
-    };
-
-    grid.appendChild(card);
-
-  });
-
-}
-
-
-/*
-================================================
-CLOSE PLAYER
-================================================
-*/
-
-function closePlayer(){
-
-  const player =
-    document.getElementById("mainVideo");
-
-  player.pause();
-
-  player.removeAttribute("src");
-
-  player.load();
-
-  document.getElementById("playerPage")
-    .style.display="none";
-
-  document.getElementById("homePage")
-    .style.display="block";
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/*
-================================================
-SEARCH
-================================================
-*/
-
-function toggleSearch(){
-
-  const box =
-    document.getElementById("searchBox");
-
-  if(box.style.display==="block"){
-
-    box.style.display="none";
-
-  }else{
-
-    box.style.display="block";
-
-    document
-      .getElementById("searchInput")
-      .focus();
-
-  }
-
-}
-
-
-function searchVideos(){
-
-  const query =
+  const search =
     document
       .getElementById("searchInput")
       .value
       .toLowerCase()
       .trim();
 
-  const cards =
-    document.querySelectorAll(".videoCard");
 
-  let found=0;
+  const filtered =
+    videos.filter(video => {
 
-  cards.forEach(card=>{
 
-    if(
-      card.dataset.title
-      .includes(query)
-    ){
+      const categoryMatch =
+        currentCategory === "All" ||
+        video.category === currentCategory;
 
-      card.style.display="block";
 
-      found++;
+      const searchMatch =
+        video.title
+          .toLowerCase()
+          .includes(search);
 
-    }else{
 
-      card.style.display="none";
+      return (
+        categoryMatch &&
+        searchMatch
+      );
 
-    }
+    });
+
+
+  grid.innerHTML = "";
+
+
+  count.textContent =
+    filtered.length +
+    " videos";
+
+
+  if(filtered.length === 0){
+
+    empty.style.display =
+      "block";
+
+    return;
+
+  }
+
+
+  empty.style.display =
+    "none";
+
+
+  filtered.forEach(video => {
+
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+
+    card.className =
+      "video-card";
+
+
+    /*
+       Ad trigger + Player
+
+       User card click করলে
+       আগে Monetag ad attempt হবে।
+       তারপর player open হবে।
+    */
+
+    card.onclick = ()=>{
+
+      showMonetagAd(
+        ()=>{
+          openPlayer(video.id);
+        }
+      );
+
+    };
+
+
+    card.innerHTML = `
+
+      <div class="thumb">
+
+        <video
+          muted
+          playsinline
+          preload="metadata"
+          src="${video.url}">
+        </video>
+
+        <div class="thumb-fallback">
+          🎬
+        </div>
+
+        <div class="play-badge">
+          ▶
+        </div>
+
+      </div>
+
+
+      <div class="video-info">
+
+        <div class="video-title">
+          ${escapeHTML(video.title)}
+        </div>
+
+        <div class="video-meta">
+          ${escapeHTML(video.category)}
+        </div>
+
+      </div>
+
+    `;
+
+
+    const thumbVideo =
+      card.querySelector(
+        "video"
+      );
+
+
+    const fallback =
+      card.querySelector(
+        ".thumb-fallback"
+      );
+
+
+    /*
+       Video-এর মাঝামাঝি সময়
+       thumbnail frame হিসেবে দেখানো।
+    */
+
+    thumbVideo.addEventListener(
+      "loadedmetadata",
+      ()=>{
+
+        if(
+          isFinite(
+            thumbVideo.duration
+          ) &&
+          thumbVideo.duration > 0
+        ){
+
+          try{
+
+            thumbVideo.currentTime =
+              thumbVideo.duration / 2;
+
+          }catch(e){}
+
+        }
+
+      }
+    );
+
+
+    thumbVideo.addEventListener(
+      "seeked",
+      ()=>{
+
+        fallback.style.display =
+          "none";
+
+      }
+    );
+
+
+    thumbVideo.addEventListener(
+      "error",
+      ()=>{
+
+        fallback.style.display =
+          "flex";
+
+      }
+    );
+
+
+    grid.appendChild(card);
 
   });
-
-  document.getElementById("empty")
-    .style.display =
-    found===0
-    ? "block"
-    : "none";
 
 }
 
 
-/*
-================================================
-CATEGORY
-================================================
-*/
+/* =====================================================
+   OPEN PLAYER
+===================================================== */
+
+function openPlayer(id){
+
+
+  const video =
+    videos.find(
+      v => v.id === id
+    );
+
+
+  if(!video) return;
+
+
+  currentVideoId =
+    id;
+
+
+  const home =
+    document.getElementById(
+      "homePage"
+    );
+
+
+  const page =
+    document.getElementById(
+      "playerPage"
+    );
+
+
+  const player =
+    document.getElementById(
+      "mainVideo"
+    );
+
+
+  const title =
+    document.getElementById(
+      "playerTitle"
+    );
+
+
+  const category =
+    document.getElementById(
+      "playerCategory"
+    );
+
+
+  home.classList.add(
+    "hidden"
+  );
+
+
+  page.classList.add(
+    "active"
+  );
+
+
+  player.pause();
+
+
+  player.src =
+    video.url;
+
+
+  player.load();
+
+
+  title.textContent =
+    video.title;
+
+
+  category.textContent =
+    video.category;
+
+
+  renderSuggested();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+}
+
+
+/* =====================================================
+   SUGGESTED VIDEOS
+===================================================== */
+
+function renderSuggested(){
+
+
+  const list =
+    document.getElementById(
+      "suggestedList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  videos
+    .filter(
+      video =>
+        video.id !== currentVideoId
+    )
+    .forEach(video => {
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "suggested-item";
+
+
+      item.onclick = ()=>{
+
+        showMonetagAd(
+          ()=>{
+            openPlayer(video.id);
+          }
+        );
+
+      };
+
+
+      item.innerHTML = `
+
+        <div class="suggested-thumb">
+
+          <video
+            muted
+            playsinline
+            preload="metadata"
+            src="${video.url}">
+          </video>
+
+        </div>
+
+
+        <div class="suggested-info">
+
+          <strong>
+            ${escapeHTML(video.title)}
+          </strong>
+
+          <span>
+            ${escapeHTML(video.category)}
+          </span>
+
+        </div>
+
+      `;
+
+
+      const suggestedVideo =
+        item.querySelector(
+          "video"
+        );
+
+
+      suggestedVideo.addEventListener(
+        "loadedmetadata",
+        ()=>{
+
+          if(
+            isFinite(
+              suggestedVideo.duration
+            ) &&
+            suggestedVideo.duration > 0
+          ){
+
+            try{
+
+              suggestedVideo.currentTime =
+                suggestedVideo.duration / 2;
+
+            }catch(e){}
+
+          }
+
+        }
+      );
+
+
+      list.appendChild(item);
+
+    });
+
+}
+
+
+/* =====================================================
+   CLOSE PLAYER
+===================================================== */
+
+function closePlayer(){
+
+
+  const player =
+    document.getElementById(
+      "mainVideo"
+    );
+
+
+  player.pause();
+
+
+  player.removeAttribute(
+    "src"
+  );
+
+
+  player.load();
+
+
+  document
+    .getElementById(
+      "playerPage"
+    )
+    .classList.remove(
+      "active"
+    );
+
+
+  document
+    .getElementById(
+      "homePage"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
 
 function filterCategory(
   category,
   button
 ){
 
+
+  currentCategory =
+    category;
+
+
   document
-    .querySelectorAll(".cat")
+    .querySelectorAll(
+      ".category"
+    )
     .forEach(btn=>{
-      btn.classList.remove("active");
+
+      btn.classList.remove(
+        "active"
+      );
+
     });
 
-  button.classList.add("active");
 
-  const cards =
-    document.querySelectorAll(".videoCard");
-
-  let found=0;
-
-  cards.forEach(card=>{
-
-    if(
-      category==="All" ||
-      card.dataset.category===category
-    ){
-
-      card.style.display="block";
-
-      found++;
-
-    }else{
-
-      card.style.display="none";
-
-    }
-
-  });
-
-  document.getElementById("empty")
-    .style.display =
-    found===0
-    ? "block"
-    : "none";
-
-}
-
-
-/*
-================================================
-NAVIGATION
-================================================
-*/
-
-function setActiveNav(nav){
-
-  document
-    .querySelectorAll(".navItem")
-    .forEach(item=>{
-      item.classList.remove("active");
-    });
-
-  nav.classList.add("active");
-
-}
-
-
-function showHome(nav){
-
-  document.getElementById("homePage")
-    .style.display="block";
-
-  document.getElementById("playerPage")
-    .style.display="none";
-
-  document.getElementById("profilePage")
-    .style.display="none";
-
-  setActiveNav(nav);
-
-}
-
-
-function showTrending(nav){
-
-  showHome(nav);
-
-  window.scrollTo({
-    top:300,
-    behavior:"smooth"
-  });
-
-}
-
-
-function showFavorites(nav){
-
-  setActiveNav(nav);
-
-  alert(
-    "Favorites system will be added later."
+  button.classList.add(
+    "active"
   );
 
-}
 
-
-function showProfile(nav){
-
-  document.getElementById("homePage")
-    .style.display="none";
-
-  document.getElementById("playerPage")
-    .style.display="none";
-
-  document.getElementById("profilePage")
-    .style.display="block";
-
-  setActiveNav(nav);
+  renderVideos();
 
 }
 
 
-/*
-================================================
-ESCAPE
-================================================
-*/
+/* =====================================================
+   SEARCH
+===================================================== */
 
-document.addEventListener(
-  "keydown",
-  function(e){
+document
+  .getElementById(
+    "searchInput"
+  )
+  .addEventListener(
+    "input",
+    renderVideos
+  );
 
-    if(e.key==="Escape"){
-      closePlayer();
-    }
+
+function focusSearch(){
+
+
+  goHome();
+
+
+  setTimeout(()=>{
+
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .focus();
+
+
+  },100);
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function goHome(){
+
+  closePlayer();
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function showProfile(){
+
+
+  if(
+    tg &&
+    tg.showAlert
+  ){
+
+    tg.showAlert(
+      "Video Hub Profile"
+    );
+
+  }else{
+
+    alert(
+      "Video Hub Profile"
+    );
 
   }
-);
-
-
-/*
-================================================
-SAFE TEXT
-================================================
-*/
-
-function escapeHTML(text){
-
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
 
 }
 
 
-/*
-================================================
-START
-================================================
-*/
+/* =====================================================
+   HTML SECURITY
+===================================================== */
 
-createCards();
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+renderVideos();
 
 </script>
 

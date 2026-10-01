@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Video Hub</title>
+
+  <!-- Telegram Mini App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0f14;
+      color: #ffffff;
+      padding-bottom: 75px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .app {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* Header */
+    .header {
+      padding: 18px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #ff3b6b, #7c4dff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text h1 {
+      font-size: 20px;
+    }
+
+    .logo-text p {
+      color: #8993a4;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .search-btn {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: #171d26;
+      color: white;
+      font-size: 20px;
+    }
+
+    /* Search */
+    .search-box {
+      display: none;
+      padding: 0 16px 12px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #171d26;
+      border: 1px solid #252d38;
+      color: white;
+      border-radius: 12px;
+      padding: 13px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    /* Featured */
+    .featured {
+      margin: 8px 16px 22px;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: #161c24;
+    }
+
+    .featured-image {
+      height: 230px;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.85), transparent 65%),
+        linear-gradient(135deg, #48205f, #152e55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+    }
+
+    .featured-info {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+    }
+
+    .featured-info .tag {
+      display: inline-block;
+      background: #ff315f;
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .featured-info h2 {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .featured-info p {
+      color: #c4cad3;
+      font-size: 12px;
+    }
+
+    .play-btn {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: white;
+      color: #111;
+      font-size: 19px;
+    }
+
+    /* Sections */
+    .section {
+      padding: 0 16px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .section-title h3 {
+      font-size: 17px;
+    }
+
+    .section-title span {
+      color: #8e98a8;
+      font-size: 12px;
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      flex: 0 0 auto;
+      border: 0;
+      background: #171d26;
+      color: #dfe4eb;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .category.active {
+      background: #ff315f;
+      color: white;
+    }
+
+    /* Videos */
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .video-card {
+      background: #151b23;
+      border-radius: 13px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .thumbnail {
+      height: 125px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #233d63, #572a52);
+    }
+
+    .thumbnail.two {
+      background: linear-gradient(135deg, #155d56, #222b5c);
+    }
+
+    .thumbnail.three {
+      background: linear-gradient(135deg, #65401e, #47234e);
+    }
+
+    .thumbnail.four {
+      background: linear-gradient(135deg, #233f30, #293967);
+    }
+
+    .thumbnail span {
+      font-size: 35px;
+    }
+
+    .duration {
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+      background: rgba(0,0,0,.75);
+      padding: 4px 6px;
+      border-radius: 5px;
+      font-size: 10px;
+    }
+
+    .video-info {
+      padding: 10px;
+    }
+
+    .video-info h4 {
+      font-size: 13px;
+      line-height: 1.35;
+      margin-bottom: 5px;
+    }
+
+    .video-info p {
+      color: #7f8998;
+      font-size: 10px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 67px;
+      background: rgba(15,19,25,.96);
+      border-top: 1px solid #252c35;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      color: #7d8796;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .nav-btn strong {
+      font-size: 19px;
+      font-weight: normal;
+    }
+
+    .nav-btn.active {
+      color: #ff315f;
+    }
+
+    /* Empty / no results */
+    .no-results {
+      display: none;
+      color: #8993a4;
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 360px) {
+      .videos {
+        gap: 9px;
+      }
+
+      .thumbnail {
+        height: 110px;
+      }
+
+      .featured-image {
+        height: 205px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">▶</div>
+      <div class="logo-text">
+        <h1>Video Hub</h1>
+        <p>Watch • Discover • Enjoy</p>
+      </div>
+    </div>
+
+    <button class="search-btn" id="searchBtn" type="button">⌕</button>
+  </header>
+
+  <!-- Search -->
+  <div class="search-box" id="searchBox">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search videos..."
+      autocomplete="off">
+  </div>
+
+  <!-- Featured -->
+  <section class="featured">
+    <div class="featured-image">
+      🎬
+    </div>
+
+    <div class="featured-info">
+      <span class="tag">FEATURED</span>
+      <h2>Welcome to Video Hub</h2>
+      <p>Discover the latest videos</p>
+    </div>
+
+    <button class="play-btn" id="featuredPlay" type="button">
+      ▶
+    </button>
+  </section>
+
+  <!-- Categories -->
+  <section class="section">
+    <div class="section-title">
+      <h3>Categories</h3>
+      <span>See all</span>
+    </div>
+
+    <div class="categories">
+      <button class="category active" type="button">All</button>
+      <button class="category" type="button">Movies</button>
+      <button class="category" type="button">Drama</button>
+      <button class="category" type="button">Sports</button>
+      <button class="category" type="button">Music</button>
+      <button class="category" type="button">News</button>
+    </div>
+  </section>
+
+  <!-- Trending -->
+  <section class="section">
+    <div class="section-title">
+      <h3>🔥 Trending Videos</h3>
+      <span>See all</span>
+    </div>
+
+    <div class="videos" id="videoGrid">
+
+      <article class="video-card" data-title="Amazing Movie Trailer">
+        <div class="thumbnail">
+          <span>🎬</span>
+          <small class="duration">2:35</small>
+        </div>
+        <div class="video-info">
+          <h4>Amazing Movie Trailer</h4>
+          <p>1.2K views</p>
+        </div>
+      </article>
+
+      <article class="video-card" data-title="Football Highlights">
+        <div class="thumbnail two">
+          <span>⚽</span>
+          <small class="duration">4:18</small>
+        </div>
+        <div class="video-info">
+          <h4>Football Highlights</h4>
+          <p>2.8K views</p>
+        </div>
+      </article>
+
+      <article class="video-card" data-title="Drama Episode">
+        <div class="thumbnail three">
+          <span>🎭</span>
+          <small class="duration">12:40</small>
+        </div>
+        <div class="video-info">
+          <h4>Drama Episode</h4>
+          <p>5.4K views</p>
+        </div>
+      </article>
+
+      <article class="video-card" data-title="Top Music Video">
+        <div class="thumbnail four">
+          <span>🎵</span>
+          <small class="duration">3:52</small>
+        </div>
+        <div class="video-info">
+          <h4>Top Music Video</h4>
+          <p>3.1K views</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+      No videos found.
+    </div>
+  </section>
+
+  <!-- Latest -->
+  <section class="section">
+    <div class="section-title">
+      <h3>🆕 Latest Videos</h3>
+      <span>See all</span>
+    </div>
+
+    <div class="videos">
+
+      <article class="video-card">
+        <div class="thumbnail four">
+          <span>📺</span>
+          <small class="duration">5:20</small>
+        </div>
+        <div class="video-info">
+          <h4>Latest Video</h4>
+          <p>New today</p>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="thumbnail two">
+          <span>🌟</span>
+          <small class="duration">8:15</small>
+        </div>
+        <div class="video-info">
+          <h4>Featured Content</h4>
+          <p>New today</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <div class="nav-inner">
+
+    <button class="nav-btn active" type="button">
+      <strong>⌂</strong>
+      Home
+    </button>
+
+    <button class="nav-btn" type="button">
+      <strong>🔥</strong>
+      Trending
+    </button>
+
+    <button class="nav-btn" type="button">
+      <strong>♡</strong>
+      Favorites
+    </button>
+
+    <button class="nav-btn" type="button">
+      <strong>♙</strong>
+      Profile
+    </button>
+
+  </div>
+</nav>
+
+<script>
+  // Telegram Mini App
+  const tg = window.Telegram && window.Telegram.WebApp;
+
+  if (tg) {
+    tg.ready();
+    tg.expand();
+  }
+
+  // Search open/close
+  const searchBtn = document.getElementById("searchBtn");
+  const searchBox = document.getElementById("searchBox");
+  const searchInput = document.getElementById("searchInput");
+
+  searchBtn.addEventListener("click", function () {
+    if (searchBox.style.display === "block") {
+      searchBox.style.display = "none";
+      searchInput.value = "";
+      filterVideos("");
+    } else {
+      searchBox.style.display = "block";
+      searchInput.focus();
+    }
+  });
+
+  // Search videos
+  searchInput.addEventListener("input", function () {
+    filterVideos(this.value);
+  });
+
+  function filterVideos(query) {
+    const cards = document.querySelectorAll("#videoGrid .video-card");
+    const noResults = document.getElementById("noResults");
+
+    let found = 0;
+
+    cards.forEach(function (card) {
+      const title = card.dataset.title.toLowerCase();
+      const search = query.toLowerCase().trim();
+
+      if (!search || title.includes(search)) {
+        card.style.display = "";
+        found++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    noResults.style.display = found === 0 ? "block" : "none";
+  }
+
+  // Category buttons
+  document.querySelectorAll(".category").forEach(function (button) {
+    button.addEventListener("click", function () {
+
+      document.querySelectorAll(".category").forEach(function (btn) {
+        btn.classList.remove("active");
+      });
+
+      this.classList.add("active");
+    });
+  });
+
+  // Demo video click
+  document.querySelectorAll(".video-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      const title = this.dataset.title || "Video";
+
+      if (tg && tg.showAlert) {
+        tg.showAlert(title + "\\n\\nVideo player will be added in the next step.");
+      } else {
+        alert(title + "\\n\\nVideo player will be added in the next step.");
+      }
+    });
+  });
+
+  document.getElementById("featuredPlay").addEventListener("click", function () {
+    if (tg && tg.showAlert) {
+      tg.showAlert("Video Player will be added in the next step.");
+    } else {
+      alert("Video Player will be added in the next step.");
+    }
+  });
+</script>
+
+</body>
+</html>

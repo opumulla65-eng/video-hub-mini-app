@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>P**** Video Hub</title>
 
-<title>Video Hub</title>
-
-
-<!-- Telegram Mini App -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-
-<!-- Monetag Telegram Mini App SDK -->
-<script
-  src="//libtl.com/sdk.js"
-  data-zone="11926831"
-  data-sdk="show_11926831">
-</script>
-
-
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -31,13 +16,19 @@
 }
 
 :root{
-  --bg:#08090d;
-  --card:#12141b;
-  --card2:#181b24;
+  --bg:#07080c;
+  --surface:#10121a;
+  --surface2:#171a24;
+  --surface3:#202432;
   --text:#fff;
-  --muted:#9297a5;
+  --muted:#8f95a6;
   --border:rgba(255,255,255,.08);
-  --accent:#6c63ff;
+  --accent:#766cff;
+  --accent2:#9b91ff;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -45,82 +36,113 @@ body{
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-button,input{
+button,
+input{
   font:inherit;
 }
 
 button{
+  border:0;
   cursor:pointer;
+  color:inherit;
 }
 
 .app{
   width:100%;
-  max-width:900px;
+  max-width:1000px;
   margin:auto;
-  padding-bottom:80px;
+  padding-bottom:88px;
 }
 
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 .header{
   position:sticky;
   top:0;
-  z-index:20;
-  padding:14px;
-  background:rgba(8,9,13,.94);
-  backdrop-filter:blur(15px);
+  z-index:50;
+  padding:12px 14px 10px;
+  background:rgba(7,8,12,.92);
+  backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
 }
 
-.header-top{
+.header-row{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
 }
 
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
 .logo{
-  font-size:22px;
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  object-fit:cover;
+  background:var(--surface2);
+  border:1px solid var(--border);
+}
+
+.brand-name{
+  font-size:18px;
   font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.logo span{
-  color:#8c85ff;
+.brand-name span{
+  color:var(--accent2);
 }
 
-.profile-btn{
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
   width:40px;
   height:40px;
-  border:0;
   border-radius:50%;
-  background:var(--card2);
-  color:white;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:18px;
 }
 
 
-/* SEARCH */
+/* ================= SEARCH ================= */
 
-.search{
-  margin-top:12px;
+.search-box{
   position:relative;
+  margin-top:12px;
 }
 
-.search input{
+.search-box input{
   width:100%;
-  padding:13px 16px 13px 43px;
-  border-radius:13px;
+  height:44px;
+  padding:0 16px 0 44px;
+  background:var(--surface);
   border:1px solid var(--border);
-  background:var(--card);
-  color:white;
+  border-radius:13px;
+  color:#fff;
   outline:none;
 }
 
-.search input:focus{
-  border-color:rgba(140,133,255,.7);
+.search-box input:focus{
+  border-color:rgba(118,108,255,.65);
 }
 
 .search-icon{
@@ -132,13 +154,91 @@ button{
 }
 
 
-/* CATEGORIES */
+/* ================= HERO ================= */
+
+.hero{
+  margin:14px;
+  position:relative;
+  min-height:205px;
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--surface2);
+  border:1px solid var(--border);
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.72;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7,8,12,.96) 0%,
+      rgba(7,8,12,.62) 48%,
+      rgba(7,8,12,.18) 100%
+    );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  min-height:205px;
+  padding:25px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-start;
+}
+
+.hero-badge{
+  display:inline-flex;
+  padding:5px 9px;
+  border-radius:20px;
+  background:rgba(118,108,255,.2);
+  border:1px solid rgba(155,145,255,.3);
+  color:#c9c4ff;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.hero-title{
+  margin-top:9px;
+  font-size:24px;
+  font-weight:900;
+}
+
+.hero-subtitle{
+  margin-top:6px;
+  color:#c0c4cf;
+  font-size:12px;
+}
+
+.hero-button{
+  margin-top:14px;
+  padding:10px 17px;
+  border-radius:11px;
+  background:var(--accent);
+  font-weight:800;
+  font-size:13px;
+}
+
+
+/* ================= CATEGORIES ================= */
 
 .categories{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding:15px 14px 5px;
+  padding:2px 14px 5px;
   scrollbar-width:none;
 }
 
@@ -148,77 +248,80 @@ button{
 
 .category{
   flex:none;
+  padding:9px 15px;
+  border-radius:22px;
+  background:var(--surface);
   border:1px solid var(--border);
-  background:var(--card);
-  color:#bbb;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:13px;
+  color:#aeb3c0;
+  font-size:12px;
 }
 
 .category.active{
   background:var(--accent);
-  color:white;
+  color:#fff;
   border-color:var(--accent);
 }
 
 
-/* SECTION */
+/* ================= SECTIONS ================= */
 
 .section{
-  padding:18px 14px 5px;
+  padding:20px 14px 0;
 }
 
-.section-title{
+.section-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
   margin-bottom:13px;
 }
 
-.section-title h2{
+.section-head h2{
   font-size:18px;
 }
 
-.count{
+.section-head span{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
 }
 
 
-/* VIDEO GRID */
+/* ================= VIDEO GRID ================= */
 
 .video-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
 }
 
 .video-card{
-  background:var(--card);
+  background:var(--surface);
   border:1px solid var(--border);
-  border-radius:13px;
+  border-radius:14px;
   overflow:hidden;
-  transition:.2s;
+  transition:transform .18s,border-color .18s;
 }
 
 .video-card:active{
-  transform:scale(.98);
+  transform:scale(.975);
 }
 
-.thumb{
+.thumbnail{
   position:relative;
-  width:100%;
   aspect-ratio:16/9;
-  background:#1b1d25;
+  background:#191c25;
   overflow:hidden;
 }
 
-.thumb video{
+.thumbnail img,
+.thumbnail video{
   width:100%;
   height:100%;
-  object-fit:cover;
   display:block;
+  object-fit:cover;
+}
+
+.thumbnail video{
   pointer-events:none;
 }
 
@@ -228,45 +331,64 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,#1b1d28,#292d3b);
-  color:#aaa;
-  font-size:30px;
+  background:linear-gradient(135deg,#181b25,#292d3b);
+  font-size:28px;
 }
 
-.play-badge{
+.play-circle{
   position:absolute;
   left:10px;
   bottom:9px;
   width:34px;
   height:34px;
   border-radius:50%;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.72);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  font-size:13px;
+  backdrop-filter:blur(5px);
 }
 
-.video-info{
-  padding:10px;
+.duration{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  padding:4px 6px;
+  border-radius:5px;
+  background:rgba(0,0,0,.78);
+  color:#fff;
+  font-size:10px;
 }
 
-.video-title{
-  font-size:14px;
-  font-weight:700;
+.card-body{
+  padding:9px;
+}
+
+.card-title{
+  font-size:13px;
+  font-weight:750;
+  line-height:1.35;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.video-meta{
-  margin-top:5px;
+.card-meta{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:6px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
+}
+
+.card-category{
+  color:#aaa3ff;
 }
 
 
-/* PLAYER PAGE */
+/* ================= PLAYER ================= */
 
 .player-page{
   display:none;
@@ -285,51 +407,80 @@ button{
 }
 
 .back-btn{
-  border:0;
-  background:var(--card);
-  color:white;
   padding:9px 14px;
   border-radius:10px;
+  background:var(--surface);
+  border:1px solid var(--border);
 }
 
-.player-container{
+.player-wrap{
   padding:0 10px;
 }
 
 .player{
-  position:relative;
   width:100%;
   background:#000;
-  border-radius:14px;
+  border-radius:16px;
   overflow:hidden;
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
+  border:1px solid var(--border);
 }
 
 .player video{
   width:100%;
   display:block;
-  background:#000;
   aspect-ratio:16/9;
+  background:#000;
   object-fit:contain;
 }
 
-.player-info{
-  padding:14px;
+.player-details{
+  padding:15px 4px;
 }
 
 .player-title{
-  font-size:19px;
-  font-weight:800;
+  font-size:20px;
+  font-weight:900;
 }
 
-.player-category{
-  margin-top:5px;
+.player-meta{
+  margin-top:7px;
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
+}
+
+.player-actions{
+  display:flex;
+  gap:8px;
+  margin-top:13px;
+}
+
+.player-action{
+  flex:1;
+  min-height:42px;
+  border-radius:11px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  font-size:12px;
+}
+
+.player-action.active{
+  color:#aaa3ff;
+  border-color:rgba(118,108,255,.45);
+}
+
+.description{
+  margin-top:13px;
+  padding:13px;
+  border-radius:13px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:#b9bdc9;
+  font-size:12px;
+  line-height:1.6;
 }
 
 
-/* SUGGESTED */
+/* ================= SUGGESTED ================= */
 
 .suggested{
   padding:5px 14px 30px;
@@ -338,33 +489,29 @@ button{
 .suggested-title{
   font-size:17px;
   font-weight:800;
-  margin:15px 0 12px;
-}
-
-.suggested-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  margin:16px 0 12px;
 }
 
 .suggested-item{
   display:flex;
-  gap:11px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
+  gap:10px;
   padding:7px;
+  margin-bottom:9px;
+  border-radius:12px;
+  background:var(--surface);
+  border:1px solid var(--border);
 }
 
 .suggested-thumb{
-  width:125px;
+  width:112px;
   aspect-ratio:16/9;
   flex:none;
-  background:#20232c;
   border-radius:8px;
   overflow:hidden;
+  background:#1b1e27;
 }
 
+.suggested-thumb img,
 .suggested-thumb video{
   width:100%;
   height:100%;
@@ -379,262 +526,290 @@ button{
 }
 
 .suggested-info strong{
-  font-size:13px;
+  font-size:12px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .suggested-info span{
-  color:var(--muted);
-  font-size:11px;
   margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
 }
 
 
-/* BOTTOM NAV */
+/* ================= EMPTY / ERROR ================= */
+
+.empty,
+.error-box,
+.loading{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.error-box{
+  display:none;
+  color:#ff9ba8;
+}
+
+
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
+  z-index:100;
   left:50%;
   bottom:0;
   transform:translateX(-50%);
   width:100%;
-  max-width:900px;
-  height:64px;
-  background:rgba(15,16,22,.96);
-  backdrop-filter:blur(15px);
-  border-top:1px solid var(--border);
+  max-width:1000px;
+  height:68px;
   display:flex;
-  justify-content:space-around;
   align-items:center;
-  z-index:30;
+  justify-content:space-around;
+  background:rgba(12,13,19,.96);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--border);
 }
 
 .nav-btn{
-  border:0;
+  min-width:60px;
   background:none;
-  color:#777d8c;
-  font-size:11px;
+  color:#777d8d;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:4px;
+  font-size:10px;
 }
 
-.nav-btn span{
+.nav-icon{
   font-size:20px;
+  line-height:1;
 }
 
 .nav-btn.active{
-  color:#9b94ff;
+  color:#aaa3ff;
 }
 
 
-/* EMPTY */
-
-.empty{
-  padding:50px 20px;
-  text-align:center;
-  color:var(--muted);
-  display:none;
-}
-
-
-/* ERROR */
-
-.data-error{
-  display:none;
-  margin:20px 14px;
-  padding:15px;
-  border-radius:12px;
-  background:#19131a;
-  border:1px solid rgba(255,80,100,.25);
-  color:#ff9ba8;
-  text-align:center;
-  font-size:13px;
-  line-height:1.5;
-}
-
-
-/* MOBILE */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:600px){
 
+  .hero{
+    min-height:195px;
+  }
+
+  .hero-content{
+    min-height:195px;
+  }
+
+  .hero-title{
+    font-size:21px;
+  }
+
   .video-grid{
-    gap:9px;
+    gap:8px;
   }
 
-  .video-title{
-    font-size:13px;
-  }
-
-  .video-info{
+  .card-body{
     padding:8px;
   }
 
-  .suggested-thumb{
-    width:110px;
+  .card-title{
+    font-size:12px;
   }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="app">
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <div id="homePage" class="home-page">
 
 
-  <header class="header">
+<header class="header">
 
+  <div class="header-row">
 
-    <div class="header-top">
+    <div class="brand">
 
+      <img
+        id="appLogo"
+        class="logo"
+        src="https://yourimageshare.com/ib/GlV2dL5IWO.jpg"
+        alt="P**** Video Hub">
 
-      <div class="logo">
-        Video<span>Hub</span>
+      <div class="brand-name">
+        P**** <span>Video Hub</span>
       </div>
 
+    </div>
+
+
+    <div class="header-actions">
 
       <button
-        class="profile-btn"
+        class="icon-btn"
         onclick="showProfile()">
-
         👤
-
       </button>
 
-
     </div>
-
-
-    <div class="search">
-
-
-      <span class="search-icon">
-        🔎
-      </span>
-
-
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search videos..."
-        autocomplete="off">
-
-
-    </div>
-
-
-  </header>
-
-
-  <div class="categories">
-
-
-    <button
-      class="category active"
-      onclick="filterCategory('All',this)">
-
-      All
-
-    </button>
-
-
-    <button
-      class="category"
-      onclick="filterCategory('Drama',this)">
-
-      Drama
-
-    </button>
-
-
-    <button
-      class="category"
-      onclick="filterCategory('Movies',this)">
-
-      Movies
-
-    </button>
-
-
-    <button
-      class="category"
-      onclick="filterCategory('Series',this)">
-
-      Series
-
-    </button>
-
 
   </div>
 
 
-  <section class="section">
+  <div class="search-box">
+
+    <span class="search-icon">🔎</span>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search videos..."
+      autocomplete="off">
+
+  </div>
+
+</header>
 
 
-    <div class="section-title">
+<!-- HERO -->
 
+<section class="hero">
 
-      <h2>
-        Latest Videos
-      </h2>
+  <img
+    id="heroImage"
+    class="hero-bg"
+    src="https://yourimageshare.com/ib/GlV2dL5IWO.jpg"
+    alt="Featured">
 
+  <div class="hero-overlay"></div>
 
-      <span
-        class="count"
-        id="videoCount">
+  <div class="hero-content">
 
-        0 videos
-
-      </span>
-
-
+    <div class="hero-badge">
+      Featured
     </div>
 
-
-    <div
-      id="videoGrid"
-      class="video-grid">
+    <div class="hero-title">
+      Watch Latest Videos
     </div>
 
-
-    <div
-      id="empty"
-      class="empty">
-
-      No videos found
-
+    <div class="hero-subtitle">
+      Discover the latest videos in one place.
     </div>
 
+    <button
+      class="hero-button"
+      onclick="scrollToVideos()">
+      ▶ Explore Videos
+    </button>
 
-  </section>
+  </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<div
+  id="categories"
+  class="categories">
+
+  <button
+    class="category active"
+    onclick="filterCategory('All',this)">
+    All
+  </button>
+
+  <button
+    class="category"
+    onclick="filterCategory('Category 1',this)">
+    Category 1
+  </button>
+
+  <button
+    class="category"
+    onclick="filterCategory('Category 2',this)">
+    Category 2
+  </button>
+
+  <button
+    class="category"
+    onclick="filterCategory('Category 3',this)">
+    Category 3
+  </button>
+
+</div>
+
+
+<!-- LATEST -->
+
+<section
+  id="videosSection"
+  class="section">
+
+  <div class="section-head">
+
+    <h2>
+      Latest Videos
+    </h2>
+
+    <span id="videoCount">
+      0 videos
+    </span>
+
+  </div>
 
 
   <div
-    id="dataError"
-    class="data-error">
-
-    ভিডিও লোড করা যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।
-
+    id="videoGrid"
+    class="video-grid">
   </div>
+
+
+  <div
+    id="loading"
+    class="loading">
+    Loading videos...
+  </div>
+
+
+  <div
+    id="empty"
+    class="empty"
+    style="display:none;">
+    No videos found.
+  </div>
+
+
+  <div
+    id="errorBox"
+    class="error-box">
+    Unable to load videos. Please try again.
+  </div>
+
+</section>
 
 
 </div>
 
 
-<!-- PLAYER -->
+<!-- ================= PLAYER ================= -->
 
 <div
   id="playerPage"
@@ -643,24 +818,19 @@ button{
 
   <div class="back-row">
 
-
     <button
       class="back-btn"
       onclick="closePlayer()">
-
       ← Back
-
     </button>
-
 
   </div>
 
 
-  <div class="player-container">
+  <div class="player-wrap">
 
 
     <div class="player">
-
 
       <video
         id="mainVideo"
@@ -669,52 +839,70 @@ button{
         preload="metadata">
       </video>
 
-
     </div>
 
 
-    <div class="player-info">
-
+    <div class="player-details">
 
       <div
         id="playerTitle"
         class="player-title">
-
         Video
+      </div>
+
+
+      <div
+        id="playerMeta"
+        class="player-meta">
+        Category
+      </div>
+
+
+      <div class="player-actions">
+
+        <button
+          id="likeBtn"
+          class="player-action"
+          onclick="toggleLike()">
+          👍 Like
+        </button>
+
+        <button
+          id="favoriteBtn"
+          class="player-action"
+          onclick="toggleFavorite()">
+          ♡ Favorite
+        </button>
+
+        <button
+          class="player-action"
+          onclick="shareCurrentVideo()">
+          ↗ Share
+        </button>
 
       </div>
 
 
       <div
-        id="playerCategory"
-        class="player-category">
-
-        Category
-
+        id="description"
+        class="description">
+        Video information
       </div>
 
-
     </div>
-
 
   </div>
 
 
   <div class="suggested">
 
-
     <div class="suggested-title">
-
       Suggested Videos
-
     </div>
-
 
     <div
-      id="suggestedList"
-      class="suggested-list">
+      id="suggestedList">
     </div>
-
 
   </div>
 
@@ -722,17 +910,15 @@ button{
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav class="bottom-nav">
-
 
   <button
     class="nav-btn active"
     onclick="goHome()">
 
-    <span>⌂</span>
-
+    <span class="nav-icon">⌂</span>
     Home
 
   </button>
@@ -742,9 +928,18 @@ button{
     class="nav-btn"
     onclick="focusSearch()">
 
-    <span>⌕</span>
-
+    <span class="nav-icon">⌕</span>
     Search
+
+  </button>
+
+
+  <button
+    class="nav-btn"
+    onclick="showFavorites()">
+
+    <span class="nav-icon">♡</span>
+    Favorites
 
   </button>
 
@@ -753,12 +948,10 @@ button{
     class="nav-btn"
     onclick="showProfile()">
 
-    <span>◉</span>
-
+    <span class="nav-icon">◉</span>
     Profile
 
   </button>
-
 
 </nav>
 
@@ -768,14 +961,12 @@ button{
 
 <script>
 
-
 /* =====================================================
    TELEGRAM
 ===================================================== */
 
 const tg =
-  window.Telegram?.WebApp;
-
+  window.Telegram?.WebApp || null;
 
 if(tg){
 
@@ -783,146 +974,74 @@ if(tg){
 
   tg.expand();
 
-
   if(tg.setHeaderColor){
-
-    tg.setHeaderColor("#08090d");
-
+    tg.setHeaderColor("#07080c");
   }
-
 
   if(tg.setBackgroundColor){
-
-    tg.setBackgroundColor("#08090d");
-
+    tg.setBackgroundColor("#07080c");
   }
 
 }
 
 
 /* =====================================================
-   MONETAG
+   APP CONFIG
 ===================================================== */
 
-let lastAdTime = 0;
+const VIDEOS_FILE = "./videos.json";
 
-const AD_INTERVAL = 60000;
-
-
-function showMonetagAd(callback){
-
-  const now =
-    Date.now();
-
-
-  if(
-    lastAdTime !== 0 &&
-    now - lastAdTime < AD_INTERVAL
-  ){
-
-    callback();
-
-    return;
-
-  }
-
-
-  if(
-    typeof window.show_11926831 === "function"
-  ){
-
-    lastAdTime = now;
-
-
-    try{
-
-      const result =
-        window.show_11926831();
-
-
-      if(
-        result &&
-        typeof result.then === "function"
-      ){
-
-        result
-          .then(()=>{
-            callback();
-          })
-          .catch(()=>{
-            callback();
-          });
-
-      }else{
-
-        setTimeout(()=>{
-          callback();
-        },500);
-
-      }
-
-    }catch(error){
-
-      console.log(
-        "Monetag error:",
-        error
-      );
-
-      callback();
-
-    }
-
-  }else{
-
-    callback();
-
-  }
-
-}
+const APP_NAME = "P**** Video Hub";
 
 
 /* =====================================================
-   VIDEO DATA
-   videos.json থেকে ভিডিও লোড হবে
+   DATA
 ===================================================== */
 
 let videos = [];
 
+let currentCategory = "All";
+
+let currentVideoId = null;
+
+let likedVideos =
+  JSON.parse(
+    localStorage.getItem("likedVideos") || "[]"
+  );
+
+let favoriteVideos =
+  JSON.parse(
+    localStorage.getItem("favoriteVideos") || "[]"
+  );
+
+let watchHistory =
+  JSON.parse(
+    localStorage.getItem("watchHistory") || "[]"
+  );
+
 
 /* =====================================================
-   VARIABLES
-===================================================== */
-
-let currentCategory =
-  "All";
-
-let currentVideoId =
-  null;
-
-
-/* =====================================================
-   LOAD VIDEOS.JSON
+   LOAD VIDEO DATA
 ===================================================== */
 
 async function loadVideos(){
 
-  const errorBox =
-    document.getElementById(
-      "dataError"
-    );
+  const loading =
+    document.getElementById("loading");
 
+  const errorBox =
+    document.getElementById("errorBox");
 
   try{
 
-    /*
-       Cache-busting ব্যবহার করছি যাতে
-       নতুন ভিডিও যোগ করার পর পুরোনো
-       videos.json cache না থাকে।
-    */
+    loading.style.display = "block";
+
+    errorBox.style.display = "none";
+
 
     const response =
       await fetch(
-        "./videos.json?v=" + Date.now(),
+        VIDEOS_FILE + "?v=" + Date.now(),
         {
           cache:"no-store"
         }
@@ -932,7 +1051,7 @@ async function loadVideos(){
     if(!response.ok){
 
       throw new Error(
-        "videos.json load failed: " +
+        "videos.json error: " +
         response.status
       );
 
@@ -946,199 +1065,104 @@ async function loadVideos(){
     if(!Array.isArray(data)){
 
       throw new Error(
-        "videos.json must contain an array"
+        "videos.json must be an array"
       );
 
     }
 
 
-    /*
-       শুধু valid video entries রাখা হবে।
-    */
-
     videos =
       data
-        .filter(video =>
-          video &&
-          video.id !== undefined &&
-          video.url
-        )
-        .map(video =>({
+      .filter(video =>
+        video &&
+        video.id !== undefined &&
+        video.url
+      )
+      .map(video => ({
 
-          id:video.id,
+        id:String(video.id),
 
-          title:
-            video.title ||
-            "Untitled Video",
+        title:
+          video.title ||
+          "Untitled Video",
 
-          category:
-            video.category ||
-            "Other",
+        category:
+          video.category ||
+          "Other",
 
-          url:
-            video.url
+        url:
+          video.url,
 
-        }));
+        thumbnail:
+          video.thumbnail ||
+          "",
+
+        duration:
+          video.duration ||
+          "",
+
+        views:
+          video.views ||
+          0,
+
+        description:
+          video.description ||
+          "No description available."
+
+      }));
 
 
-    errorBox.style.display =
-      "none";
+    loading.style.display = "none";
 
 
     renderVideos();
 
-
-    /*
-       Telegram startapp থাকলে
-       নির্দিষ্ট video automatically open হবে।
-    */
 
     openVideoFromTelegram();
 
 
   }catch(error){
 
-    console.error(
-      "Video data error:",
-      error
-    );
+    console.error(error);
 
+    loading.style.display = "none";
+
+    errorBox.style.display = "block";
 
     videos = [];
 
-
     renderVideos();
 
-
-    errorBox.style.display =
-      "block";
-
   }
 
 }
 
 
 /* =====================================================
-   TELEGRAM VIDEO DEEP LINK
-===================================================== */
-
-function getStartParam(){
-
-  /*
-     Telegram WebApp SDK
-  */
-
-  if(
-    tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.start_param
-  ){
-
-    return String(
-      tg.initDataUnsafe.start_param
-    );
-
-  }
-
-
-  /*
-     Browser URL fallback
-  */
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-
-  return (
-    params.get(
-      "tgWebAppStartParam"
-    ) || ""
-  );
-
-}
-
-
-/* =====================================================
-   OPEN VIDEO FROM STARTAPP
-===================================================== */
-
-function openVideoFromTelegram(){
-
-  const startParam =
-    getStartParam();
-
-
-  if(!startParam){
-    return;
-  }
-
-
-  /*
-     Example:
-     video_001
-  */
-
-  const video =
-    videos.find(
-      v =>
-        String(v.id) ===
-        String(startParam)
-    );
-
-
-  if(video){
-
-    setTimeout(()=>{
-
-      openPlayer(
-        video.id
-      );
-
-    },300);
-
-  }
-
-}
-
-
-/* =====================================================
-   HOME RENDER
+   RENDER VIDEOS
 ===================================================== */
 
 function renderVideos(){
 
-
   const grid =
-    document.getElementById(
-      "videoGrid"
-    );
-
+    document.getElementById("videoGrid");
 
   const empty =
-    document.getElementById(
-      "empty"
-    );
-
+    document.getElementById("empty");
 
   const count =
-    document.getElementById(
-      "videoCount"
-    );
-
+    document.getElementById("videoCount");
 
   const search =
     document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase()
-      .trim();
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
 
 
   const filtered =
     videos.filter(video => {
-
 
       const categoryMatch =
         currentCategory === "All" ||
@@ -1147,8 +1171,8 @@ function renderVideos(){
 
       const searchMatch =
         String(video.title)
-          .toLowerCase()
-          .includes(search);
+        .toLowerCase()
+        .includes(search);
 
 
       return (
@@ -1163,148 +1187,163 @@ function renderVideos(){
 
 
   count.textContent =
-    filtered.length +
-    " videos";
+    filtered.length + " videos";
 
 
   if(filtered.length === 0){
 
-    empty.style.display =
-      "block";
+    empty.style.display = "block";
 
     return;
 
   }
 
 
-  empty.style.display =
-    "none";
+  empty.style.display = "none";
 
 
   filtered.forEach(video => {
 
+    grid.appendChild(
+      createVideoCard(video)
+    );
 
-    const card =
-      document.createElement(
-        "div"
-      );
+  });
 
-
-    card.className =
-      "video-card";
+}
 
 
-    card.onclick = ()=>{
+/* =====================================================
+   CREATE VIDEO CARD
+===================================================== */
 
-      showMonetagAd(
-        ()=>{
-          openPlayer(
-            video.id
-          );
-        }
-      );
+function createVideoCard(video){
 
-    };
+  const card =
+    document.createElement("article");
 
-
-    card.innerHTML = `
-
-      <div class="thumb">
-
-        <video
-          muted
-          playsinline
-          preload="metadata"
-          src="${escapeHTML(video.url)}">
-        </video>
-
-        <div class="thumb-fallback">
-          🎬
-        </div>
-
-        <div class="play-badge">
-          ▶
-        </div>
-
-      </div>
+  card.className =
+    "video-card";
 
 
-      <div class="video-info">
+  card.onclick = () => {
 
-        <div class="video-title">
-          ${escapeHTML(video.title)}
-        </div>
+    openPlayer(video.id);
 
-        <div class="video-meta">
-          ${escapeHTML(video.category)}
-        </div>
+  };
 
-      </div>
 
+  const thumbnail =
+    video.thumbnail
+    ? `
+      <img
+        src="${escapeHTML(video.thumbnail)}"
+        alt=""
+        loading="lazy">
+      `
+    : `
+      <video
+        muted
+        playsinline
+        preload="metadata"
+        src="${escapeHTML(video.url)}">
+      </video>
     `;
 
 
-    const thumbVideo =
-      card.querySelector(
-        "video"
-      );
+  card.innerHTML = `
+
+    <div class="thumbnail">
+
+      <div class="thumb-fallback">
+        🎬
+      </div>
+
+      ${thumbnail}
+
+      <div class="play-circle">
+        ▶
+      </div>
+
+      ${
+        video.duration
+        ?
+        `<div class="duration">
+          ${escapeHTML(video.duration)}
+        </div>`
+        :
+        ""
+      }
+
+    </div>
 
 
-    const fallback =
-      card.querySelector(
-        ".thumb-fallback"
-      );
+    <div class="card-body">
 
+      <div class="card-title">
+        ${escapeHTML(video.title)}
+      </div>
 
-    thumbVideo.addEventListener(
-      "loadedmetadata",
-      ()=>{
+      <div class="card-meta">
 
-        if(
-          isFinite(
-            thumbVideo.duration
-          ) &&
-          thumbVideo.duration > 0
-        ){
+        <span class="card-category">
+          ${escapeHTML(video.category)}
+        </span>
 
-          try{
-
-            thumbVideo.currentTime =
-              thumbVideo.duration / 2;
-
-          }catch(e){}
-
+        ${
+          video.views
+          ?
+          `<span>• ${formatViews(video.views)} views</span>`
+          :
+          ""
         }
 
-      }
+      </div>
+
+    </div>
+
+  `;
+
+
+  const fallback =
+    card.querySelector(".thumb-fallback");
+
+
+  const media =
+    card.querySelector(
+      ".thumbnail img, .thumbnail video"
     );
 
 
-    thumbVideo.addEventListener(
-      "seeked",
+  if(media){
+
+    media.addEventListener(
+      "load",
       ()=>{
-
-        fallback.style.display =
-          "none";
-
+        fallback.style.display = "none";
       }
     );
 
 
-    thumbVideo.addEventListener(
+    media.addEventListener(
+      "loadeddata",
+      ()=>{
+        fallback.style.display = "none";
+      }
+    );
+
+
+    media.addEventListener(
       "error",
       ()=>{
-
-        fallback.style.display =
-          "flex";
-
+        fallback.style.display = "flex";
       }
     );
 
+  }
 
-    grid.appendChild(card);
 
-  });
+  return card;
 
 }
 
@@ -1315,79 +1354,77 @@ function renderVideos(){
 
 function openPlayer(id){
 
-
   const video =
     videos.find(
-      v =>
-        String(v.id) ===
+      item =>
+        String(item.id) ===
         String(id)
     );
 
 
-  if(!video) return;
+  if(!video){
+    return;
+  }
 
 
   currentVideoId =
-    id;
+    String(video.id);
 
 
-  const home =
-    document.getElementById(
-      "homePage"
-    );
+  addToHistory(
+    video.id
+  );
 
 
-  const page =
-    document.getElementById(
-      "playerPage"
-    );
+  document
+    .getElementById("homePage")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("playerPage")
+    .classList.add("active");
 
 
   const player =
-    document.getElementById(
-      "mainVideo"
-    );
-
-
-  const title =
-    document.getElementById(
-      "playerTitle"
-    );
-
-
-  const category =
-    document.getElementById(
-      "playerCategory"
-    );
-
-
-  home.classList.add(
-    "hidden"
-  );
-
-
-  page.classList.add(
-    "active"
-  );
+    document.getElementById("mainVideo");
 
 
   player.pause();
 
-
-  player.src =
-    video.url;
-
+  player.src = video.url;
 
   player.load();
 
 
-  title.textContent =
-    video.title;
+  document
+    .getElementById("playerTitle")
+    .textContent =
+      video.title;
 
 
-  category.textContent =
-    video.category;
+  document
+    .getElementById("playerMeta")
+    .textContent =
+      video.category +
+      (
+        video.views
+        ? " • " +
+          formatViews(video.views) +
+          " views"
+        : ""
+      );
 
+
+  document
+    .getElementById("description")
+    .textContent =
+      video.description;
+
+
+  updateFavoriteButton();
+
+  updateLikeButton();
 
   renderSuggested();
 
@@ -1401,11 +1438,45 @@ function openPlayer(id){
 
 
 /* =====================================================
-   SUGGESTED VIDEOS
+   CLOSE PLAYER
+===================================================== */
+
+function closePlayer(){
+
+  const player =
+    document.getElementById("mainVideo");
+
+
+  player.pause();
+
+  player.removeAttribute("src");
+
+  player.load();
+
+
+  document
+    .getElementById("playerPage")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("homePage")
+    .classList.remove("hidden");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+}
+
+
+/* =====================================================
+   SUGGESTED
 ===================================================== */
 
 function renderSuggested(){
-
 
   const list =
     document.getElementById(
@@ -1422,42 +1493,40 @@ function renderSuggested(){
         String(video.id) !==
         String(currentVideoId)
     )
+    .slice(0,8)
     .forEach(video => {
 
-
       const item =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       item.className =
         "suggested-item";
 
 
-      item.onclick = ()=>{
-
-        showMonetagAd(
-          ()=>{
-            openPlayer(
-              video.id
-            );
-          }
-        );
-
-      };
+      item.onclick =
+        () => openPlayer(video.id);
 
 
       item.innerHTML = `
 
         <div class="suggested-thumb">
 
-          <video
-            muted
-            playsinline
-            preload="metadata"
-            src="${escapeHTML(video.url)}">
-          </video>
+          ${
+            video.thumbnail
+            ?
+            `<img
+              src="${escapeHTML(video.thumbnail)}"
+              alt=""
+              loading="lazy">`
+            :
+            `<video
+              muted
+              playsinline
+              preload="metadata"
+              src="${escapeHTML(video.url)}">
+            </video>`
+          }
 
         </div>
 
@@ -1477,89 +1546,9 @@ function renderSuggested(){
       `;
 
 
-      const suggestedVideo =
-        item.querySelector(
-          "video"
-        );
-
-
-      suggestedVideo.addEventListener(
-        "loadedmetadata",
-        ()=>{
-
-          if(
-            isFinite(
-              suggestedVideo.duration
-            ) &&
-            suggestedVideo.duration > 0
-          ){
-
-            try{
-
-              suggestedVideo.currentTime =
-                suggestedVideo.duration / 2;
-
-            }catch(e){}
-
-          }
-
-        }
-      );
-
-
       list.appendChild(item);
 
     });
-
-}
-
-
-/* =====================================================
-   CLOSE PLAYER
-===================================================== */
-
-function closePlayer(){
-
-
-  const player =
-    document.getElementById(
-      "mainVideo"
-    );
-
-
-  player.pause();
-
-
-  player.removeAttribute(
-    "src"
-  );
-
-
-  player.load();
-
-
-  document
-    .getElementById(
-      "playerPage"
-    )
-    .classList.remove(
-      "active"
-    );
-
-
-  document
-    .getElementById(
-      "homePage"
-    )
-    .classList.remove(
-      "hidden"
-    );
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"instant"
-  });
 
 }
 
@@ -1573,18 +1562,15 @@ function filterCategory(
   button
 ){
 
-
   currentCategory =
     category;
 
 
   document
-    .querySelectorAll(
-      ".category"
-    )
-    .forEach(btn=>{
+    .querySelectorAll(".category")
+    .forEach(item => {
 
-      btn.classList.remove(
+      item.classList.remove(
         "active"
       );
 
@@ -1606,9 +1592,7 @@ function filterCategory(
 ===================================================== */
 
 document
-  .getElementById(
-    "searchInput"
-  )
+  .getElementById("searchInput")
   .addEventListener(
     "input",
     renderVideos
@@ -1617,21 +1601,460 @@ document
 
 function focusSearch(){
 
-
   goHome();
 
 
   setTimeout(()=>{
 
-
     document
-      .getElementById(
-        "searchInput"
-      )
+      .getElementById("searchInput")
       .focus();
 
-
   },100);
+
+}
+
+
+/* =====================================================
+   FAVORITES
+===================================================== */
+
+function toggleFavorite(){
+
+  if(!currentVideoId){
+    return;
+  }
+
+
+  const index =
+    favoriteVideos.indexOf(
+      currentVideoId
+    );
+
+
+  if(index === -1){
+
+    favoriteVideos.push(
+      currentVideoId
+    );
+
+  }else{
+
+    favoriteVideos.splice(
+      index,
+      1
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "favoriteVideos",
+    JSON.stringify(
+      favoriteVideos
+    )
+  );
+
+
+  updateFavoriteButton();
+
+}
+
+
+function updateFavoriteButton(){
+
+  const button =
+    document.getElementById(
+      "favoriteBtn"
+    );
+
+
+  if(
+    favoriteVideos.includes(
+      String(currentVideoId)
+    )
+  ){
+
+    button.textContent =
+      "♥ Saved";
+
+    button.classList.add(
+      "active"
+    );
+
+  }else{
+
+    button.textContent =
+      "♡ Favorite";
+
+    button.classList.remove(
+      "active"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   LIKE
+===================================================== */
+
+function toggleLike(){
+
+  if(!currentVideoId){
+    return;
+  }
+
+
+  const index =
+    likedVideos.indexOf(
+      currentVideoId
+    );
+
+
+  if(index === -1){
+
+    likedVideos.push(
+      currentVideoId
+    );
+
+  }else{
+
+    likedVideos.splice(
+      index,
+      1
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "likedVideos",
+    JSON.stringify(
+      likedVideos
+    )
+  );
+
+
+  updateLikeButton();
+
+}
+
+
+function updateLikeButton(){
+
+  const button =
+    document.getElementById(
+      "likeBtn"
+    );
+
+
+  if(
+    likedVideos.includes(
+      String(currentVideoId)
+    )
+  ){
+
+    button.textContent =
+      "👍 Liked";
+
+    button.classList.add(
+      "active"
+    );
+
+  }else{
+
+    button.textContent =
+      "👍 Like";
+
+    button.classList.remove(
+      "active"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function addToHistory(id){
+
+  const videoId =
+    String(id);
+
+
+  watchHistory =
+    watchHistory.filter(
+      item =>
+        item !== videoId
+    );
+
+
+  watchHistory.unshift(
+    videoId
+  );
+
+
+  watchHistory =
+    watchHistory.slice(
+      0,
+      50
+    );
+
+
+  localStorage.setItem(
+    "watchHistory",
+    JSON.stringify(
+      watchHistory
+    )
+  );
+
+}
+
+
+/* =====================================================
+   FAVORITES PAGE
+===================================================== */
+
+function showFavorites(){
+
+  const favoriteSet =
+    new Set(
+      favoriteVideos.map(
+        String
+      )
+    );
+
+
+  const favoriteList =
+    videos.filter(
+      video =>
+        favoriteSet.has(
+          String(video.id)
+        )
+    );
+
+
+  goHome();
+
+
+  const grid =
+    document.getElementById(
+      "videoGrid"
+    );
+
+
+  const empty =
+    document.getElementById(
+      "empty"
+    );
+
+
+  const count =
+    document.getElementById(
+      "videoCount"
+    );
+
+
+  currentCategory =
+    "All";
+
+
+  grid.innerHTML = "";
+
+
+  favoriteList.forEach(
+    video =>
+      grid.appendChild(
+        createVideoCard(video)
+      )
+  );
+
+
+  count.textContent =
+    favoriteList.length +
+    " saved";
+
+
+  empty.style.display =
+    favoriteList.length
+    ? "none"
+    : "block";
+
+
+  document
+    .getElementById(
+      "videosSection"
+    )
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+async function shareCurrentVideo(){
+
+  const video =
+    videos.find(
+      item =>
+        String(item.id) ===
+        String(currentVideoId)
+    );
+
+
+  if(!video){
+    return;
+  }
+
+
+  const username =
+    "XVideohub_bd_bot";
+
+
+  const shareUrl =
+    "https://t.me/" +
+    username +
+    "?startapp=" +
+    encodeURIComponent(
+      "video_" + video.id
+    );
+
+
+  try{
+
+    if(
+      navigator.share
+    ){
+
+      await navigator.share({
+
+        title:
+          video.title,
+
+        text:
+          video.title,
+
+        url:
+          shareUrl
+
+      });
+
+    }else{
+
+      await navigator.clipboard.writeText(
+        shareUrl
+      );
+
+
+      telegramAlert(
+        "Video link copied!"
+      );
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Share cancelled"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   TELEGRAM START PARAM
+===================================================== */
+
+function getStartParam(){
+
+  if(
+    tg &&
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.start_param
+  ){
+
+    return String(
+      tg.initDataUnsafe.start_param
+    );
+
+  }
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  return (
+    params.get(
+      "tgWebAppStartParam"
+    ) || ""
+  );
+
+}
+
+
+function openVideoFromTelegram(){
+
+  const param =
+    getStartParam();
+
+
+  if(!param){
+    return;
+  }
+
+
+  let videoId =
+    param;
+
+
+  if(
+    param.startsWith(
+      "video_"
+    )
+  ){
+
+    videoId =
+      param.substring(
+        6
+      );
+
+  }
+
+
+  const video =
+    videos.find(
+      item =>
+        String(item.id) ===
+        String(videoId)
+    );
+
+
+  if(video){
+
+    setTimeout(
+      ()=>{
+        openPlayer(
+          video.id
+        );
+      },
+      350
+    );
+
+  }
 
 }
 
@@ -1647,26 +2070,51 @@ function goHome(){
 }
 
 
+function scrollToVideos(){
+
+  document
+    .getElementById(
+      "videosSection"
+    )
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
 /* =====================================================
    PROFILE
 ===================================================== */
 
 function showProfile(){
 
-
   if(
     tg &&
-    tg.showAlert
+    tg.showPopup
   ){
 
-    tg.showAlert(
-      "Video Hub Profile"
-    );
+    tg.showPopup({
+
+      title:
+        APP_NAME,
+
+      message:
+        "Your Telegram profile is connected.",
+
+      buttons:[
+        {
+          type:"ok"
+        }
+      ]
+
+    });
 
   }else{
 
     alert(
-      "Video Hub Profile"
+      APP_NAME +
+      "\nTelegram profile connected."
     );
 
   }
@@ -1675,8 +2123,71 @@ function showProfile(){
 
 
 /* =====================================================
-   HTML SECURITY
+   ALERT
 ===================================================== */
+
+function telegramAlert(message){
+
+  if(
+    tg &&
+    tg.showAlert
+  ){
+
+    tg.showAlert(
+      message
+    );
+
+  }else{
+
+    alert(
+      message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function formatViews(value){
+
+  const number =
+    Number(value) || 0;
+
+
+  if(number >= 1000000){
+
+    return (
+      (number / 1000000)
+      .toFixed(1)
+      .replace(".0","") +
+      "M"
+    );
+
+  }
+
+
+  if(number >= 1000){
+
+    return (
+      (number / 1000)
+      .toFixed(1)
+      .replace(".0","") +
+      "K"
+    );
+
+  }
+
+
+  return String(
+    number
+  );
+
+}
+
 
 function escapeHTML(value){
 
@@ -1706,7 +2217,7 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   START
+   START APP
 ===================================================== */
 
 loadVideos();

@@ -9,10 +9,8 @@
 
 <title>Video Hub</title>
 
-
 <!-- Telegram Mini App -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 
 <!-- Monetag Telegram Mini App SDK -->
 <script
@@ -20,7 +18,6 @@
   data-zone="11926831"
   data-sdk="show_11926831">
 </script>
-
 
 <style>
 
@@ -63,7 +60,9 @@ button{
 }
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .header{
   position:sticky;
@@ -102,7 +101,9 @@ button{
 }
 
 
-/* SEARCH */
+/* =========================
+   SEARCH
+========================= */
 
 .search{
   margin-top:12px;
@@ -132,7 +133,9 @@ button{
 }
 
 
-/* CATEGORIES */
+/* =========================
+   CATEGORIES
+========================= */
 
 .categories{
   display:flex;
@@ -163,7 +166,9 @@ button{
 }
 
 
-/* SECTION */
+/* =========================
+   SECTION
+========================= */
 
 .section{
   padding:18px 14px 5px;
@@ -186,40 +191,49 @@ button{
 }
 
 
-/* VIDEO GRID */
+/* =========================
+   VIDEO GRID
+========================= */
 
 .video-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
 }
 
 .video-card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:13px;
+  border-radius:15px;
   overflow:hidden;
-  transition:.2s;
+  transition:transform .15s ease, border-color .15s ease;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 .video-card:active{
-  transform:scale(.98);
+  transform:scale(.985);
 }
 
 .thumb{
   position:relative;
   width:100%;
-  aspect-ratio:16/9;
+  aspect-ratio:16/10;
   background:#1b1d25;
   overflow:hidden;
 }
 
+.thumb img,
 .thumb video{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
   pointer-events:none;
+}
+
+.thumb video{
+  background:#11131a;
 }
 
 .thumb-fallback{
@@ -230,43 +244,62 @@ button{
   justify-content:center;
   background:linear-gradient(135deg,#1b1d28,#292d3b);
   color:#aaa;
-  font-size:30px;
+  font-size:34px;
+  pointer-events:none;
 }
 
 .play-badge{
   position:absolute;
-  left:10px;
-  bottom:9px;
-  width:34px;
-  height:34px;
+  left:11px;
+  bottom:10px;
+  width:38px;
+  height:38px;
   border-radius:50%;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.78);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  font-size:15px;
+  border:1px solid rgba(255,255,255,.22);
+  pointer-events:none;
+}
+
+.duration{
+  position:absolute;
+  right:7px;
+  bottom:8px;
+  padding:3px 6px;
+  border-radius:5px;
+  background:rgba(0,0,0,.8);
+  color:#fff;
+  font-size:10px;
+  pointer-events:none;
 }
 
 .video-info{
-  padding:10px;
+  padding:11px;
 }
 
 .video-title{
   font-size:14px;
   font-weight:700;
+  line-height:1.35;
+  min-height:19px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .video-meta{
-  margin-top:5px;
+  margin-top:6px;
   color:var(--muted);
   font-size:11px;
 }
 
 
-/* PLAYER PAGE */
+/* =========================
+   PLAYER PAGE
+========================= */
 
 .player-page{
   display:none;
@@ -313,6 +346,21 @@ button{
   object-fit:contain;
 }
 
+.player video:fullscreen{
+  width:100vw;
+  height:100vh;
+  max-height:none;
+  object-fit:contain;
+  border-radius:0;
+}
+
+.player video:-webkit-full-screen{
+  width:100vw;
+  height:100vh;
+  max-height:none;
+  object-fit:contain;
+}
+
 .player-info{
   padding:14px;
 }
@@ -329,7 +377,9 @@ button{
 }
 
 
-/* SUGGESTED */
+/* =========================
+   SUGGESTED
+========================= */
 
 .suggested{
   padding:5px 14px 30px;
@@ -354,6 +404,8 @@ button{
   border:1px solid var(--border);
   border-radius:12px;
   padding:7px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 .suggested-thumb{
@@ -365,10 +417,13 @@ button{
   overflow:hidden;
 }
 
+.suggested-thumb img,
 .suggested-thumb video{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
+  pointer-events:none;
 }
 
 .suggested-info{
@@ -392,7 +447,9 @@ button{
 }
 
 
-/* BOTTOM NAV */
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav{
   position:fixed;
@@ -431,7 +488,9 @@ button{
 }
 
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
   padding:50px 20px;
@@ -441,7 +500,9 @@ button{
 }
 
 
-/* ERROR */
+/* =========================
+   ERROR
+========================= */
 
 .data-error{
   display:none;
@@ -457,12 +518,18 @@ button{
 }
 
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
   .video-grid{
-    gap:9px;
+    gap:10px;
+  }
+
+  .thumb{
+    aspect-ratio:16/10;
   }
 
   .video-title{
@@ -470,11 +537,41 @@ button{
   }
 
   .video-info{
-    padding:8px;
+    padding:9px;
+  }
+
+  .video-meta{
+    font-size:10px;
+  }
+
+  .play-badge{
+    width:36px;
+    height:36px;
   }
 
   .suggested-thumb{
     width:110px;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONE
+========================= */
+
+@media(max-width:360px){
+
+  .video-grid{
+    gap:8px;
+  }
+
+  .video-title{
+    font-size:12px;
+  }
+
+  .video-info{
+    padding:8px;
   }
 
 }
@@ -490,7 +587,9 @@ button{
 <div class="app">
 
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
 
 <div id="homePage" class="home-page">
 
@@ -634,7 +733,9 @@ button{
 </div>
 
 
-<!-- PLAYER -->
+<!-- =========================
+     PLAYER
+========================= -->
 
 <div
   id="playerPage"
@@ -722,7 +823,9 @@ button{
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- =========================
+     BOTTOM NAV
+========================= -->
 
 <nav class="bottom-nav">
 
@@ -802,6 +905,7 @@ if(tg){
 
 /* =====================================================
    MONETAG
+   বিজ্ঞাপন ভিডিও ওপেন আটকাবে না
 ===================================================== */
 
 let lastAdTime = 0;
@@ -809,7 +913,7 @@ let lastAdTime = 0;
 const AD_INTERVAL = 60000;
 
 
-function showMonetagAd(callback){
+function showMonetagAd(){
 
   const now =
     Date.now();
@@ -820,61 +924,53 @@ function showMonetagAd(callback){
     now - lastAdTime < AD_INTERVAL
   ){
 
-    callback();
-
     return;
 
   }
 
 
   if(
-    typeof window.show_11926831 === "function"
+    typeof window.show_11926831 !== "function"
   ){
 
-    lastAdTime = now;
+    return;
+
+  }
 
 
-    try{
-
-      const result =
-        window.show_11926831();
+  lastAdTime = now;
 
 
-      if(
-        result &&
-        typeof result.then === "function"
-      ){
+  try{
 
-        result
-          .then(()=>{
-            callback();
-          })
-          .catch(()=>{
-            callback();
-          });
+    const result =
+      window.show_11926831();
 
-      }else{
 
-        setTimeout(()=>{
-          callback();
-        },500);
+    if(
+      result &&
+      typeof result.catch === "function"
+    ){
 
-      }
+      result.catch(
+        error => {
 
-    }catch(error){
+          console.log(
+            "Monetag error:",
+            error
+          );
 
-      console.log(
-        "Monetag error:",
-        error
+        }
       );
-
-      callback();
 
     }
 
-  }else{
+  }catch(error){
 
-    callback();
+    console.log(
+      "Monetag error:",
+      error
+    );
 
   }
 
@@ -883,7 +979,6 @@ function showMonetagAd(callback){
 
 /* =====================================================
    VIDEO DATA
-   videos.json থেকে ভিডিও লোড হবে
 ===================================================== */
 
 let videos = [];
@@ -913,12 +1008,6 @@ async function loadVideos(){
 
 
   try{
-
-    /*
-       Cache-busting ব্যবহার করছি যাতে
-       নতুন ভিডিও যোগ করার পর পুরোনো
-       videos.json cache না থাকে।
-    */
 
     const response =
       await fetch(
@@ -952,10 +1041,6 @@ async function loadVideos(){
     }
 
 
-    /*
-       শুধু valid video entries রাখা হবে।
-    */
-
     videos =
       data
         .filter(video =>
@@ -965,7 +1050,7 @@ async function loadVideos(){
         )
         .map(video =>({
 
-          id:video.id,
+          id:String(video.id),
 
           title:
             video.title ||
@@ -976,7 +1061,18 @@ async function loadVideos(){
             "Other",
 
           url:
-            video.url
+            video.url,
+
+          thumbnail:
+            video.thumbnail ||
+            "",
+
+          duration:
+            video.duration ||
+            "",
+
+          views:
+            Number(video.views || 0)
 
         }));
 
@@ -987,11 +1083,6 @@ async function loadVideos(){
 
     renderVideos();
 
-
-    /*
-       Telegram startapp থাকলে
-       নির্দিষ্ট video automatically open হবে।
-    */
 
     openVideoFromTelegram();
 
@@ -1019,14 +1110,10 @@ async function loadVideos(){
 
 
 /* =====================================================
-   TELEGRAM VIDEO DEEP LINK
+   TELEGRAM START PARAM
 ===================================================== */
 
 function getStartParam(){
-
-  /*
-     Telegram WebApp SDK
-  */
 
   if(
     tg &&
@@ -1040,10 +1127,6 @@ function getStartParam(){
 
   }
 
-
-  /*
-     Browser URL fallback
-  */
 
   const params =
     new URLSearchParams(
@@ -1061,7 +1144,7 @@ function getStartParam(){
 
 
 /* =====================================================
-   OPEN VIDEO FROM STARTAPP
+   TELEGRAM VIDEO
 ===================================================== */
 
 function openVideoFromTelegram(){
@@ -1071,32 +1154,36 @@ function openVideoFromTelegram(){
 
 
   if(!startParam){
+
     return;
+
   }
 
 
-  /*
-     Example:
-     video_001
-  */
+  const cleanParam =
+    String(startParam)
+      .replace(
+        /^video[_-]/i,
+        ""
+      );
+
 
   const video =
     videos.find(
       v =>
         String(v.id) ===
-        String(startParam)
+        String(cleanParam)
     );
 
 
   if(video){
 
-    setTimeout(()=>{
-
-      openPlayer(
-        video.id
-      );
-
-    },300);
+    setTimeout(
+      ()=>{
+        openPlayer(video.id);
+      },
+      300
+    );
 
   }
 
@@ -1104,11 +1191,265 @@ function openVideoFromTelegram(){
 
 
 /* =====================================================
-   HOME RENDER
+   VIDEO THUMBNAIL
+===================================================== */
+
+function createThumbnail(video){
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+
+  wrapper.className =
+    "thumb";
+
+
+  /*
+     videos.json-এ thumbnail থাকলে
+     প্রথমে সেটাই ব্যবহার হবে।
+  */
+
+  if(video.thumbnail){
+
+    const image =
+      document.createElement(
+        "img"
+      );
+
+
+    image.src =
+      video.thumbnail;
+
+
+    image.loading =
+      "lazy";
+
+
+    image.alt =
+      video.title;
+
+
+    image.onerror =
+      ()=>{
+
+        image.remove();
+
+
+        createVideoPreview(
+          video,
+          wrapper
+        );
+
+      };
+
+
+    wrapper.appendChild(
+      image
+    );
+
+  }else{
+
+    createVideoPreview(
+      video,
+      wrapper
+    );
+
+  }
+
+
+  const play =
+    document.createElement(
+      "div"
+    );
+
+
+  play.className =
+    "play-badge";
+
+
+  play.textContent =
+    "▶";
+
+
+  wrapper.appendChild(
+    play
+  );
+
+
+  if(video.duration){
+
+    const duration =
+      document.createElement(
+        "span"
+      );
+
+
+    duration.className =
+      "duration";
+
+
+    duration.textContent =
+      video.duration;
+
+
+    wrapper.appendChild(
+      duration
+    );
+
+  }
+
+
+  return wrapper;
+
+}
+
+
+/* =====================================================
+   MP4 PREVIEW
+===================================================== */
+
+function createVideoPreview(
+  video,
+  wrapper
+){
+
+  if(
+    wrapper.querySelector(
+      "video"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const preview =
+    document.createElement(
+      "video"
+    );
+
+
+  preview.muted =
+    true;
+
+
+  preview.playsInline =
+    true;
+
+
+  preview.preload =
+    "metadata";
+
+
+  preview.src =
+    video.url;
+
+
+  const fallback =
+    document.createElement(
+      "div"
+    );
+
+
+  fallback.className =
+    "thumb-fallback";
+
+
+  fallback.textContent =
+    "🎬";
+
+
+  wrapper.insertBefore(
+    preview,
+    wrapper.firstChild
+  );
+
+
+  wrapper.insertBefore(
+    fallback,
+    preview.nextSibling
+  );
+
+
+  preview.addEventListener(
+    "loadedmetadata",
+    ()=>{
+
+      if(
+        isFinite(
+          preview.duration
+        ) &&
+        preview.duration > 0
+      ){
+
+        try{
+
+          preview.currentTime =
+            Math.min(
+              1.5,
+              Math.max(
+                .1,
+                preview.duration / 10
+              )
+            );
+
+        }catch(e){}
+
+      }
+
+    }
+  );
+
+
+  preview.addEventListener(
+    "loadeddata",
+    ()=>{
+
+      fallback.style.display =
+        "none";
+
+    },
+    {
+      once:true
+    }
+  );
+
+
+  preview.addEventListener(
+    "seeked",
+    ()=>{
+
+      fallback.style.display =
+        "none";
+
+    },
+    {
+      once:true
+    }
+  );
+
+
+  preview.addEventListener(
+    "error",
+    ()=>{
+
+      fallback.style.display =
+        "flex";
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   RENDER VIDEOS
 ===================================================== */
 
 function renderVideos(){
-
 
   const grid =
     document.getElementById(
@@ -1130,36 +1471,43 @@ function renderVideos(){
 
   const search =
     document
-      .getElementById("searchInput")
+      .getElementById(
+        "searchInput"
+      )
       .value
       .toLowerCase()
       .trim();
 
 
   const filtered =
-    videos.filter(video => {
+    videos.filter(
+      video => {
 
 
-      const categoryMatch =
-        currentCategory === "All" ||
-        video.category === currentCategory;
+        const categoryMatch =
+          currentCategory === "All" ||
+          video.category ===
+          currentCategory;
 
 
-      const searchMatch =
-        String(video.title)
-          .toLowerCase()
-          .includes(search);
+        const searchMatch =
+          !search ||
+          String(video.title)
+            .toLowerCase()
+            .includes(search);
 
 
-      return (
-        categoryMatch &&
-        searchMatch
-      );
+        return (
+          categoryMatch &&
+          searchMatch
+        );
 
-    });
+      }
+    );
 
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+    "";
 
 
   count.textContent =
@@ -1167,7 +1515,9 @@ function renderVideos(){
     " videos";
 
 
-  if(filtered.length === 0){
+  if(
+    filtered.length === 0
+  ){
 
     empty.style.display =
       "block";
@@ -1181,130 +1531,128 @@ function renderVideos(){
     "none";
 
 
-  filtered.forEach(video => {
+  filtered.forEach(
+    video => {
 
 
-    const card =
-      document.createElement(
-        "div"
-      );
+      const card =
+        document.createElement(
+          "div"
+        );
 
 
-    card.className =
-      "video-card";
+      card.className =
+        "video-card";
 
 
-    card.onclick = ()=>{
+      /*
+         Card-এর এক জায়গাতেই click।
+         Thumbnail video click block করবে।
+      */
 
-      showMonetagAd(
-        ()=>{
+      card.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+          event.stopPropagation();
+
           openPlayer(
             video.id
           );
+
+          /*
+             Player খোলার পরে ad চেষ্টা করবে।
+             Ad video loading আটকে রাখবে না।
+          */
+
+          setTimeout(
+            ()=>{
+              showMonetagAd();
+            },
+            100
+          );
+
+        },
+        {
+          passive:false
         }
       );
 
-    };
 
-
-    card.innerHTML = `
-
-      <div class="thumb">
-
-        <video
-          muted
-          playsinline
-          preload="metadata"
-          src="${escapeHTML(video.url)}">
-        </video>
-
-        <div class="thumb-fallback">
-          🎬
-        </div>
-
-        <div class="play-badge">
-          ▶
-        </div>
-
-      </div>
-
-
-      <div class="video-info">
-
-        <div class="video-title">
-          ${escapeHTML(video.title)}
-        </div>
-
-        <div class="video-meta">
-          ${escapeHTML(video.category)}
-        </div>
-
-      </div>
-
-    `;
-
-
-    const thumbVideo =
-      card.querySelector(
-        "video"
+      card.appendChild(
+        createThumbnail(
+          video
+        )
       );
 
 
-    const fallback =
-      card.querySelector(
-        ".thumb-fallback"
+      const info =
+        document.createElement(
+          "div"
+        );
+
+
+      info.className =
+        "video-info";
+
+
+      const title =
+        document.createElement(
+          "div"
+        );
+
+
+      title.className =
+        "video-title";
+
+
+      title.textContent =
+        video.title;
+
+
+      const meta =
+        document.createElement(
+          "div"
+        );
+
+
+      meta.className =
+        "video-meta";
+
+
+      meta.textContent =
+        video.category +
+        (
+          video.views
+            ? " • " +
+              video.views.toLocaleString() +
+              " views"
+            : ""
+        );
+
+
+      info.appendChild(
+        title
       );
 
 
-    thumbVideo.addEventListener(
-      "loadedmetadata",
-      ()=>{
-
-        if(
-          isFinite(
-            thumbVideo.duration
-          ) &&
-          thumbVideo.duration > 0
-        ){
-
-          try{
-
-            thumbVideo.currentTime =
-              thumbVideo.duration / 2;
-
-          }catch(e){}
-
-        }
-
-      }
-    );
+      info.appendChild(
+        meta
+      );
 
 
-    thumbVideo.addEventListener(
-      "seeked",
-      ()=>{
-
-        fallback.style.display =
-          "none";
-
-      }
-    );
+      card.appendChild(
+        info
+      );
 
 
-    thumbVideo.addEventListener(
-      "error",
-      ()=>{
+      grid.appendChild(
+        card
+      );
 
-        fallback.style.display =
-          "flex";
-
-      }
-    );
-
-
-    grid.appendChild(card);
-
-  });
+    }
+  );
 
 }
 
@@ -1315,7 +1663,6 @@ function renderVideos(){
 
 function openPlayer(id){
 
-
   const video =
     videos.find(
       v =>
@@ -1324,11 +1671,22 @@ function openPlayer(id){
     );
 
 
-  if(!video) return;
+  if(!video){
+
+    console.warn(
+      "Video not found:",
+      id
+    );
+
+    return;
+
+  }
 
 
   currentVideoId =
-    id;
+    String(
+      video.id
+    );
 
 
   const home =
@@ -1371,8 +1729,24 @@ function openPlayer(id){
   );
 
 
+  /*
+     পুরোনো video সম্পূর্ণ বন্ধ।
+  */
+
   player.pause();
 
+
+  player.removeAttribute(
+    "src"
+  );
+
+
+  player.load();
+
+
+  /*
+     নতুন video।
+  */
 
   player.src =
     video.url;
@@ -1394,8 +1768,23 @@ function openPlayer(id){
 
   window.scrollTo({
     top:0,
-    behavior:"instant"
+    behavior:"auto"
   });
+
+
+  /*
+     Browser autoplay block করলে
+     player তবুও থাকবে এবং Play button
+     দিয়ে চালানো যাবে।
+  */
+
+  player.play().catch(
+    ()=>{
+      console.log(
+        "Autoplay blocked"
+      );
+    }
+  );
 
 }
 
@@ -1406,110 +1795,264 @@ function openPlayer(id){
 
 function renderSuggested(){
 
-
   const list =
     document.getElementById(
       "suggestedList"
     );
 
 
-  list.innerHTML = "";
+  list.innerHTML =
+    "";
 
 
   videos
     .filter(
       video =>
-        String(video.id) !==
-        String(currentVideoId)
+        String(
+          video.id
+        ) !==
+        String(
+          currentVideoId
+        )
     )
-    .forEach(video => {
+    .forEach(
+      video => {
 
 
-      const item =
-        document.createElement(
-          "div"
-        );
+        const item =
+          document.createElement(
+            "div"
+          );
 
 
-      item.className =
-        "suggested-item";
+        item.className =
+          "suggested-item";
 
 
-      item.onclick = ()=>{
+        item.addEventListener(
+          "click",
+          event => {
 
-        showMonetagAd(
-          ()=>{
+            event.preventDefault();
+            event.stopPropagation();
+
             openPlayer(
               video.id
             );
+
+
+            setTimeout(
+              ()=>{
+                showMonetagAd();
+              },
+              100
+            );
+
+          },
+          {
+            passive:false
           }
         );
 
-      };
+
+        const thumb =
+          document.createElement(
+            "div"
+          );
 
 
-      item.innerHTML = `
-
-        <div class="suggested-thumb">
-
-          <video
-            muted
-            playsinline
-            preload="metadata"
-            src="${escapeHTML(video.url)}">
-          </video>
-
-        </div>
+        thumb.className =
+          "suggested-thumb";
 
 
-        <div class="suggested-info">
+        /*
+           Suggested-এও thumbnail URL
+           থাকলে সেটাই ব্যবহার হবে।
+        */
 
-          <strong>
-            ${escapeHTML(video.title)}
-          </strong>
+        if(video.thumbnail){
 
-          <span>
-            ${escapeHTML(video.category)}
-          </span>
-
-        </div>
-
-      `;
+          const img =
+            document.createElement(
+              "img"
+            );
 
 
-      const suggestedVideo =
-        item.querySelector(
-          "video"
-        );
+          img.src =
+            video.thumbnail;
 
 
-      suggestedVideo.addEventListener(
-        "loadedmetadata",
-        ()=>{
+          img.loading =
+            "lazy";
 
-          if(
-            isFinite(
-              suggestedVideo.duration
-            ) &&
-            suggestedVideo.duration > 0
-          ){
 
-            try{
+          img.alt =
+            video.title;
 
-              suggestedVideo.currentTime =
-                suggestedVideo.duration / 2;
 
-            }catch(e){}
+          img.onerror =
+            ()=>{
 
-          }
+              img.remove();
+
+
+              addSuggestedPreview(
+                video,
+                thumb
+              );
+
+            };
+
+
+          thumb.appendChild(
+            img
+          );
+
+        }else{
+
+          addSuggestedPreview(
+            video,
+            thumb
+          );
 
         }
-      );
 
 
-      list.appendChild(item);
+        item.appendChild(
+          thumb
+        );
 
-    });
+
+        const info =
+          document.createElement(
+            "div"
+          );
+
+
+        info.className =
+          "suggested-info";
+
+
+        const strong =
+          document.createElement(
+            "strong"
+          );
+
+
+        strong.textContent =
+          video.title;
+
+
+        const span =
+          document.createElement(
+            "span"
+          );
+
+
+        span.textContent =
+          video.category;
+
+
+        info.appendChild(
+          strong
+        );
+
+
+        info.appendChild(
+          span
+        );
+
+
+        item.appendChild(
+          info
+        );
+
+
+        list.appendChild(
+          item
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   SUGGESTED MP4 PREVIEW
+===================================================== */
+
+function addSuggestedPreview(
+  video,
+  container
+){
+
+  if(
+    container.querySelector(
+      "video"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const preview =
+    document.createElement(
+      "video"
+    );
+
+
+  preview.muted =
+    true;
+
+
+  preview.playsInline =
+    true;
+
+
+  preview.preload =
+    "metadata";
+
+
+  preview.src =
+    video.url;
+
+
+  container.appendChild(
+    preview
+  );
+
+
+  preview.addEventListener(
+    "loadedmetadata",
+    ()=>{
+
+      if(
+        isFinite(
+          preview.duration
+        ) &&
+        preview.duration > 0
+      ){
+
+        try{
+
+          preview.currentTime =
+            Math.min(
+              1.5,
+              Math.max(
+                .1,
+                preview.duration / 10
+              )
+            );
+
+        }catch(e){}
+
+      }
+
+    }
+  );
 
 }
 
@@ -1519,7 +2062,6 @@ function renderSuggested(){
 ===================================================== */
 
 function closePlayer(){
-
 
   const player =
     document.getElementById(
@@ -1556,9 +2098,13 @@ function closePlayer(){
     );
 
 
+  currentVideoId =
+    null;
+
+
   window.scrollTo({
     top:0,
-    behavior:"instant"
+    behavior:"auto"
   });
 
 }
@@ -1573,7 +2119,6 @@ function filterCategory(
   button
 ){
 
-
   currentCategory =
     category;
 
@@ -1582,13 +2127,15 @@ function filterCategory(
     .querySelectorAll(
       ".category"
     )
-    .forEach(btn=>{
+    .forEach(
+      btn => {
 
-      btn.classList.remove(
-        "active"
-      );
+        btn.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
   button.classList.add(
@@ -1617,21 +2164,29 @@ document
 
 function focusSearch(){
 
-
   goHome();
 
 
-  setTimeout(()=>{
+  setTimeout(
+    ()=>{
+
+      const input =
+        document.getElementById(
+          "searchInput"
+        );
 
 
-    document
-      .getElementById(
-        "searchInput"
-      )
-      .focus();
+      input.focus();
 
 
-  },100);
+      input.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+    },
+    100
+  );
 
 }
 
@@ -1642,7 +2197,28 @@ function focusSearch(){
 
 function goHome(){
 
-  closePlayer();
+  const playerPage =
+    document.getElementById(
+      "playerPage"
+    );
+
+
+  if(
+    playerPage.classList.contains(
+      "active"
+    )
+  ){
+
+    closePlayer();
+
+  }else{
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
 
 }
 
@@ -1652,7 +2228,6 @@ function goHome(){
 ===================================================== */
 
 function showProfile(){
-
 
   if(
     tg &&
@@ -1670,37 +2245,6 @@ function showProfile(){
     );
 
   }
-
-}
-
-
-/* =====================================================
-   HTML SECURITY
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
 
 }
 

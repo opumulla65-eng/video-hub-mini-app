@@ -9,13 +9,13 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 # ==============================
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = os.getenv("ADMIN_ID")
 
 MINI_APP_URL = "https://opumulla65-eng.github.io/video-hub-mini-app/"
 
 
 # ==============================
 # IMAGES
-# Main Cover first
 # ==============================
 
 IMAGES = [
@@ -61,7 +61,7 @@ BUTTON = InlineKeyboardMarkup([
 
 
 # ==============================
-# /START COMMAND
+# /START
 # ==============================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -77,7 +77,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # ==============================
-# /MYID COMMAND
+# /MYID
 # ==============================
 
 async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -85,6 +85,45 @@ async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         f"🆔 Your Telegram User ID: "
         f"<code>{update.effective_user.id}</code>",
+        parse_mode="HTML",
+    )
+
+
+# ==============================
+# ADMIN CHECK
+# ==============================
+
+def is_admin(update: Update) -> bool:
+
+    if not ADMIN_ID:
+        return False
+
+    if not update.effective_user:
+        return False
+
+    return str(update.effective_user.id) == str(ADMIN_ID)
+
+
+# ==============================
+# /ADMIN
+# ==============================
+
+async def admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    if not is_admin(update):
+
+        await update.message.reply_text(
+            "⛔ You are not authorized to use this command."
+        )
+
+        return
+
+    await update.message.reply_text(
+        "🛠️ <b>ADMIN PANEL</b>\n\n"
+        "✅ Admin access verified.\n\n"
+        "📊 Statistics — Coming next\n"
+        "🎬 Video management — Coming next\n"
+        "📢 Broadcast — Coming next",
         parse_mode="HTML",
     )
 
@@ -107,11 +146,8 @@ def main():
         print("❌ RENDER_EXTERNAL_HOSTNAME পাওয়া যায়নি")
         return
 
-    webhook_url = (
-        f"https://{hostname}/telegram/webhook"
-    )
+    webhook_url = f"https://{hostname}/telegram/webhook"
 
-    # Create Telegram application
     app = (
         Application
         .builder()
@@ -128,12 +164,15 @@ def main():
         CommandHandler("myid", myid)
     )
 
+    app.add_handler(
+        CommandHandler("admin", admin)
+    )
+
     print("================================")
     print("✅ Bot service is starting...")
     print(f"🌐 Webhook: {webhook_url}")
     print("================================")
 
-    # Start webhook server
     app.run_webhook(
         listen="0.0.0.0",
         port=port,

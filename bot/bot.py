@@ -4,7 +4,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 
-BOT_TOKEN = os.getenv("8749971153:AAERNf4VZGLbaGdvXboiVd3MNaHu3DQKYEU")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 MINI_APP_URL = "https://opumulla65-eng.github.io/video-hub-mini-app/"
 

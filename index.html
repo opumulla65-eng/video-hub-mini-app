@@ -9,10 +9,8 @@
 
 <title>Video Hub</title>
 
-<!-- Telegram Mini App -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Monetag Telegram Mini App SDK -->
 <script
   src="//libtl.com/sdk.js"
   data-zone="11926831"
@@ -37,10 +35,16 @@
   --accent:#6c63ff;
 }
 
+html,
 body{
+  width:100%;
+  min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
   min-height:100vh;
 }
 
@@ -206,7 +210,7 @@ button{
   border:1px solid var(--border);
   border-radius:15px;
   overflow:hidden;
-  transition:transform .15s ease, border-color .15s ease;
+  transition:transform .15s ease,border-color .15s ease;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
@@ -215,10 +219,13 @@ button{
   transform:scale(.985);
 }
 
+
+/* বড় ও পরিষ্কার thumbnail */
+
 .thumb{
   position:relative;
   width:100%;
-  aspect-ratio:16/10;
+  aspect-ratio:16/9;
   background:#1b1d25;
   overflow:hidden;
 }
@@ -244,7 +251,7 @@ button{
   justify-content:center;
   background:linear-gradient(135deg,#1b1d28,#292d3b);
   color:#aaa;
-  font-size:34px;
+  font-size:38px;
   pointer-events:none;
 }
 
@@ -252,15 +259,15 @@ button{
   position:absolute;
   left:11px;
   bottom:10px;
-  width:38px;
-  height:38px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   background:rgba(0,0,0,.78);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:15px;
-  border:1px solid rgba(255,255,255,.22);
+  font-size:16px;
+  border:1px solid rgba(255,255,255,.25);
   pointer-events:none;
 }
 
@@ -338,82 +345,108 @@ button{
   box-shadow:0 15px 50px rgba(0,0,0,.5);
 }
 
+/* Direct MP4 */
 
-/* =========================
-   MAIN PLAYER
-========================= */
-
-.main-player{
-  position:relative;
+.player video{
   width:100%;
-  background:#000;
-  aspect-ratio:16/9;
-  overflow:hidden;
-}
-
-.main-player video{
-  width:100%;
-  height:100%;
+  height:auto;
   display:block;
   background:#000;
+  aspect-ratio:16/9;
   object-fit:contain;
 }
 
-.main-player video:fullscreen{
-  width:100vw;
-  height:100vh;
-  max-height:none;
-  object-fit:contain;
-  border-radius:0;
-}
+/* Turbo iframe */
 
-.main-player video:-webkit-full-screen{
-  width:100vw;
-  height:100vh;
-  max-height:none;
-  object-fit:contain;
-}
-
-
-/* =========================
-   TURBO EMBED PLAYER
-========================= */
-
-.main-player iframe{
+.player iframe{
   width:100%;
-  height:100%;
+  height:auto;
+  min-height:56.25vw;
+  max-height:80vh;
+  aspect-ratio:16/9;
   display:block;
   border:0;
   background:#000;
 }
 
-.embed-fallback{
-  position:absolute;
+
+/* Native fullscreen */
+
+.player video:fullscreen{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:#000;
+}
+
+.player video:-webkit-full-screen{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:#000;
+}
+
+
+/* Custom fullscreen state */
+
+.player.fullscreen{
+  position:fixed;
   inset:0;
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  z-index:99999;
+  border-radius:0;
+  background:#000;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:10px;
-  text-align:center;
-  padding:20px;
-  color:#aaa;
-  background:#11131a;
 }
 
-.embed-fallback-icon{
-  font-size:42px;
-}
-
-.embed-fallback-text{
-  font-size:13px;
-  line-height:1.5;
+.player.fullscreen video,
+.player.fullscreen iframe{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
 }
 
 
-/* =========================
-   PLAYER INFO
-========================= */
+/* Fullscreen button */
+
+.fullscreen-btn{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  z-index:10;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:9px;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  backdrop-filter:blur(6px);
+}
+
+.fullscreen-btn:active{
+  transform:scale(.94);
+}
 
 .player-info{
   padding:14px;
@@ -463,13 +496,12 @@ button{
 }
 
 .suggested-thumb{
-  width:125px;
+  width:135px;
   aspect-ratio:16/9;
   flex:none;
   background:#20232c;
   border-radius:8px;
   overflow:hidden;
-  position:relative;
 }
 
 .suggested-thumb img,
@@ -479,17 +511,6 @@ button{
   object-fit:cover;
   display:block;
   pointer-events:none;
-}
-
-.suggested-fallback{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#1b1d28,#292d3b);
-  color:#aaa;
-  font-size:28px;
 }
 
 .suggested-info{
@@ -595,7 +616,7 @@ button{
   }
 
   .thumb{
-    aspect-ratio:16/10;
+    aspect-ratio:16/9;
   }
 
   .video-title{
@@ -616,7 +637,11 @@ button{
   }
 
   .suggested-thumb{
-    width:110px;
+    width:125px;
+  }
+
+  .player{
+    border-radius:12px;
   }
 
 }
@@ -640,6 +665,10 @@ button{
     padding:8px;
   }
 
+  .suggested-thumb{
+    width:115px;
+  }
+
 }
 
 </style>
@@ -648,6 +677,7 @@ button{
 
 
 <body>
+
 
 <div class="app">
 
@@ -658,106 +688,107 @@ button{
 
 <div id="homePage" class="home-page">
 
-  <header class="header">
+<header class="header">
 
-    <div class="header-top">
+<div class="header-top">
 
-      <div class="logo">
-        Video<span>Hub</span>
-      </div>
+<div class="logo">
+Video<span>Hub</span>
+</div>
 
-      <button
-        class="profile-btn"
-        onclick="showProfile()">
-        👤
-      </button>
+<button
+class="profile-btn"
+onclick="showProfile()">
+👤
+</button>
 
-    </div>
-
-
-    <div class="search">
-
-      <span class="search-icon">
-        🔎
-      </span>
-
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search videos..."
-        autocomplete="off">
-
-    </div>
-
-  </header>
+</div>
 
 
-  <div class="categories">
+<div class="search">
 
-    <button
-      class="category active"
-      onclick="filterCategory('All',this)">
-      All
-    </button>
+<span class="search-icon">
+🔎
+</span>
 
-    <button
-      class="category"
-      onclick="filterCategory('Drama',this)">
-      Drama
-    </button>
+<input
+id="searchInput"
+type="search"
+placeholder="Search videos..."
+autocomplete="off">
 
-    <button
-      class="category"
-      onclick="filterCategory('Movies',this)">
-      Movies
-    </button>
+</div>
 
-    <button
-      class="category"
-      onclick="filterCategory('Series',this)">
-      Series
-    </button>
-
-  </div>
+</header>
 
 
-  <section class="section">
+<div class="categories">
 
-    <div class="section-title">
+<button
+class="category active"
+onclick="filterCategory('All',this)">
+All
+</button>
 
-      <h2>
-        Latest Videos
-      </h2>
+<button
+class="category"
+onclick="filterCategory('Drama',this)">
+Drama
+</button>
 
-      <span
-        class="count"
-        id="videoCount">
-        0 videos
-      </span>
+<button
+class="category"
+onclick="filterCategory('Movies',this)">
+Movies
+</button>
 
-    </div>
+<button
+class="category"
+onclick="filterCategory('Series',this)">
+Series
+</button>
 
-
-    <div
-      id="videoGrid"
-      class="video-grid">
-    </div>
-
-
-    <div
-      id="empty"
-      class="empty">
-      No videos found
-    </div>
-
-  </section>
+</div>
 
 
-  <div
-    id="dataError"
-    class="data-error">
-    ভিডিও লোড করা যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।
-  </div>
+<section class="section">
+
+<div class="section-title">
+
+<h2>
+Latest Videos
+</h2>
+
+<span
+class="count"
+id="videoCount">
+0 videos
+</span>
+
+</div>
+
+
+<div
+id="videoGrid"
+class="video-grid">
+</div>
+
+
+<div
+id="empty"
+class="empty">
+No videos found
+</div>
+
+</section>
+
+
+<div
+id="dataError"
+class="data-error">
+ভিডিও লোড করা যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।
+</div>
+
 
 </div>
 
@@ -767,69 +798,80 @@ button{
 ========================= -->
 
 <div
-  id="playerPage"
-  class="player-page">
+id="playerPage"
+class="player-page">
 
-  <div class="back-row">
+<div class="back-row">
 
-    <button
-      class="back-btn"
-      onclick="closePlayer()">
-      ← Back
-    </button>
+<button
+class="back-btn"
+onclick="closePlayer()">
+← Back
+</button>
 
-  </div>
-
-
-  <div class="player-container">
-
-    <div class="player">
-
-      <!--
-        Player dynamically তৈরি হবে।
-        Direct MP4 = <video>
-        Turbo Embed = <iframe>
-      -->
-
-      <div
-        id="mainPlayer"
-        class="main-player">
-      </div>
-
-    </div>
+</div>
 
 
-    <div class="player-info">
+<div class="player-container">
 
-      <div
-        id="playerTitle"
-        class="player-title">
-        Video
-      </div>
+<div
+id="playerBox"
+class="player">
 
-      <div
-        id="playerCategory"
-        class="player-category">
-        Category
-      </div>
-
-    </div>
-
-  </div>
+<video
+id="mainVideo"
+controls
+playsinline
+webkit-playsinline
+preload="metadata">
+</video>
 
 
-  <div class="suggested">
+<button
+id="fullscreenBtn"
+class="fullscreen-btn"
+type="button"
+onclick="toggleFullscreen()"
+aria-label="Fullscreen">
 
-    <div class="suggested-title">
-      Suggested Videos
-    </div>
+⛶
 
-    <div
-      id="suggestedList"
-      class="suggested-list">
-    </div>
+</button>
 
-  </div>
+</div>
+
+
+<div class="player-info">
+
+<div
+id="playerTitle"
+class="player-title">
+Video
+</div>
+
+<div
+id="playerCategory"
+class="player-category">
+Category
+</div>
+
+</div>
+
+</div>
+
+
+<div class="suggested">
+
+<div class="suggested-title">
+Suggested Videos
+</div>
+
+<div
+id="suggestedList"
+class="suggested-list">
+</div>
+
+</div>
 
 </div>
 
@@ -840,34 +882,37 @@ button{
 
 <nav class="bottom-nav">
 
-  <button
-    class="nav-btn active"
-    onclick="goHome()">
+<button
+class="nav-btn active"
+onclick="goHome()">
 
-    <span>⌂</span>
-    Home
+<span>⌂</span>
 
-  </button>
+Home
 
-
-  <button
-    class="nav-btn"
-    onclick="focusSearch()">
-
-    <span>⌕</span>
-    Search
-
-  </button>
+</button>
 
 
-  <button
-    class="nav-btn"
-    onclick="showProfile()">
+<button
+class="nav-btn"
+onclick="focusSearch()">
 
-    <span>◉</span>
-    Profile
+<span>⌕</span>
 
-  </button>
+Search
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="showProfile()">
+
+<span>◉</span>
+
+Profile
+
+</button>
 
 </nav>
 
@@ -883,28 +928,22 @@ button{
 ===================================================== */
 
 const tg =
-  window.Telegram?.WebApp;
+window.Telegram?.WebApp;
 
 
 if(tg){
 
-  tg.ready();
+tg.ready();
 
-  tg.expand();
+tg.expand();
 
+if(tg.setHeaderColor){
+tg.setHeaderColor("#08090d");
+}
 
-  if(tg.setHeaderColor){
-
-    tg.setHeaderColor("#08090d");
-
-  }
-
-
-  if(tg.setBackgroundColor){
-
-    tg.setBackgroundColor("#08090d");
-
-  }
+if(tg.setBackgroundColor){
+tg.setBackgroundColor("#08090d");
+}
 
 }
 
@@ -920,64 +959,54 @@ const AD_INTERVAL = 60000;
 
 function showMonetagAd(){
 
-  const now =
-    Date.now();
+const now =
+Date.now();
 
+if(
+lastAdTime !== 0 &&
+now - lastAdTime < AD_INTERVAL
+){
+return;
+}
 
-  if(
-    lastAdTime !== 0 &&
-    now - lastAdTime < AD_INTERVAL
-  ){
+if(
+typeof window.show_11926831 !== "function"
+){
+return;
+}
 
-    return;
+lastAdTime =
+now;
 
-  }
+try{
 
+const result =
+window.show_11926831();
 
-  if(
-    typeof window.show_11926831 !== "function"
-  ){
+if(
+result &&
+typeof result.catch === "function"
+){
 
-    return;
+result.catch(
+error=>{
+console.log(
+"Monetag error:",
+error
+);
+}
+);
 
-  }
+}
 
+}catch(error){
 
-  lastAdTime = now;
+console.log(
+"Monetag error:",
+error
+);
 
-
-  try{
-
-    const result =
-      window.show_11926831();
-
-
-    if(
-      result &&
-      typeof result.catch === "function"
-    ){
-
-      result.catch(
-        error => {
-
-          console.log(
-            "Monetag error:",
-            error
-          );
-
-        }
-      );
-
-    }
-
-  }catch(error){
-
-    console.log(
-      "Monetag error:",
-      error
-    );
-
-  }
+}
 
 }
 
@@ -988,133 +1017,48 @@ function showMonetagAd(){
 
 let videos = [];
 
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
 let currentCategory =
-  "All";
+"All";
 
 let currentVideoId =
-  null;
+null;
 
 
 /* =====================================================
-   URL TYPE DETECTION
+   TURBO EMBED DETECTION
 ===================================================== */
-
-/*
-   Direct MP4:
-   https://example.com/video.mp4
-
-   Turbo Embed:
-   https://turbo.cr/embed/XXXXXXXX
-*/
 
 function isTurboEmbedUrl(url){
 
-  if(!url){
-
-    return false;
-
-  }
-
-
-  try{
-
-    const parsed =
-      new URL(
-        String(url),
-        window.location.href
-      );
-
-
-    const hostname =
-      parsed.hostname
-        .toLowerCase()
-        .replace(
-          /^www\./,
-          ""
-        );
-
-
-    return (
-      hostname === "turbo.cr" &&
-      parsed.pathname
-        .toLowerCase()
-        .startsWith("/embed/")
-    );
-
-  }catch(error){
-
-    return false;
-
-  }
-
+if(!url){
+return false;
 }
 
+try{
 
-/* =====================================================
-   EMBED FALLBACK
-===================================================== */
+const parsed =
+new URL(
+String(url),
+window.location.href
+);
 
-function createEmbedFallback(
-  container,
-  message="Player preview unavailable"
-){
+const hostname =
+parsed.hostname
+.toLowerCase()
+.replace(/^www\./,"");
 
-  const fallback =
-    document.createElement(
-      "div"
-    );
+return (
+hostname === "turbo.cr" &&
+parsed.pathname
+.toLowerCase()
+.startsWith("/embed/")
+);
 
+}catch(error){
 
-  fallback.className =
-    "embed-fallback";
+return false;
 
-
-  const icon =
-    document.createElement(
-      "div"
-    );
-
-
-  icon.className =
-    "embed-fallback-icon";
-
-
-  icon.textContent =
-    "🎬";
-
-
-  const text =
-    document.createElement(
-      "div"
-    );
-
-
-  text.className =
-    "embed-fallback-text";
-
-
-  text.textContent =
-    message;
-
-
-  fallback.appendChild(
-    icon
-  );
-
-
-  fallback.appendChild(
-    text
-  );
-
-
-  container.appendChild(
-    fallback
-  );
+}
 
 }
 
@@ -1125,110 +1069,103 @@ function createEmbedFallback(
 
 async function loadVideos(){
 
-  const errorBox =
-    document.getElementById(
-      "dataError"
-    );
+const errorBox =
+document.getElementById(
+"dataError"
+);
+
+try{
+
+const response =
+await fetch(
+"./videos.json?v=" +
+Date.now(),
+{
+cache:"no-store"
+}
+);
+
+if(!response.ok){
+
+throw new Error(
+"videos.json load failed: " +
+response.status
+);
+
+}
+
+const data =
+await response.json();
+
+if(!Array.isArray(data)){
+
+throw new Error(
+"videos.json must contain an array"
+);
+
+}
+
+videos =
+data
+.filter(video =>
+video &&
+video.id !== undefined &&
+video.url
+)
+.map(video =>({
+
+id:String(video.id),
+
+title:
+video.title ||
+"Untitled Video",
+
+category:
+video.category ||
+"Other",
+
+url:
+video.url,
+
+thumbnail:
+video.thumbnail ||
+"",
+
+duration:
+video.duration ||
+"",
+
+views:
+Number(
+video.views || 0
+)
+
+}));
 
 
-  try{
+errorBox.style.display =
+"none";
 
-    const response =
-      await fetch(
-        "./videos.json?v=" + Date.now(),
-        {
-          cache:"no-store"
-        }
-      );
+renderVideos();
+
+openVideoFromTelegram();
 
 
-    if(!response.ok){
+}catch(error){
 
-      throw new Error(
-        "videos.json load failed: " +
-        response.status
-      );
+console.error(
+"Video data error:",
+error
+);
 
-    }
+videos = [];
 
+renderVideos();
 
-    const data =
-      await response.json();
+errorBox.style.display =
+"block";
 
-
-    if(!Array.isArray(data)){
-
-      throw new Error(
-        "videos.json must contain an array"
-      );
-
-    }
-
-
-    videos =
-      data
-        .filter(video =>
-          video &&
-          video.id !== undefined &&
-          video.url
-        )
-        .map(video =>({
-
-          id:String(video.id),
-
-          title:
-            video.title ||
-            "Untitled Video",
-
-          category:
-            video.category ||
-            "Other",
-
-          url:
-            String(video.url),
-
-          thumbnail:
-            video.thumbnail ||
-            "",
-
-          duration:
-            video.duration ||
-            "",
-
-          views:
-            Number(video.views || 0)
-
-        }));
-
-
-    errorBox.style.display =
-      "none";
-
-
-    renderVideos();
-
-
-    openVideoFromTelegram();
-
-
-  }catch(error){
-
-    console.error(
-      "Video data error:",
-      error
-    );
-
-
-    videos = [];
-
-
-    renderVideos();
-
-
-    errorBox.style.display =
-      "block";
-
-  }
+}
 
 }
 
@@ -1239,30 +1176,28 @@ async function loadVideos(){
 
 function getStartParam(){
 
-  if(
-    tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.start_param
-  ){
+if(
+tg &&
+tg.initDataUnsafe &&
+tg.initDataUnsafe.start_param
+){
 
-    return String(
-      tg.initDataUnsafe.start_param
-    );
+return String(
+tg.initDataUnsafe.start_param
+);
 
-  }
+}
 
+const params =
+new URLSearchParams(
+window.location.search
+);
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-
-  return (
-    params.get(
-      "tgWebAppStartParam"
-    ) || ""
-  );
+return (
+params.get(
+"tgWebAppStartParam"
+) || ""
+);
 
 }
 
@@ -1273,43 +1208,37 @@ function getStartParam(){
 
 function openVideoFromTelegram(){
 
-  const startParam =
-    getStartParam();
+const startParam =
+getStartParam();
 
+if(!startParam){
+return;
+}
 
-  if(!startParam){
+const cleanParam =
+String(startParam)
+.replace(
+/^video[_-]/i,
+""
+);
 
-    return;
+const video =
+videos.find(
+v =>
+String(v.id) ===
+String(cleanParam)
+);
 
-  }
+if(video){
 
+setTimeout(
+()=>{
+openPlayer(video.id);
+},
+300
+);
 
-  const cleanParam =
-    String(startParam)
-      .replace(
-        /^video[_-]/i,
-        ""
-      );
-
-
-  const video =
-    videos.find(
-      v =>
-        String(v.id) ===
-        String(cleanParam)
-    );
-
-
-  if(video){
-
-    setTimeout(
-      ()=>{
-        openPlayer(video.id);
-      },
-      300
-    );
-
-  }
+}
 
 }
 
@@ -1320,287 +1249,252 @@ function openVideoFromTelegram(){
 
 function createThumbnail(video){
 
-  const wrapper =
-    document.createElement(
-      "div"
-    );
+const wrapper =
+document.createElement(
+"div"
+);
+
+wrapper.className =
+"thumb";
 
 
-  wrapper.className =
-    "thumb";
+if(video.thumbnail){
+
+const image =
+document.createElement(
+"img"
+);
+
+image.src =
+video.thumbnail;
+
+image.loading =
+"lazy";
+
+image.alt =
+video.title;
+
+image.onerror =
+()=>{
+
+image.remove();
+
+createVideoPreview(
+video,
+wrapper
+);
+
+};
+
+wrapper.appendChild(
+image
+);
+
+}else{
+
+createVideoPreview(
+video,
+wrapper
+);
+
+}
 
 
-  /*
-     Thumbnail থাকলে সেটাই ব্যবহার হবে।
-  */
+const play =
+document.createElement(
+"div"
+);
 
-  if(video.thumbnail){
+play.className =
+"play-badge";
 
-    const image =
-      document.createElement(
-        "img"
-      );
+play.textContent =
+"▶";
 
-
-    image.src =
-      video.thumbnail;
-
-
-    image.loading =
-      "lazy";
+wrapper.appendChild(
+play
+);
 
 
-    image.alt =
-      video.title;
+if(video.duration){
 
+const duration =
+document.createElement(
+"span"
+);
 
-    image.onerror =
-      ()=>{
+duration.className =
+"duration";
 
-        image.remove();
+duration.textContent =
+video.duration;
 
+wrapper.appendChild(
+duration
+);
 
-        createVideoPreview(
-          video,
-          wrapper
-        );
+}
 
-      };
-
-
-    wrapper.appendChild(
-      image
-    );
-
-  }else{
-
-    createVideoPreview(
-      video,
-      wrapper
-    );
-
-  }
-
-
-  const play =
-    document.createElement(
-      "div"
-    );
-
-
-  play.className =
-    "play-badge";
-
-
-  play.textContent =
-    "▶";
-
-
-  wrapper.appendChild(
-    play
-  );
-
-
-  if(video.duration){
-
-    const duration =
-      document.createElement(
-        "span"
-      );
-
-
-    duration.className =
-      "duration";
-
-
-    duration.textContent =
-      video.duration;
-
-
-    wrapper.appendChild(
-      duration
-    );
-
-  }
-
-
-  return wrapper;
+return wrapper;
 
 }
 
 
 /* =====================================================
-   MP4 / EMBED THUMBNAIL PREVIEW
+   VIDEO PREVIEW
 ===================================================== */
 
 function createVideoPreview(
-  video,
-  wrapper
+video,
+wrapper
 ){
 
-  /*
-     Turbo Embed URL-কে <video> tag-এ
-     দেওয়া যাবে না।
+/*
+   Turbo embed URL দিয়ে thumbnail
+   video preview করা যাবে না।
+*/
 
-     তাই Turbo হলে শুধু fallback দেখাবে।
-  */
+if(
+isTurboEmbedUrl(video.url)
+){
 
-  if(
-    isTurboEmbedUrl(
-      video.url
-    )
-  ){
+const fallback =
+document.createElement(
+"div"
+);
 
-    const fallback =
-      document.createElement(
-        "div"
-      );
+fallback.className =
+"thumb-fallback";
 
+fallback.textContent =
+"🎬";
 
-    fallback.className =
-      "thumb-fallback";
+wrapper.appendChild(
+fallback
+);
 
+return;
 
-    fallback.textContent =
-      "🎬";
-
-
-    wrapper.appendChild(
-      fallback
-    );
+}
 
 
-    return;
-
-  }
-
-
-  if(
-    wrapper.querySelector(
-      "video"
-    )
-  ){
-
-    return;
-
-  }
+if(
+wrapper.querySelector(
+"video"
+)
+){
+return;
+}
 
 
-  const preview =
-    document.createElement(
-      "video"
-    );
+const preview =
+document.createElement(
+"video"
+);
+
+preview.muted =
+true;
+
+preview.playsInline =
+true;
+
+preview.preload =
+"metadata";
+
+preview.src =
+video.url;
 
 
-  preview.muted =
-    true;
+const fallback =
+document.createElement(
+"div"
+);
+
+fallback.className =
+"thumb-fallback";
+
+fallback.textContent =
+"🎬";
 
 
-  preview.playsInline =
-    true;
+wrapper.insertBefore(
+preview,
+wrapper.firstChild
+);
+
+wrapper.insertBefore(
+fallback,
+preview.nextSibling
+);
 
 
-  preview.preload =
-    "metadata";
+preview.addEventListener(
+"loadedmetadata",
+()=>{
+
+if(
+isFinite(
+preview.duration
+) &&
+preview.duration > 0
+){
+
+try{
+
+preview.currentTime =
+Math.min(
+1.5,
+Math.max(
+.1,
+preview.duration / 10
+)
+);
+
+}catch(e){}
+
+}
+
+}
+);
 
 
-  preview.src =
-    video.url;
+preview.addEventListener(
+"loadeddata",
+()=>{
+
+fallback.style.display =
+"none";
+
+},
+{
+once:true
+}
+);
 
 
-  const fallback =
-    document.createElement(
-      "div"
-    );
+preview.addEventListener(
+"seeked",
+()=>{
+
+fallback.style.display =
+"none";
+
+},
+{
+once:true
+}
+);
 
 
-  fallback.className =
-    "thumb-fallback";
+preview.addEventListener(
+"error",
+()=>{
 
+fallback.style.display =
+"flex";
 
-  fallback.textContent =
-    "🎬";
-
-
-  wrapper.insertBefore(
-    preview,
-    wrapper.firstChild
-  );
-
-
-  wrapper.insertBefore(
-    fallback,
-    preview.nextSibling
-  );
-
-
-  preview.addEventListener(
-    "loadedmetadata",
-    ()=>{
-
-      if(
-        isFinite(
-          preview.duration
-        ) &&
-        preview.duration > 0
-      ){
-
-        try{
-
-          preview.currentTime =
-            Math.min(
-              1.5,
-              Math.max(
-                .1,
-                preview.duration / 10
-              )
-            );
-
-        }catch(e){}
-
-      }
-
-    }
-  );
-
-
-  preview.addEventListener(
-    "loadeddata",
-    ()=>{
-
-      fallback.style.display =
-        "none";
-
-    },
-    {
-      once:true
-    }
-  );
-
-
-  preview.addEventListener(
-    "seeked",
-    ()=>{
-
-      fallback.style.display =
-        "none";
-
-    },
-    {
-      once:true
-    }
-  );
-
-
-  preview.addEventListener(
-    "error",
-    ()=>{
-
-      fallback.style.display =
-        "flex";
-
-    }
-  );
+}
+);
 
 }
 
@@ -1611,335 +1505,184 @@ function createVideoPreview(
 
 function renderVideos(){
 
-  const grid =
-    document.getElementById(
-      "videoGrid"
-    );
+const grid =
+document.getElementById(
+"videoGrid"
+);
 
+const empty =
+document.getElementById(
+"empty"
+);
 
-  const empty =
-    document.getElementById(
-      "empty"
-    );
+const count =
+document.getElementById(
+"videoCount"
+);
 
+const search =
+document
+.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
 
-  const count =
-    document.getElementById(
-      "videoCount"
-    );
 
+const filtered =
+videos.filter(
+video => {
 
-  const search =
-    document
-      .getElementById(
-        "searchInput"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+const categoryMatch =
+currentCategory === "All" ||
+video.category ===
+currentCategory;
 
+const searchMatch =
+!search ||
+String(video.title)
+.toLowerCase()
+.includes(search);
 
-  const filtered =
-    videos.filter(
-      video => {
+return (
+categoryMatch &&
+searchMatch
+);
 
+}
+);
 
-        const categoryMatch =
-          currentCategory === "All" ||
-          video.category ===
-          currentCategory;
 
+grid.innerHTML =
+"";
 
-        const searchMatch =
-          !search ||
-          String(video.title)
-            .toLowerCase()
-            .includes(search);
 
+count.textContent =
+filtered.length +
+" videos";
 
-        return (
-          categoryMatch &&
-          searchMatch
-        );
 
-      }
-    );
+if(
+filtered.length === 0
+){
 
+empty.style.display =
+"block";
 
-  grid.innerHTML =
-    "";
-
-
-  count.textContent =
-    filtered.length +
-    " videos";
-
-
-  if(
-    filtered.length === 0
-  ){
-
-    empty.style.display =
-      "block";
-
-    return;
-
-  }
-
-
-  empty.style.display =
-    "none";
-
-
-  filtered.forEach(
-    video => {
-
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-
-      card.className =
-        "video-card";
-
-
-      card.addEventListener(
-        "click",
-        event => {
-
-          event.preventDefault();
-          event.stopPropagation();
-
-          openPlayer(
-            video.id
-          );
-
-
-          setTimeout(
-            ()=>{
-              showMonetagAd();
-            },
-            100
-          );
-
-        },
-        {
-          passive:false
-        }
-      );
-
-
-      card.appendChild(
-        createThumbnail(
-          video
-        )
-      );
-
-
-      const info =
-        document.createElement(
-          "div"
-        );
-
-
-      info.className =
-        "video-info";
-
-
-      const title =
-        document.createElement(
-          "div"
-        );
-
-
-      title.className =
-        "video-title";
-
-
-      title.textContent =
-        video.title;
-
-
-      const meta =
-        document.createElement(
-          "div"
-        );
-
-
-      meta.className =
-        "video-meta";
-
-
-      meta.textContent =
-        video.category +
-        (
-          video.views
-            ? " • " +
-              video.views.toLocaleString() +
-              " views"
-            : ""
-        );
-
-
-      info.appendChild(
-        title
-      );
-
-
-      info.appendChild(
-        meta
-      );
-
-
-      card.appendChild(
-        info
-      );
-
-
-      grid.appendChild(
-        card
-      );
-
-    }
-  );
+return;
 
 }
 
 
-/* =====================================================
-   CREATE MAIN PLAYER
-===================================================== */
-
-function renderMainPlayer(video){
-
-  const container =
-    document.getElementById(
-      "mainPlayer"
-    );
+empty.style.display =
+"none";
 
 
-  if(!container){
+filtered.forEach(
+video => {
 
-    return;
+const card =
+document.createElement(
+"div"
+);
 
-  }
-
-
-  /*
-     পুরোনো player সম্পূর্ণ remove।
-  */
-
-  container.innerHTML =
-    "";
+card.className =
+"video-card";
 
 
-  /*
-     =========================================
-     TURBO EMBED
-     =========================================
-  */
+card.addEventListener(
+"click",
+event => {
 
-  if(
-    isTurboEmbedUrl(
-      video.url
-    )
-  ){
+event.preventDefault();
+event.stopPropagation();
 
-    const iframe =
-      document.createElement(
-        "iframe"
-      );
+openPlayer(
+video.id
+);
 
+setTimeout(
+()=>{
+showMonetagAd();
+},
+100
+);
 
-    iframe.src =
-      video.url;
-
-
-    iframe.title =
-      video.title;
-
-
-    iframe.allow =
-      "autoplay; fullscreen; picture-in-picture; encrypted-media";
+},
+{
+passive:false
+}
+);
 
 
-    iframe.allowFullscreen =
-      true;
+card.appendChild(
+createThumbnail(
+video
+)
+);
 
 
-    iframe.setAttribute(
-      "loading",
-      "eager"
-    );
+const info =
+document.createElement(
+"div"
+);
+
+info.className =
+"video-info";
 
 
-    iframe.setAttribute(
-      "referrerpolicy",
-      "strict-origin-when-cross-origin"
-    );
+const title =
+document.createElement(
+"div"
+);
+
+title.className =
+"video-title";
+
+title.textContent =
+video.title;
 
 
-    container.appendChild(
-      iframe
-    );
+const meta =
+document.createElement(
+"div"
+);
+
+meta.className =
+"video-meta";
+
+meta.textContent =
+video.category +
+(
+video.views
+?
+" • " +
+video.views.toLocaleString() +
+" views"
+:
+""
+);
 
 
-    return;
+info.appendChild(
+title
+);
 
-  }
+info.appendChild(
+meta
+);
 
+card.appendChild(
+info
+);
 
-  /*
-     =========================================
-     DIRECT VIDEO / MP4
-     =========================================
-  */
+grid.appendChild(
+card
+);
 
-  const player =
-    document.createElement(
-      "video"
-    );
-
-
-  player.id =
-    "mainVideo";
-
-
-  player.controls =
-    true;
-
-
-  player.playsInline =
-    true;
-
-
-  player.preload =
-    "metadata";
-
-
-  player.src =
-    video.url;
-
-
-  container.appendChild(
-    player
-  );
-
-
-  /*
-     Autoplay চেষ্টা করবে।
-     Browser block করলে controls থাকবে।
-  */
-
-  player.play().catch(
-    ()=>{
-      console.log(
-        "Autoplay blocked"
-      );
-    }
-  );
+}
+);
 
 }
 
@@ -1950,93 +1693,433 @@ function renderMainPlayer(video){
 
 function openPlayer(id){
 
-  const video =
-    videos.find(
-      v =>
-        String(v.id) ===
-        String(id)
-    );
+const video =
+videos.find(
+v =>
+String(v.id) ===
+String(id)
+);
 
+if(!video){
 
-  if(!video){
+console.warn(
+"Video not found:",
+id
+);
 
-    console.warn(
-      "Video not found:",
-      id
-    );
-
-    return;
-
-  }
-
-
-  currentVideoId =
-    String(
-      video.id
-    );
-
-
-  const home =
-    document.getElementById(
-      "homePage"
-    );
-
-
-  const page =
-    document.getElementById(
-      "playerPage"
-    );
-
-
-  const title =
-    document.getElementById(
-      "playerTitle"
-    );
-
-
-  const category =
-    document.getElementById(
-      "playerCategory"
-    );
-
-
-  home.classList.add(
-    "hidden"
-  );
-
-
-  page.classList.add(
-    "active"
-  );
-
-
-  /*
-     Direct MP4 অথবা Turbo Embed
-     অনুযায়ী player তৈরি হবে।
-  */
-
-  renderMainPlayer(
-    video
-  );
-
-
-  title.textContent =
-    video.title;
-
-
-  category.textContent =
-    video.category;
-
-
-  renderSuggested();
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"auto"
-  });
+return;
 
 }
+
+
+currentVideoId =
+String(video.id);
+
+
+const home =
+document.getElementById(
+"homePage"
+);
+
+const page =
+document.getElementById(
+"playerPage"
+);
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+const oldVideo =
+document.getElementById(
+"mainVideo"
+);
+
+const title =
+document.getElementById(
+"playerTitle"
+);
+
+const category =
+document.getElementById(
+"playerCategory"
+);
+
+
+home.classList.add(
+"hidden"
+);
+
+page.classList.add(
+"active"
+);
+
+
+/*
+   পুরোনো player সম্পূর্ণ পরিষ্কার।
+*/
+
+oldVideo.pause();
+
+oldVideo.removeAttribute(
+"src"
+);
+
+oldVideo.load();
+
+
+/*
+   আগের iframe থাকলে সরানো।
+*/
+
+const oldIframe =
+playerBox.querySelector(
+"iframe"
+);
+
+if(oldIframe){
+oldIframe.remove();
+}
+
+
+/*
+   Direct MP4 অথবা Turbo Embed
+   অনুযায়ী player তৈরি।
+*/
+
+if(
+isTurboEmbedUrl(video.url)
+){
+
+oldVideo.style.display =
+"none";
+
+
+const iframe =
+document.createElement(
+"iframe"
+);
+
+iframe.src =
+video.url;
+
+iframe.title =
+video.title;
+
+iframe.allow =
+"autoplay; fullscreen; picture-in-picture; encrypted-media";
+
+iframe.setAttribute(
+"allowfullscreen",
+""
+);
+
+iframe.setAttribute(
+"webkitallowfullscreen",
+""
+);
+
+iframe.setAttribute(
+"mozallowfullscreen",
+""
+);
+
+iframe.loading =
+"eager";
+
+iframe.referrerPolicy =
+"no-referrer-when-downgrade";
+
+
+playerBox.insertBefore(
+iframe,
+document.getElementById(
+"fullscreenBtn"
+)
+);
+
+}else{
+
+oldVideo.style.display =
+"block";
+
+oldVideo.src =
+video.url;
+
+oldVideo.load();
+
+
+oldVideo.play().catch(
+()=>{
+console.log(
+"Autoplay blocked"
+);
+}
+);
+
+}
+
+
+title.textContent =
+video.title;
+
+category.textContent =
+video.category;
+
+
+renderSuggested();
+
+
+window.scrollTo({
+top:0,
+behavior:"auto"
+});
+
+}
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+async function toggleFullscreen(){
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+const video =
+document.getElementById(
+"mainVideo"
+);
+
+const iframe =
+playerBox.querySelector(
+"iframe"
+);
+
+
+/*
+   Already fullscreen?
+*/
+
+if(
+document.fullscreenElement ||
+document.webkitFullscreenElement
+){
+
+await exitFullscreen();
+
+return;
+
+}
+
+
+/*
+   Turbo iframe / player container
+*/
+
+try{
+
+if(
+playerBox.requestFullscreen
+){
+
+await playerBox.requestFullscreen();
+
+playerBox.classList.add(
+"fullscreen"
+);
+
+return;
+
+}
+
+if(
+playerBox.webkitRequestFullscreen
+){
+
+playerBox.webkitRequestFullscreen();
+
+playerBox.classList.add(
+"fullscreen"
+);
+
+return;
+
+}
+
+}catch(error){
+
+console.log(
+"Container fullscreen failed:",
+error
+);
+
+}
+
+
+/*
+   Direct video fallback
+*/
+
+if(
+video &&
+video.style.display !== "none"
+){
+
+try{
+
+if(
+video.requestFullscreen
+){
+
+await video.requestFullscreen();
+
+return;
+
+}
+
+if(
+video.webkitRequestFullscreen
+){
+
+video.webkitRequestFullscreen();
+
+return;
+
+}
+
+if(
+video.webkitEnterFullscreen
+){
+
+video.webkitEnterFullscreen();
+
+return;
+
+}
+
+}catch(error){
+
+console.log(
+"Video fullscreen failed:",
+error
+);
+
+}
+
+}
+
+
+/*
+   Last fallback
+*/
+
+if(iframe){
+
+alert(
+"Fullscreen is not supported by this Telegram/WebView environment for this player."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   EXIT FULLSCREEN
+===================================================== */
+
+async function exitFullscreen(){
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+try{
+
+if(
+document.exitFullscreen
+){
+
+await document.exitFullscreen();
+
+}else if(
+document.webkitExitFullscreen
+){
+
+document.webkitExitFullscreen();
+
+}
+
+}catch(error){
+
+console.log(
+"Exit fullscreen error:",
+error
+);
+
+}
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+
+/* =====================================================
+   FULLSCREEN CHANGE
+===================================================== */
+
+document.addEventListener(
+"fullscreenchange",
+()=>{
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+if(
+!document.fullscreenElement
+){
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+}
+);
+
+
+document.addEventListener(
+"webkitfullscreenchange",
+()=>{
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+if(
+!document.webkitFullscreenElement
+){
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+}
+);
 
 
 /* =====================================================
@@ -2045,185 +2128,159 @@ function openPlayer(id){
 
 function renderSuggested(){
 
-  const list =
-    document.getElementById(
-      "suggestedList"
-    );
+const list =
+document.getElementById(
+"suggestedList"
+);
+
+list.innerHTML =
+"";
 
 
-  list.innerHTML =
-    "";
+videos
+.filter(
+video =>
+String(video.id) !==
+String(currentVideoId)
+)
+.forEach(
+video => {
+
+const item =
+document.createElement(
+"div"
+);
+
+item.className =
+"suggested-item";
 
 
-  videos
-    .filter(
-      video =>
-        String(
-          video.id
-        ) !==
-        String(
-          currentVideoId
-        )
-    )
-    .forEach(
-      video => {
+item.addEventListener(
+"click",
+event => {
+
+event.preventDefault();
+event.stopPropagation();
+
+openPlayer(
+video.id
+);
+
+setTimeout(
+()=>{
+showMonetagAd();
+},
+100
+);
+
+},
+{
+passive:false
+}
+);
 
 
-        const item =
-          document.createElement(
-            "div"
-          );
+const thumb =
+document.createElement(
+"div"
+);
+
+thumb.className =
+"suggested-thumb";
 
 
-        item.className =
-          "suggested-item";
+if(video.thumbnail){
+
+const img =
+document.createElement(
+"img"
+);
+
+img.src =
+video.thumbnail;
+
+img.loading =
+"lazy";
+
+img.alt =
+video.title;
+
+img.onerror =
+()=>{
+
+img.remove();
+
+addSuggestedPreview(
+video,
+thumb
+);
+
+};
+
+thumb.appendChild(
+img
+);
+
+}else{
+
+addSuggestedPreview(
+video,
+thumb
+);
+
+}
 
 
-        item.addEventListener(
-          "click",
-          event => {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            openPlayer(
-              video.id
-            );
+item.appendChild(
+thumb
+);
 
 
-            setTimeout(
-              ()=>{
-                showMonetagAd();
-              },
-              100
-            );
+const info =
+document.createElement(
+"div"
+);
 
-          },
-          {
-            passive:false
-          }
-        );
+info.className =
+"suggested-info";
 
 
-        const thumb =
-          document.createElement(
-            "div"
-          );
+const strong =
+document.createElement(
+"strong"
+);
+
+strong.textContent =
+video.title;
 
 
-        thumb.className =
-          "suggested-thumb";
+const span =
+document.createElement(
+"span"
+);
+
+span.textContent =
+video.category;
 
 
-        /*
-           Thumbnail URL থাকলে
-           সেটাই ব্যবহার হবে।
-        */
+info.appendChild(
+strong
+);
 
-        if(video.thumbnail){
+info.appendChild(
+span
+);
 
-          const img =
-            document.createElement(
-              "img"
-            );
+item.appendChild(
+info
+);
 
+list.appendChild(
+item
+);
 
-          img.src =
-            video.thumbnail;
-
-
-          img.loading =
-            "lazy";
-
-
-          img.alt =
-            video.title;
-
-
-          img.onerror =
-            ()=>{
-
-              img.remove();
-
-
-              addSuggestedPreview(
-                video,
-                thumb
-              );
-
-            };
-
-
-          thumb.appendChild(
-            img
-          );
-
-        }else{
-
-          addSuggestedPreview(
-            video,
-            thumb
-          );
-
-        }
-
-
-        item.appendChild(
-          thumb
-        );
-
-
-        const info =
-          document.createElement(
-            "div"
-          );
-
-
-        info.className =
-          "suggested-info";
-
-
-        const strong =
-          document.createElement(
-            "strong"
-          );
-
-
-        strong.textContent =
-          video.title;
-
-
-        const span =
-          document.createElement(
-            "span"
-          );
-
-
-        span.textContent =
-          video.category;
-
-
-        info.appendChild(
-          strong
-        );
-
-
-        info.appendChild(
-          span
-        );
-
-
-        item.appendChild(
-          info
-        );
-
-
-        list.appendChild(
-          item
-        );
-
-      }
-    );
+}
+);
 
 }
 
@@ -2233,111 +2290,95 @@ function renderSuggested(){
 ===================================================== */
 
 function addSuggestedPreview(
-  video,
-  container
+video,
+container
 ){
 
-  /*
-     Turbo Embed-এর জন্য
-     video preview চালানো যাবে না।
-  */
+if(
+isTurboEmbedUrl(video.url)
+){
 
-  if(
-    isTurboEmbedUrl(
-      video.url
-    )
-  ){
+const fallback =
+document.createElement(
+"div"
+);
 
-    const fallback =
-      document.createElement(
-        "div"
-      );
+fallback.className =
+"thumb-fallback";
 
+fallback.textContent =
+"🎬";
 
-    fallback.className =
-      "suggested-fallback";
+container.appendChild(
+fallback
+);
 
+return;
 
-    fallback.textContent =
-      "🎬";
-
-
-    container.appendChild(
-      fallback
-    );
+}
 
 
-    return;
+if(
+container.querySelector(
+"video"
+)
+){
 
-  }
+return;
 
-
-  if(
-    container.querySelector(
-      "video"
-    )
-  ){
-
-    return;
-
-  }
+}
 
 
-  const preview =
-    document.createElement(
-      "video"
-    );
+const preview =
+document.createElement(
+"video"
+);
+
+preview.muted =
+true;
+
+preview.playsInline =
+true;
+
+preview.preload =
+"metadata";
+
+preview.src =
+video.url;
+
+container.appendChild(
+preview
+);
 
 
-  preview.muted =
-    true;
+preview.addEventListener(
+"loadedmetadata",
+()=>{
 
+if(
+isFinite(
+preview.duration
+) &&
+preview.duration > 0
+){
 
-  preview.playsInline =
-    true;
+try{
 
+preview.currentTime =
+Math.min(
+1.5,
+Math.max(
+.1,
+preview.duration / 10
+)
+);
 
-  preview.preload =
-    "metadata";
+}catch(e){}
 
+}
 
-  preview.src =
-    video.url;
-
-
-  container.appendChild(
-    preview
-  );
-
-
-  preview.addEventListener(
-    "loadedmetadata",
-    ()=>{
-
-      if(
-        isFinite(
-          preview.duration
-        ) &&
-        preview.duration > 0
-      ){
-
-        try{
-
-          preview.currentTime =
-            Math.min(
-              1.5,
-              Math.max(
-                .1,
-                preview.duration / 10
-              )
-            );
-
-        }catch(e){}
-
-      }
-
-    }
-  );
+}
+);
 
 }
 
@@ -2348,51 +2389,80 @@ function addSuggestedPreview(
 
 function closePlayer(){
 
-  const container =
-    document.getElementById(
-      "mainPlayer"
-    );
+const player =
+document.getElementById(
+"mainVideo"
+);
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+player.pause();
+
+player.removeAttribute(
+"src"
+);
+
+player.load();
 
 
-  /*
-     Video বা iframe দুটোই
-     DOM থেকে সম্পূর্ণ remove হবে।
-  */
+const iframe =
+playerBox.querySelector(
+"iframe"
+);
 
-  if(container){
-
-    container.innerHTML =
-      "";
-
-  }
+if(iframe){
+iframe.remove();
+}
 
 
-  document
-    .getElementById(
-      "playerPage"
-    )
-    .classList.remove(
-      "active"
-    );
+player.style.display =
+"block";
 
 
-  document
-    .getElementById(
-      "homePage"
-    )
-    .classList.remove(
-      "hidden"
-    );
+playerBox.classList.remove(
+"fullscreen"
+);
 
 
-  currentVideoId =
-    null;
+if(
+document.fullscreenElement ||
+document.webkitFullscreenElement
+){
+
+exitFullscreen();
+
+}
 
 
-  window.scrollTo({
-    top:0,
-    behavior:"auto"
-  });
+document
+.getElementById(
+"playerPage"
+)
+.classList.remove(
+"active"
+);
+
+
+document
+.getElementById(
+"homePage"
+)
+.classList.remove(
+"hidden"
+);
+
+
+currentVideoId =
+null;
+
+
+window.scrollTo({
+top:0,
+behavior:"auto"
+});
 
 }
 
@@ -2402,35 +2472,34 @@ function closePlayer(){
 ===================================================== */
 
 function filterCategory(
-  category,
-  button
+category,
+button
 ){
 
-  currentCategory =
-    category;
+currentCategory =
+category;
 
 
-  document
-    .querySelectorAll(
-      ".category"
-    )
-    .forEach(
-      btn => {
+document
+.querySelectorAll(
+".category"
+)
+.forEach(
+btn => {
 
-        btn.classList.remove(
-          "active"
-        );
+btn.classList.remove(
+"active"
+);
 
-      }
-    );
-
-
-  button.classList.add(
-    "active"
-  );
+}
+);
 
 
-  renderVideos();
+button.classList.add(
+"active"
+);
+
+renderVideos();
 
 }
 
@@ -2440,40 +2509,38 @@ function filterCategory(
 ===================================================== */
 
 document
-  .getElementById(
-    "searchInput"
-  )
-  .addEventListener(
-    "input",
-    renderVideos
-  );
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+renderVideos
+);
 
 
 function focusSearch(){
 
-  goHome();
+goHome();
 
 
-  setTimeout(
-    ()=>{
+setTimeout(
+()=>{
 
-      const input =
-        document.getElementById(
-          "searchInput"
-        );
+const input =
+document.getElementById(
+"searchInput"
+);
 
+input.focus();
 
-      input.focus();
+input.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
 
-
-      input.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-      });
-
-    },
-    100
-  );
+},
+100
+);
 
 }
 
@@ -2484,28 +2551,28 @@ function focusSearch(){
 
 function goHome(){
 
-  const playerPage =
-    document.getElementById(
-      "playerPage"
-    );
+const playerPage =
+document.getElementById(
+"playerPage"
+);
 
 
-  if(
-    playerPage.classList.contains(
-      "active"
-    )
-  ){
+if(
+playerPage.classList.contains(
+"active"
+)
+){
 
-    closePlayer();
+closePlayer();
 
-  }else{
+}else{
 
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
-  }
+}
 
 }
 
@@ -2516,22 +2583,22 @@ function goHome(){
 
 function showProfile(){
 
-  if(
-    tg &&
-    tg.showAlert
-  ){
+if(
+tg &&
+tg.showAlert
+){
 
-    tg.showAlert(
-      "Video Hub Profile"
-    );
+tg.showAlert(
+"Video Hub Profile"
+);
 
-  }else{
+}else{
 
-    alert(
-      "Video Hub Profile"
-    );
+alert(
+"Video Hub Profile"
+);
 
-  }
+}
 
 }
 

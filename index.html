@@ -338,15 +338,28 @@ button{
   box-shadow:0 15px 50px rgba(0,0,0,.5);
 }
 
-.player video{
+
+/* =========================
+   MAIN PLAYER
+========================= */
+
+.main-player{
+  position:relative;
   width:100%;
-  display:block;
   background:#000;
   aspect-ratio:16/9;
+  overflow:hidden;
+}
+
+.main-player video{
+  width:100%;
+  height:100%;
+  display:block;
+  background:#000;
   object-fit:contain;
 }
 
-.player video:fullscreen{
+.main-player video:fullscreen{
   width:100vw;
   height:100vh;
   max-height:none;
@@ -354,12 +367,53 @@ button{
   border-radius:0;
 }
 
-.player video:-webkit-full-screen{
+.main-player video:-webkit-full-screen{
   width:100vw;
   height:100vh;
   max-height:none;
   object-fit:contain;
 }
+
+
+/* =========================
+   TURBO EMBED PLAYER
+========================= */
+
+.main-player iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+  background:#000;
+}
+
+.embed-fallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  text-align:center;
+  padding:20px;
+  color:#aaa;
+  background:#11131a;
+}
+
+.embed-fallback-icon{
+  font-size:42px;
+}
+
+.embed-fallback-text{
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================
+   PLAYER INFO
+========================= */
 
 .player-info{
   padding:14px;
@@ -415,6 +469,7 @@ button{
   background:#20232c;
   border-radius:8px;
   overflow:hidden;
+  position:relative;
 }
 
 .suggested-thumb img,
@@ -424,6 +479,17 @@ button{
   object-fit:cover;
   display:block;
   pointer-events:none;
+}
+
+.suggested-fallback{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1b1d28,#292d3b);
+  color:#aaa;
+  font-size:28px;
 }
 
 .suggested-info{
@@ -583,7 +649,6 @@ button{
 
 <body>
 
-
 <div class="app">
 
 
@@ -593,37 +658,28 @@ button{
 
 <div id="homePage" class="home-page">
 
-
   <header class="header">
 
-
     <div class="header-top">
-
 
       <div class="logo">
         Video<span>Hub</span>
       </div>
 
-
       <button
         class="profile-btn"
         onclick="showProfile()">
-
         👤
-
       </button>
-
 
     </div>
 
 
     <div class="search">
 
-
       <span class="search-icon">
         🔎
       </span>
-
 
       <input
         id="searchInput"
@@ -631,74 +687,53 @@ button{
         placeholder="Search videos..."
         autocomplete="off">
 
-
     </div>
-
 
   </header>
 
 
   <div class="categories">
 
-
     <button
       class="category active"
       onclick="filterCategory('All',this)">
-
       All
-
     </button>
-
 
     <button
       class="category"
       onclick="filterCategory('Drama',this)">
-
       Drama
-
     </button>
-
 
     <button
       class="category"
       onclick="filterCategory('Movies',this)">
-
       Movies
-
     </button>
-
 
     <button
       class="category"
       onclick="filterCategory('Series',this)">
-
       Series
-
     </button>
-
 
   </div>
 
 
   <section class="section">
 
-
     <div class="section-title">
-
 
       <h2>
         Latest Videos
       </h2>
 
-
       <span
         class="count"
         id="videoCount">
-
         0 videos
-
       </span>
-
 
     </div>
 
@@ -712,11 +747,8 @@ button{
     <div
       id="empty"
       class="empty">
-
       No videos found
-
     </div>
-
 
   </section>
 
@@ -724,11 +756,8 @@ button{
   <div
     id="dataError"
     class="data-error">
-
     ভিডিও লোড করা যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।
-
   </div>
-
 
 </div>
 
@@ -741,84 +770,66 @@ button{
   id="playerPage"
   class="player-page">
 
-
   <div class="back-row">
-
 
     <button
       class="back-btn"
       onclick="closePlayer()">
-
       ← Back
-
     </button>
-
 
   </div>
 
 
   <div class="player-container">
 
-
     <div class="player">
 
+      <!--
+        Player dynamically তৈরি হবে।
+        Direct MP4 = <video>
+        Turbo Embed = <iframe>
+      -->
 
-      <video
-        id="mainVideo"
-        controls
-        playsinline
-        preload="metadata">
-      </video>
-
+      <div
+        id="mainPlayer"
+        class="main-player">
+      </div>
 
     </div>
 
 
     <div class="player-info">
 
-
       <div
         id="playerTitle"
         class="player-title">
-
         Video
-
       </div>
-
 
       <div
         id="playerCategory"
         class="player-category">
-
         Category
-
       </div>
 
-
     </div>
-
 
   </div>
 
 
   <div class="suggested">
 
-
     <div class="suggested-title">
-
       Suggested Videos
-
     </div>
-
 
     <div
       id="suggestedList"
       class="suggested-list">
     </div>
 
-
   </div>
-
 
 </div>
 
@@ -829,13 +840,11 @@ button{
 
 <nav class="bottom-nav">
 
-
   <button
     class="nav-btn active"
     onclick="goHome()">
 
     <span>⌂</span>
-
     Home
 
   </button>
@@ -846,7 +855,6 @@ button{
     onclick="focusSearch()">
 
     <span>⌕</span>
-
     Search
 
   </button>
@@ -857,11 +865,9 @@ button{
     onclick="showProfile()">
 
     <span>◉</span>
-
     Profile
 
   </button>
-
 
 </nav>
 
@@ -905,7 +911,6 @@ if(tg){
 
 /* =====================================================
    MONETAG
-   বিজ্ঞাপন ভিডিও ওপেন আটকাবে না
 ===================================================== */
 
 let lastAdTime = 0;
@@ -996,6 +1001,125 @@ let currentVideoId =
 
 
 /* =====================================================
+   URL TYPE DETECTION
+===================================================== */
+
+/*
+   Direct MP4:
+   https://example.com/video.mp4
+
+   Turbo Embed:
+   https://turbo.cr/embed/XXXXXXXX
+*/
+
+function isTurboEmbedUrl(url){
+
+  if(!url){
+
+    return false;
+
+  }
+
+
+  try{
+
+    const parsed =
+      new URL(
+        String(url),
+        window.location.href
+      );
+
+
+    const hostname =
+      parsed.hostname
+        .toLowerCase()
+        .replace(
+          /^www\./,
+          ""
+        );
+
+
+    return (
+      hostname === "turbo.cr" &&
+      parsed.pathname
+        .toLowerCase()
+        .startsWith("/embed/")
+    );
+
+  }catch(error){
+
+    return false;
+
+  }
+
+}
+
+
+/* =====================================================
+   EMBED FALLBACK
+===================================================== */
+
+function createEmbedFallback(
+  container,
+  message="Player preview unavailable"
+){
+
+  const fallback =
+    document.createElement(
+      "div"
+    );
+
+
+  fallback.className =
+    "embed-fallback";
+
+
+  const icon =
+    document.createElement(
+      "div"
+    );
+
+
+  icon.className =
+    "embed-fallback-icon";
+
+
+  icon.textContent =
+    "🎬";
+
+
+  const text =
+    document.createElement(
+      "div"
+    );
+
+
+  text.className =
+    "embed-fallback-text";
+
+
+  text.textContent =
+    message;
+
+
+  fallback.appendChild(
+    icon
+  );
+
+
+  fallback.appendChild(
+    text
+  );
+
+
+  container.appendChild(
+    fallback
+  );
+
+}
+
+
+/* =====================================================
    LOAD VIDEOS.JSON
 ===================================================== */
 
@@ -1061,7 +1185,7 @@ async function loadVideos(){
             "Other",
 
           url:
-            video.url,
+            String(video.url),
 
           thumbnail:
             video.thumbnail ||
@@ -1207,8 +1331,7 @@ function createThumbnail(video){
 
 
   /*
-     videos.json-এ thumbnail থাকলে
-     প্রথমে সেটাই ব্যবহার হবে।
+     Thumbnail থাকলে সেটাই ব্যবহার হবে।
   */
 
   if(video.thumbnail){
@@ -1307,13 +1430,50 @@ function createThumbnail(video){
 
 
 /* =====================================================
-   MP4 PREVIEW
+   MP4 / EMBED THUMBNAIL PREVIEW
 ===================================================== */
 
 function createVideoPreview(
   video,
   wrapper
 ){
+
+  /*
+     Turbo Embed URL-কে <video> tag-এ
+     দেওয়া যাবে না।
+
+     তাই Turbo হলে শুধু fallback দেখাবে।
+  */
+
+  if(
+    isTurboEmbedUrl(
+      video.url
+    )
+  ){
+
+    const fallback =
+      document.createElement(
+        "div"
+      );
+
+
+    fallback.className =
+      "thumb-fallback";
+
+
+    fallback.textContent =
+      "🎬";
+
+
+    wrapper.appendChild(
+      fallback
+    );
+
+
+    return;
+
+  }
+
 
   if(
     wrapper.querySelector(
@@ -1545,11 +1705,6 @@ function renderVideos(){
         "video-card";
 
 
-      /*
-         Card-এর এক জায়গাতেই click।
-         Thumbnail video click block করবে।
-      */
-
       card.addEventListener(
         "click",
         event => {
@@ -1561,10 +1716,6 @@ function renderVideos(){
             video.id
           );
 
-          /*
-             Player খোলার পরে ad চেষ্টা করবে।
-             Ad video loading আটকে রাখবে না।
-          */
 
           setTimeout(
             ()=>{
@@ -1658,6 +1809,142 @@ function renderVideos(){
 
 
 /* =====================================================
+   CREATE MAIN PLAYER
+===================================================== */
+
+function renderMainPlayer(video){
+
+  const container =
+    document.getElementById(
+      "mainPlayer"
+    );
+
+
+  if(!container){
+
+    return;
+
+  }
+
+
+  /*
+     পুরোনো player সম্পূর্ণ remove।
+  */
+
+  container.innerHTML =
+    "";
+
+
+  /*
+     =========================================
+     TURBO EMBED
+     =========================================
+  */
+
+  if(
+    isTurboEmbedUrl(
+      video.url
+    )
+  ){
+
+    const iframe =
+      document.createElement(
+        "iframe"
+      );
+
+
+    iframe.src =
+      video.url;
+
+
+    iframe.title =
+      video.title;
+
+
+    iframe.allow =
+      "autoplay; fullscreen; picture-in-picture; encrypted-media";
+
+
+    iframe.allowFullscreen =
+      true;
+
+
+    iframe.setAttribute(
+      "loading",
+      "eager"
+    );
+
+
+    iframe.setAttribute(
+      "referrerpolicy",
+      "strict-origin-when-cross-origin"
+    );
+
+
+    container.appendChild(
+      iframe
+    );
+
+
+    return;
+
+  }
+
+
+  /*
+     =========================================
+     DIRECT VIDEO / MP4
+     =========================================
+  */
+
+  const player =
+    document.createElement(
+      "video"
+    );
+
+
+  player.id =
+    "mainVideo";
+
+
+  player.controls =
+    true;
+
+
+  player.playsInline =
+    true;
+
+
+  player.preload =
+    "metadata";
+
+
+  player.src =
+    video.url;
+
+
+  container.appendChild(
+    player
+  );
+
+
+  /*
+     Autoplay চেষ্টা করবে।
+     Browser block করলে controls থাকবে।
+  */
+
+  player.play().catch(
+    ()=>{
+      console.log(
+        "Autoplay blocked"
+      );
+    }
+  );
+
+}
+
+
+/* =====================================================
    OPEN PLAYER
 ===================================================== */
 
@@ -1701,12 +1988,6 @@ function openPlayer(id){
     );
 
 
-  const player =
-    document.getElementById(
-      "mainVideo"
-    );
-
-
   const title =
     document.getElementById(
       "playerTitle"
@@ -1730,29 +2011,13 @@ function openPlayer(id){
 
 
   /*
-     পুরোনো video সম্পূর্ণ বন্ধ।
+     Direct MP4 অথবা Turbo Embed
+     অনুযায়ী player তৈরি হবে।
   */
 
-  player.pause();
-
-
-  player.removeAttribute(
-    "src"
+  renderMainPlayer(
+    video
   );
-
-
-  player.load();
-
-
-  /*
-     নতুন video।
-  */
-
-  player.src =
-    video.url;
-
-
-  player.load();
 
 
   title.textContent =
@@ -1770,21 +2035,6 @@ function openPlayer(id){
     top:0,
     behavior:"auto"
   });
-
-
-  /*
-     Browser autoplay block করলে
-     player তবুও থাকবে এবং Play button
-     দিয়ে চালানো যাবে।
-  */
-
-  player.play().catch(
-    ()=>{
-      console.log(
-        "Autoplay blocked"
-      );
-    }
-  );
 
 }
 
@@ -1866,8 +2116,8 @@ function renderSuggested(){
 
 
         /*
-           Suggested-এও thumbnail URL
-           থাকলে সেটাই ব্যবহার হবে।
+           Thumbnail URL থাকলে
+           সেটাই ব্যবহার হবে।
         */
 
         if(video.thumbnail){
@@ -1979,13 +2229,48 @@ function renderSuggested(){
 
 
 /* =====================================================
-   SUGGESTED MP4 PREVIEW
+   SUGGESTED PREVIEW
 ===================================================== */
 
 function addSuggestedPreview(
   video,
   container
 ){
+
+  /*
+     Turbo Embed-এর জন্য
+     video preview চালানো যাবে না।
+  */
+
+  if(
+    isTurboEmbedUrl(
+      video.url
+    )
+  ){
+
+    const fallback =
+      document.createElement(
+        "div"
+      );
+
+
+    fallback.className =
+      "suggested-fallback";
+
+
+    fallback.textContent =
+      "🎬";
+
+
+    container.appendChild(
+      fallback
+    );
+
+
+    return;
+
+  }
+
 
   if(
     container.querySelector(
@@ -2063,21 +2348,23 @@ function addSuggestedPreview(
 
 function closePlayer(){
 
-  const player =
+  const container =
     document.getElementById(
-      "mainVideo"
+      "mainPlayer"
     );
 
 
-  player.pause();
+  /*
+     Video বা iframe দুটোই
+     DOM থেকে সম্পূর্ণ remove হবে।
+  */
 
+  if(container){
 
-  player.removeAttribute(
-    "src"
-  );
+    container.innerHTML =
+      "";
 
-
-  player.load();
+  }
 
 
   document

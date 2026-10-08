@@ -1,132 +1,2615 @@
-[
-  {
-    "id": "001",
-    "title": "Video 01",
-    "category": "Drama",
-    "url": "https://cdn.dbimg.app/rvzbSj9E.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "002",
-    "title": "Video 01",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/Gol4gJo261.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "003",
-    "title": "Video 02",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/utOCXuyCid.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "004",
-    "title": "Video 03",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/H23p5bHSUA.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "005",
-    "title": "Video 04",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/5HUn1zAZ4X.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "006",
-    "title": "Video 05",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/sVCbEnyauG.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "007",
-    "title": "Video 06",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/djgH29P4qm.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "008",
-    "title": "Video 07",
-    "category": "Porn Video",
-    "url": "https://yourimageshare.com/ib/PxrwUxAlgH.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "009",
-    "title": "Video 08",
-    "category": "Porn Video",
-    "url": "https://files.catbox.moe/54pjw2.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "010",
-    "title": "Video 09",
-    "category": "Porn Video",
-    "url": "https://files.catbox.moe/nfjfar.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "011",
-    "title": "Video 10",
-    "category": "Porn Video",
-    "url": "https://pixeldrain.com/api/file/gNP4VpFU",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "012",
-    "title": "Video 11",
-    "category": "Porn Video",
-    "url": "https://ik.imagekit.io/8a2eawnps/AglaeaXMedia%20-%20Fucking%20Stepdaddy%20For%20My%20Fans%20_%20A%20Sneak%20Peek.mp4",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
-  },
-  {
-    "id": "013",
-    "title": "Video 12",
-    "category": "Porn Video",
-    "url": "https://turbo.cr/embed/q4aFx8Nu1of7H",
-    "thumbnail": "",
-    "duration": "",
-    "views": 0,
-    "description": ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Video Hub</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script
+  src="//libtl.com/sdk.js"
+  data-zone="11926831"
+  data-sdk="show_11926831">
+</script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#08090d;
+  --card:#12141b;
+  --card2:#181b24;
+  --text:#fff;
+  --muted:#9297a5;
+  --border:rgba(255,255,255,.08);
+  --accent:#6c63ff;
+}
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding-bottom:80px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:14px;
+  background:rgba(8,9,13,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#8c85ff;
+}
+
+.profile-btn{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:var(--card2);
+  color:white;
+  font-size:18px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search{
+  margin-top:12px;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  padding:13px 16px 13px 43px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:white;
+  outline:none;
+}
+
+.search input:focus{
+  border-color:rgba(140,133,255,.7);
+}
+
+.search-icon{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:15px 14px 5px;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.category{
+  flex:none;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#bbb;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.category.active{
+  background:var(--accent);
+  color:white;
+  border-color:var(--accent);
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  padding:18px 14px 5px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+
+.section-title h2{
+  font-size:18px;
+}
+
+.count{
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* =========================
+   VIDEO GRID
+========================= */
+
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.video-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  overflow:hidden;
+  transition:transform .15s ease,border-color .15s ease;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.video-card:active{
+  transform:scale(.985);
+}
+
+
+/* বড় ও পরিষ্কার thumbnail */
+
+.thumb{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#1b1d25;
+  overflow:hidden;
+}
+
+.thumb img,
+.thumb video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  pointer-events:none;
+}
+
+.thumb video{
+  background:#11131a;
+}
+
+.thumb-fallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1b1d28,#292d3b);
+  color:#aaa;
+  font-size:38px;
+  pointer-events:none;
+}
+
+.play-badge{
+  position:absolute;
+  left:11px;
+  bottom:10px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:rgba(0,0,0,.78);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  border:1px solid rgba(255,255,255,.25);
+  pointer-events:none;
+}
+
+.duration{
+  position:absolute;
+  right:7px;
+  bottom:8px;
+  padding:3px 6px;
+  border-radius:5px;
+  background:rgba(0,0,0,.8);
+  color:#fff;
+  font-size:10px;
+  pointer-events:none;
+}
+
+.video-info{
+  padding:11px;
+}
+
+.video-title{
+  font-size:14px;
+  font-weight:700;
+  line-height:1.35;
+  min-height:19px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.video-meta{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+
+/* =========================
+   PLAYER PAGE
+========================= */
+
+.player-page{
+  display:none;
+}
+
+.player-page.active{
+  display:block;
+}
+
+.home-page.hidden{
+  display:none;
+}
+
+.back-row{
+  padding:14px;
+}
+
+.back-btn{
+  border:0;
+  background:var(--card);
+  color:white;
+  padding:9px 14px;
+  border-radius:10px;
+}
+
+.player-container{
+  padding:0 10px;
+}
+
+.player{
+  position:relative;
+  width:100%;
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
+}
+
+/* Direct MP4 */
+
+.player video{
+  width:100%;
+  height:auto;
+  display:block;
+  background:#000;
+  aspect-ratio:16/9;
+  object-fit:contain;
+}
+
+/* Turbo iframe */
+
+.player iframe{
+  width:100%;
+  height:auto;
+  min-height:56.25vw;
+  max-height:80vh;
+  aspect-ratio:16/9;
+  display:block;
+  border:0;
+  background:#000;
+}
+
+
+/* Native fullscreen */
+
+.player video:fullscreen{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:#000;
+}
+
+.player video:-webkit-full-screen{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
+  background:#000;
+}
+
+
+/* Custom fullscreen state */
+
+.player.fullscreen{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  z-index:99999;
+  border-radius:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.player.fullscreen video,
+.player.fullscreen iframe{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:0;
+}
+
+
+/* Fullscreen button */
+
+.fullscreen-btn{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  z-index:10;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:9px;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  backdrop-filter:blur(6px);
+}
+
+.fullscreen-btn:active{
+  transform:scale(.94);
+}
+
+.player-info{
+  padding:14px;
+}
+
+.player-title{
+  font-size:19px;
+  font-weight:800;
+}
+
+.player-category{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+
+/* =========================
+   SUGGESTED
+========================= */
+
+.suggested{
+  padding:5px 14px 30px;
+}
+
+.suggested-title{
+  font-size:17px;
+  font-weight:800;
+  margin:15px 0 12px;
+}
+
+.suggested-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.suggested-item{
+  display:flex;
+  gap:11px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:7px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.suggested-thumb{
+  width:135px;
+  aspect-ratio:16/9;
+  flex:none;
+  background:#20232c;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.suggested-thumb img,
+.suggested-thumb video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  pointer-events:none;
+}
+
+.suggested-info{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.suggested-info strong{
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.suggested-info span{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:900px;
+  height:64px;
+  background:rgba(15,16,22,.96);
+  backdrop-filter:blur(15px);
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:30;
+}
+
+.nav-btn{
+  border:0;
+  background:none;
+  color:#777d8c;
+  font-size:11px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+
+.nav-btn span{
+  font-size:20px;
+}
+
+.nav-btn.active{
+  color:#9b94ff;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  padding:50px 20px;
+  text-align:center;
+  color:var(--muted);
+  display:none;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.data-error{
+  display:none;
+  margin:20px 14px;
+  padding:15px;
+  border-radius:12px;
+  background:#19131a;
+  border:1px solid rgba(255,80,100,.25);
+  color:#ff9ba8;
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  .video-grid{
+    gap:10px;
   }
-]
+
+  .thumb{
+    aspect-ratio:16/9;
+  }
+
+  .video-title{
+    font-size:13px;
+  }
+
+  .video-info{
+    padding:9px;
+  }
+
+  .video-meta{
+    font-size:10px;
+  }
+
+  .play-badge{
+    width:36px;
+    height:36px;
+  }
+
+  .suggested-thumb{
+    width:125px;
+  }
+
+  .player{
+    border-radius:12px;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONE
+========================= */
+
+@media(max-width:360px){
+
+  .video-grid{
+    gap:8px;
+  }
+
+  .video-title{
+    font-size:12px;
+  }
+
+  .video-info{
+    padding:8px;
+  }
+
+  .suggested-thumb{
+    width:115px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<div id="homePage" class="home-page">
+
+<header class="header">
+
+<div class="header-top">
+
+<div class="logo">
+Video<span>Hub</span>
+</div>
+
+<button
+class="profile-btn"
+onclick="showProfile()">
+👤
+</button>
+
+</div>
+
+
+<div class="search">
+
+<span class="search-icon">
+🔎
+</span>
+
+<input
+id="searchInput"
+type="search"
+placeholder="Search videos..."
+autocomplete="off">
+
+</div>
+
+</header>
+
+
+<div class="categories">
+
+<button
+class="category active"
+onclick="filterCategory('All',this)">
+All
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Drama',this)">
+Drama
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Movies',this)">
+Movies
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Series',this)">
+Series
+</button>
+
+</div>
+
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>
+Latest Videos
+</h2>
+
+<span
+class="count"
+id="videoCount">
+0 videos
+</span>
+
+</div>
+
+
+<div
+id="videoGrid"
+class="video-grid">
+</div>
+
+
+<div
+id="empty"
+class="empty">
+No videos found
+</div>
+
+</section>
+
+
+<div
+id="dataError"
+class="data-error">
+ভিডিও লোড করা যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     PLAYER
+========================= -->
+
+<div
+id="playerPage"
+class="player-page">
+
+<div class="back-row">
+
+<button
+class="back-btn"
+onclick="closePlayer()">
+← Back
+</button>
+
+</div>
+
+
+<div class="player-container">
+
+<div
+id="playerBox"
+class="player">
+
+<video
+id="mainVideo"
+controls
+playsinline
+webkit-playsinline
+preload="metadata">
+</video>
+
+
+<button
+id="fullscreenBtn"
+class="fullscreen-btn"
+type="button"
+onclick="toggleFullscreen()"
+aria-label="Fullscreen">
+
+⛶
+
+</button>
+
+</div>
+
+
+<div class="player-info">
+
+<div
+id="playerTitle"
+class="player-title">
+Video
+</div>
+
+<div
+id="playerCategory"
+class="player-category">
+Category
+</div>
+
+</div>
+
+</div>
+
+
+<div class="suggested">
+
+<div class="suggested-title">
+Suggested Videos
+</div>
+
+<div
+id="suggestedList"
+class="suggested-list">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+<button
+class="nav-btn active"
+onclick="goHome()">
+
+<span>⌂</span>
+
+Home
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="focusSearch()">
+
+<span>⌕</span>
+
+Search
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="showProfile()">
+
+<span>◉</span>
+
+Profile
+
+</button>
+
+</nav>
+
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   TELEGRAM
+===================================================== */
+
+const tg =
+window.Telegram?.WebApp;
+
+
+if(tg){
+
+tg.ready();
+
+tg.expand();
+
+if(tg.setHeaderColor){
+tg.setHeaderColor("#08090d");
+}
+
+if(tg.setBackgroundColor){
+tg.setBackgroundColor("#08090d");
+}
+
+}
+
+
+/* =====================================================
+   MONETAG
+===================================================== */
+
+let lastAdTime = 0;
+
+const AD_INTERVAL = 60000;
+
+
+function showMonetagAd(){
+
+const now =
+Date.now();
+
+if(
+lastAdTime !== 0 &&
+now - lastAdTime < AD_INTERVAL
+){
+return;
+}
+
+if(
+typeof window.show_11926831 !== "function"
+){
+return;
+}
+
+lastAdTime =
+now;
+
+try{
+
+const result =
+window.show_11926831();
+
+if(
+result &&
+typeof result.catch === "function"
+){
+
+result.catch(
+error=>{
+console.log(
+"Monetag error:",
+error
+);
+}
+);
+
+}
+
+}catch(error){
+
+console.log(
+"Monetag error:",
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
+   VIDEO DATA
+===================================================== */
+
+let videos = [];
+
+let currentCategory =
+"All";
+
+let currentVideoId =
+null;
+
+
+/* =====================================================
+   TURBO EMBED DETECTION
+===================================================== */
+
+function isTurboEmbedUrl(url){
+
+if(!url){
+return false;
+}
+
+try{
+
+const parsed =
+new URL(
+String(url),
+window.location.href
+);
+
+const hostname =
+parsed.hostname
+.toLowerCase()
+.replace(/^www\./,"");
+
+return (
+hostname === "turbo.cr" &&
+parsed.pathname
+.toLowerCase()
+.startsWith("/embed/")
+);
+
+}catch(error){
+
+return false;
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD VIDEOS.JSON
+===================================================== */
+
+async function loadVideos(){
+
+const errorBox =
+document.getElementById(
+"dataError"
+);
+
+try{
+
+const response =
+await fetch(
+"./videos.json?v=" +
+Date.now(),
+{
+cache:"no-store"
+}
+);
+
+if(!response.ok){
+
+throw new Error(
+"videos.json load failed: " +
+response.status
+);
+
+}
+
+const data =
+await response.json();
+
+if(!Array.isArray(data)){
+
+throw new Error(
+"videos.json must contain an array"
+);
+
+}
+
+videos =
+data
+.filter(video =>
+video &&
+video.id !== undefined &&
+video.url
+)
+.map(video =>({
+
+id:String(video.id),
+
+title:
+video.title ||
+"Untitled Video",
+
+category:
+video.category ||
+"Other",
+
+url:
+video.url,
+
+thumbnail:
+video.thumbnail ||
+"",
+
+duration:
+video.duration ||
+"",
+
+views:
+Number(
+video.views || 0
+)
+
+}));
+
+
+errorBox.style.display =
+"none";
+
+renderVideos();
+
+openVideoFromTelegram();
+
+
+}catch(error){
+
+console.error(
+"Video data error:",
+error
+);
+
+videos = [];
+
+renderVideos();
+
+errorBox.style.display =
+"block";
+
+}
+
+}
+
+
+/* =====================================================
+   TELEGRAM START PARAM
+===================================================== */
+
+function getStartParam(){
+
+if(
+tg &&
+tg.initDataUnsafe &&
+tg.initDataUnsafe.start_param
+){
+
+return String(
+tg.initDataUnsafe.start_param
+);
+
+}
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+return (
+params.get(
+"tgWebAppStartParam"
+) || ""
+);
+
+}
+
+
+/* =====================================================
+   TELEGRAM VIDEO
+===================================================== */
+
+function openVideoFromTelegram(){
+
+const startParam =
+getStartParam();
+
+if(!startParam){
+return;
+}
+
+const cleanParam =
+String(startParam)
+.replace(
+/^video[_-]/i,
+""
+);
+
+const video =
+videos.find(
+v =>
+String(v.id) ===
+String(cleanParam)
+);
+
+if(video){
+
+setTimeout(
+()=>{
+openPlayer(video.id);
+},
+300
+);
+
+}
+
+}
+
+
+/* =====================================================
+   VIDEO THUMBNAIL
+===================================================== */
+
+function createThumbnail(video){
+
+const wrapper =
+document.createElement(
+"div"
+);
+
+wrapper.className =
+"thumb";
+
+
+if(video.thumbnail){
+
+const image =
+document.createElement(
+"img"
+);
+
+image.src =
+video.thumbnail;
+
+image.loading =
+"lazy";
+
+image.alt =
+video.title;
+
+image.onerror =
+()=>{
+
+image.remove();
+
+createVideoPreview(
+video,
+wrapper
+);
+
+};
+
+wrapper.appendChild(
+image
+);
+
+}else{
+
+createVideoPreview(
+video,
+wrapper
+);
+
+}
+
+
+const play =
+document.createElement(
+"div"
+);
+
+play.className =
+"play-badge";
+
+play.textContent =
+"▶";
+
+wrapper.appendChild(
+play
+);
+
+
+if(video.duration){
+
+const duration =
+document.createElement(
+"span"
+);
+
+duration.className =
+"duration";
+
+duration.textContent =
+video.duration;
+
+wrapper.appendChild(
+duration
+);
+
+}
+
+return wrapper;
+
+}
+
+
+/* =====================================================
+   VIDEO PREVIEW
+===================================================== */
+
+function createVideoPreview(
+video,
+wrapper
+){
+
+/*
+   Turbo embed URL দিয়ে thumbnail
+   video preview করা যাবে না।
+*/
+
+if(
+isTurboEmbedUrl(video.url)
+){
+
+const fallback =
+document.createElement(
+"div"
+);
+
+fallback.className =
+"thumb-fallback";
+
+fallback.textContent =
+"🎬";
+
+wrapper.appendChild(
+fallback
+);
+
+return;
+
+}
+
+
+if(
+wrapper.querySelector(
+"video"
+)
+){
+return;
+}
+
+
+const preview =
+document.createElement(
+"video"
+);
+
+preview.muted =
+true;
+
+preview.playsInline =
+true;
+
+preview.preload =
+"metadata";
+
+preview.src =
+video.url;
+
+
+const fallback =
+document.createElement(
+"div"
+);
+
+fallback.className =
+"thumb-fallback";
+
+fallback.textContent =
+"🎬";
+
+
+wrapper.insertBefore(
+preview,
+wrapper.firstChild
+);
+
+wrapper.insertBefore(
+fallback,
+preview.nextSibling
+);
+
+
+preview.addEventListener(
+"loadedmetadata",
+()=>{
+
+if(
+isFinite(
+preview.duration
+) &&
+preview.duration > 0
+){
+
+try{
+
+preview.currentTime =
+Math.min(
+1.5,
+Math.max(
+.1,
+preview.duration / 10
+)
+);
+
+}catch(e){}
+
+}
+
+}
+);
+
+
+preview.addEventListener(
+"loadeddata",
+()=>{
+
+fallback.style.display =
+"none";
+
+},
+{
+once:true
+}
+);
+
+
+preview.addEventListener(
+"seeked",
+()=>{
+
+fallback.style.display =
+"none";
+
+},
+{
+once:true
+}
+);
+
+
+preview.addEventListener(
+"error",
+()=>{
+
+fallback.style.display =
+"flex";
+
+}
+);
+
+}
+
+
+/* =====================================================
+   RENDER VIDEOS
+===================================================== */
+
+function renderVideos(){
+
+const grid =
+document.getElementById(
+"videoGrid"
+);
+
+const empty =
+document.getElementById(
+"empty"
+);
+
+const count =
+document.getElementById(
+"videoCount"
+);
+
+const search =
+document
+.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
+
+
+const filtered =
+videos.filter(
+video => {
+
+const categoryMatch =
+currentCategory === "All" ||
+video.category ===
+currentCategory;
+
+const searchMatch =
+!search ||
+String(video.title)
+.toLowerCase()
+.includes(search);
+
+return (
+categoryMatch &&
+searchMatch
+);
+
+}
+);
+
+
+grid.innerHTML =
+"";
+
+
+count.textContent =
+filtered.length +
+" videos";
+
+
+if(
+filtered.length === 0
+){
+
+empty.style.display =
+"block";
+
+return;
+
+}
+
+
+empty.style.display =
+"none";
+
+
+filtered.forEach(
+video => {
+
+const card =
+document.createElement(
+"div"
+);
+
+card.className =
+"video-card";
+
+
+card.addEventListener(
+"click",
+event => {
+
+event.preventDefault();
+event.stopPropagation();
+
+openPlayer(
+video.id
+);
+
+setTimeout(
+()=>{
+showMonetagAd();
+},
+100
+);
+
+},
+{
+passive:false
+}
+);
+
+
+card.appendChild(
+createThumbnail(
+video
+)
+);
+
+
+const info =
+document.createElement(
+"div"
+);
+
+info.className =
+"video-info";
+
+
+const title =
+document.createElement(
+"div"
+);
+
+title.className =
+"video-title";
+
+title.textContent =
+video.title;
+
+
+const meta =
+document.createElement(
+"div"
+);
+
+meta.className =
+"video-meta";
+
+meta.textContent =
+video.category +
+(
+video.views
+?
+" • " +
+video.views.toLocaleString() +
+" views"
+:
+""
+);
+
+
+info.appendChild(
+title
+);
+
+info.appendChild(
+meta
+);
+
+card.appendChild(
+info
+);
+
+grid.appendChild(
+card
+);
+
+}
+);
+
+}
+
+
+/* =====================================================
+   OPEN PLAYER
+===================================================== */
+
+function openPlayer(id){
+
+const video =
+videos.find(
+v =>
+String(v.id) ===
+String(id)
+);
+
+if(!video){
+
+console.warn(
+"Video not found:",
+id
+);
+
+return;
+
+}
+
+
+currentVideoId =
+String(video.id);
+
+
+const home =
+document.getElementById(
+"homePage"
+);
+
+const page =
+document.getElementById(
+"playerPage"
+);
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+const oldVideo =
+document.getElementById(
+"mainVideo"
+);
+
+const title =
+document.getElementById(
+"playerTitle"
+);
+
+const category =
+document.getElementById(
+"playerCategory"
+);
+
+
+home.classList.add(
+"hidden"
+);
+
+page.classList.add(
+"active"
+);
+
+
+/*
+   পুরোনো player সম্পূর্ণ পরিষ্কার।
+*/
+
+oldVideo.pause();
+
+oldVideo.removeAttribute(
+"src"
+);
+
+oldVideo.load();
+
+
+/*
+   আগের iframe থাকলে সরানো।
+*/
+
+const oldIframe =
+playerBox.querySelector(
+"iframe"
+);
+
+if(oldIframe){
+oldIframe.remove();
+}
+
+
+/*
+   Direct MP4 অথবা Turbo Embed
+   অনুযায়ী player তৈরি।
+*/
+
+if(
+isTurboEmbedUrl(video.url)
+){
+
+oldVideo.style.display =
+"none";
+
+
+const iframe =
+document.createElement(
+"iframe"
+);
+
+iframe.src =
+video.url;
+
+iframe.title =
+video.title;
+
+iframe.allow =
+"autoplay; fullscreen; picture-in-picture; encrypted-media";
+
+iframe.setAttribute(
+"allowfullscreen",
+""
+);
+
+iframe.setAttribute(
+"webkitallowfullscreen",
+""
+);
+
+iframe.setAttribute(
+"mozallowfullscreen",
+""
+);
+
+iframe.loading =
+"eager";
+
+iframe.referrerPolicy =
+"no-referrer-when-downgrade";
+
+
+playerBox.insertBefore(
+iframe,
+document.getElementById(
+"fullscreenBtn"
+)
+);
+
+}else{
+
+oldVideo.style.display =
+"block";
+
+oldVideo.src =
+video.url;
+
+oldVideo.load();
+
+
+oldVideo.play().catch(
+()=>{
+console.log(
+"Autoplay blocked"
+);
+}
+);
+
+}
+
+
+title.textContent =
+video.title;
+
+category.textContent =
+video.category;
+
+
+renderSuggested();
+
+
+window.scrollTo({
+top:0,
+behavior:"auto"
+});
+
+}
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+async function toggleFullscreen(){
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+const video =
+document.getElementById(
+"mainVideo"
+);
+
+const iframe =
+playerBox.querySelector(
+"iframe"
+);
+
+
+/*
+   Already fullscreen?
+*/
+
+if(
+document.fullscreenElement ||
+document.webkitFullscreenElement
+){
+
+await exitFullscreen();
+
+return;
+
+}
+
+
+/*
+   Turbo iframe / player container
+*/
+
+try{
+
+if(
+playerBox.requestFullscreen
+){
+
+await playerBox.requestFullscreen();
+
+playerBox.classList.add(
+"fullscreen"
+);
+
+return;
+
+}
+
+if(
+playerBox.webkitRequestFullscreen
+){
+
+playerBox.webkitRequestFullscreen();
+
+playerBox.classList.add(
+"fullscreen"
+);
+
+return;
+
+}
+
+}catch(error){
+
+console.log(
+"Container fullscreen failed:",
+error
+);
+
+}
+
+
+/*
+   Direct video fallback
+*/
+
+if(
+video &&
+video.style.display !== "none"
+){
+
+try{
+
+if(
+video.requestFullscreen
+){
+
+await video.requestFullscreen();
+
+return;
+
+}
+
+if(
+video.webkitRequestFullscreen
+){
+
+video.webkitRequestFullscreen();
+
+return;
+
+}
+
+if(
+video.webkitEnterFullscreen
+){
+
+video.webkitEnterFullscreen();
+
+return;
+
+}
+
+}catch(error){
+
+console.log(
+"Video fullscreen failed:",
+error
+);
+
+}
+
+}
+
+
+/*
+   Last fallback
+*/
+
+if(iframe){
+
+alert(
+"Fullscreen is not supported by this Telegram/WebView environment for this player."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   EXIT FULLSCREEN
+===================================================== */
+
+async function exitFullscreen(){
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+try{
+
+if(
+document.exitFullscreen
+){
+
+await document.exitFullscreen();
+
+}else if(
+document.webkitExitFullscreen
+){
+
+document.webkitExitFullscreen();
+
+}
+
+}catch(error){
+
+console.log(
+"Exit fullscreen error:",
+error
+);
+
+}
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+
+/* =====================================================
+   FULLSCREEN CHANGE
+===================================================== */
+
+document.addEventListener(
+"fullscreenchange",
+()=>{
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+if(
+!document.fullscreenElement
+){
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+}
+);
+
+
+document.addEventListener(
+"webkitfullscreenchange",
+()=>{
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+if(
+!document.webkitFullscreenElement
+){
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   SUGGESTED VIDEOS
+===================================================== */
+
+function renderSuggested(){
+
+const list =
+document.getElementById(
+"suggestedList"
+);
+
+list.innerHTML =
+"";
+
+
+videos
+.filter(
+video =>
+String(video.id) !==
+String(currentVideoId)
+)
+.forEach(
+video => {
+
+const item =
+document.createElement(
+"div"
+);
+
+item.className =
+"suggested-item";
+
+
+item.addEventListener(
+"click",
+event => {
+
+event.preventDefault();
+event.stopPropagation();
+
+openPlayer(
+video.id
+);
+
+setTimeout(
+()=>{
+showMonetagAd();
+},
+100
+);
+
+},
+{
+passive:false
+}
+);
+
+
+const thumb =
+document.createElement(
+"div"
+);
+
+thumb.className =
+"suggested-thumb";
+
+
+if(video.thumbnail){
+
+const img =
+document.createElement(
+"img"
+);
+
+img.src =
+video.thumbnail;
+
+img.loading =
+"lazy";
+
+img.alt =
+video.title;
+
+img.onerror =
+()=>{
+
+img.remove();
+
+addSuggestedPreview(
+video,
+thumb
+);
+
+};
+
+thumb.appendChild(
+img
+);
+
+}else{
+
+addSuggestedPreview(
+video,
+thumb
+);
+
+}
+
+
+item.appendChild(
+thumb
+);
+
+
+const info =
+document.createElement(
+"div"
+);
+
+info.className =
+"suggested-info";
+
+
+const strong =
+document.createElement(
+"strong"
+);
+
+strong.textContent =
+video.title;
+
+
+const span =
+document.createElement(
+"span"
+);
+
+span.textContent =
+video.category;
+
+
+info.appendChild(
+strong
+);
+
+info.appendChild(
+span
+);
+
+item.appendChild(
+info
+);
+
+list.appendChild(
+item
+);
+
+}
+);
+
+}
+
+
+/* =====================================================
+   SUGGESTED PREVIEW
+===================================================== */
+
+function addSuggestedPreview(
+video,
+container
+){
+
+if(
+isTurboEmbedUrl(video.url)
+){
+
+const fallback =
+document.createElement(
+"div"
+);
+
+fallback.className =
+"thumb-fallback";
+
+fallback.textContent =
+"🎬";
+
+container.appendChild(
+fallback
+);
+
+return;
+
+}
+
+
+if(
+container.querySelector(
+"video"
+)
+){
+
+return;
+
+}
+
+
+const preview =
+document.createElement(
+"video"
+);
+
+preview.muted =
+true;
+
+preview.playsInline =
+true;
+
+preview.preload =
+"metadata";
+
+preview.src =
+video.url;
+
+container.appendChild(
+preview
+);
+
+
+preview.addEventListener(
+"loadedmetadata",
+()=>{
+
+if(
+isFinite(
+preview.duration
+) &&
+preview.duration > 0
+){
+
+try{
+
+preview.currentTime =
+Math.min(
+1.5,
+Math.max(
+.1,
+preview.duration / 10
+)
+);
+
+}catch(e){}
+
+}
+
+}
+);
+
+}
+
+
+/* =====================================================
+   CLOSE PLAYER
+===================================================== */
+
+function closePlayer(){
+
+const player =
+document.getElementById(
+"mainVideo"
+);
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+player.pause();
+
+player.removeAttribute(
+"src"
+);
+
+player.load();
+
+
+const iframe =
+playerBox.querySelector(
+"iframe"
+);
+
+if(iframe){
+iframe.remove();
+}
+
+
+player.style.display =
+"block";
+
+
+playerBox.classList.remove(
+"fullscreen"
+);
+
+
+if(
+document.fullscreenElement ||
+document.webkitFullscreenElement
+){
+
+exitFullscreen();
+
+}
+
+
+document
+.getElementById(
+"playerPage"
+)
+.classList.remove(
+"active"
+);
+
+
+document
+.getElementById(
+"homePage"
+)
+.classList.remove(
+"hidden"
+);
+
+
+currentVideoId =
+null;
+
+
+window.scrollTo({
+top:0,
+behavior:"auto"
+});
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+function filterCategory(
+category,
+button
+){
+
+currentCategory =
+category;
+
+
+document
+.querySelectorAll(
+".category"
+)
+.forEach(
+btn => {
+
+btn.classList.remove(
+"active"
+);
+
+}
+);
+
+
+button.classList.add(
+"active"
+);
+
+renderVideos();
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+renderVideos
+);
+
+
+function focusSearch(){
+
+goHome();
+
+
+setTimeout(
+()=>{
+
+const input =
+document.getElementById(
+"searchInput"
+);
+
+input.focus();
+
+input.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+},
+100
+);
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function goHome(){
+
+const playerPage =
+document.getElementById(
+"playerPage"
+);
+
+
+if(
+playerPage.classList.contains(
+"active"
+)
+){
+
+closePlayer();
+
+}else{
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function showProfile(){
+
+if(
+tg &&
+tg.showAlert
+){
+
+tg.showAlert(
+"Video Hub Profile"
+);
+
+}else{
+
+alert(
+"Video Hub Profile"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadVideos();
+
+</script>
+
+</body>
+</html>
